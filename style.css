@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background-color: rgb(18, 18, 18);
+   /* background-size: cover; esto es para fotos */
+    background-position: center;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    background: rgba(255, 255, 255, .1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(50px);
+    border-bottom: 2px solid rgba(255, 255, 255, .2);
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, 
+    rgba(255, 255, 255, .4), transparent);
+    transition: .5s;
+}
+
+.header:hover::before {
+    left: 100%;
+}
+
+.logo {
+    color: #fff;
+    font-size: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: default;
+}
+
+.navbar a {
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    text-decoration: none;
+    margin-left: 35px;
+
+}
+
+.navbar a:hover {
+    color: #f00;
+}
+
+.mainDiv {
+    position: absolute;
+    display: flex;
+    background-color: rgba(58, 55, 55, 1);
+    border-radius: 20px;
+    border-style: 2px solid;
+    width: 40%; /* Cambia el ancho según tus necesidades */
+    height: calc(10% - 20px); /* Altura calculada teniendo en cuenta el padding del header */
+    top: 400px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
