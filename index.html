@@ -11,26 +11,50 @@
 <body>
 
     <header class="header">
-        <a href="#" class="logo">Administracion</a>
+        <a href="#" class="logo">Administración</a>
 
         <nav class="navbar">
-            <a href="#" class="Ascensores">Ascensores</a>
-            <a href="#" class="Visitantes">Visitantes</a>
             <a href="#" class="Login">Login</a>
         </nav>
     </header>
     <main>
-        <section class="listas">
-            <h2 class="TituloAscensores">Ascensores</h2>
 
-            <div class="mainDiv">
-                <div class="divListasAscensores">
-                    <ul class="listasAscensores">
-                        <li class="prueba1"></li>
-                    </ul>
+        <section class="seleccionador">
+            <h4>Seleccione una para desplegar lista</h4>
+            <div class="opciones">
+                <label>
+                    <input type="radio" name="r1" id="radioAscensores" value="Asc" />
+                    <span class="burbuja-Ascensores"></span>
+                    <div>Ascensores</div>
+                </label>
+                <label>
+                    <input type="radio" name="r1" id="radioVisitantes" value="Visit" />
+                    <span class="burbuja-Visitantes"></span>
+                    <div>Visitantes</div>
+                </label>
+            </div>
+            <input type="submit" value="Agregar Popup"/>
+        </section>
+
+        <section class="seccionListas">
+            <h3>Ascensores/Visitantes</h3>
+            <div class="list" id="listaX">
+                <div class="item">
+                    <div class="contenido">
+                        <a class="tagItem">Ascensor 1</a>
+                    </div>
+                    <div class="modifOBorrar">
+                        <button class="modificar">
+                            Modificar
+                        </button>
+                        <button class="borrar">
+                            Borrar
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
+
     </main>
 </body>
 
