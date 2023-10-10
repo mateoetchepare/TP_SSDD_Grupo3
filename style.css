@@ -251,7 +251,7 @@ h4 {
 
 .picker {
     position: relative;
-    max-width: 200px /* esto si le pones + de 200 no se ve */
+    max-width: 200px; /* esto si le pones + de 200 no se ve */
     width: 100%;
 }
 
