@@ -251,20 +251,24 @@ h4 {
 
 .picker {
     position: relative;
-    max-width: 200px;
+    max-width: 200px /* esto si le pones + de 200 no se ve */
     width: 100%;
 }
 
 .select-btn {
     display: flex;
     height: 50px;
+    width: 215px;
     align-items: center;
-    justify-content: space-between;
     padding: 0 16px;
     border-radius: 8px;
     cursor: pointer;
     background-color: #fff;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-text {
+    margin-right: 10px;
 }
 
 .select-btn .btn-text {
@@ -275,8 +279,8 @@ h4 {
 
 .select-btn .arrow-dwn {
     display: flex;
-    height: 21px;
-    width: 25px;
+    height: 18px;
+    width: 18px;
     color: white;
     font-size: 14px;
     border-radius: 50%;
@@ -284,6 +288,8 @@ h4 {
     align-items: center;
     justify-content: center;
     transition: 0.3s;
+    flex-shrink: 0; /* Evita que el elemento .arrow-dwn se encoja al cambiar el contenido */
+    overflow: hidden; /* Evita que el contenido afecte el tamaño del elemento */
 }
 
 .select-btn.open .arrow-dwn {
