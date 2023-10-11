@@ -104,7 +104,7 @@ h3 {
     flex-direction: row;
     justify-content: left;
     color: white;
-    font-size: 0.875rem;
+    font-size: calc(10px + .8vw);
     font-weight: 700;
     margin-top: 2.5rem;
 }
@@ -168,8 +168,13 @@ h4 {
 }
 
 .tagItem {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
     color: white;
     width: 20%;
+    margin-right: 5px;
+    font-size: calc(7px + .8vw);
     font-weight: 700;
 }
 
@@ -180,7 +185,7 @@ h4 {
     width: 25%;
     border: 1px solid #d1d1d1;
     border-radius: 10px;
-    font-size: 14px;
+    font-size: calc(4px + .8vw);
     padding: 12px;
     box-shadow: inset 0px 1px 8px rgba(0, 0, 0, 0.5);
     line-height: 1.45;
@@ -198,24 +203,28 @@ h4 {
 
 .fechaIngreso, .fechaEgreso {
     color: white;
-    width: 20%;
+    width: 50%;
     font-weight: 500;
 }
 
-.datePicker {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+.containerDatePicker1, .containerDatePicker {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 25%;
 }
 
 .datePicker {
     display: flex;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
     background-color: white;
     padding: 15px;
     top: 50%;
     left: 50%;
     color: #6e93f7;
-    font-size: 16px;
+    font-size: 1.2vw;
     border: none;
     outline: none;
     border-radius: 5px;
@@ -244,7 +253,8 @@ h4 {
     transition: 0.3s
 }
 
-.botonBorrar:hover {
+.botonBorrar:hover, .labelBorrar:hover,
+.garbageItem:hover {
     color: white;
     background-color: red;
     cursor: pointer;
