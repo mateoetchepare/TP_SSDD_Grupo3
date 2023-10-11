@@ -94,9 +94,10 @@ body {
     background-color: #FFF;
     padding: 1.5rem;
     box-shadow: var(--shadow);
-    border-radius: 0.5rem;
+    border-radius: 20px;
     cursor: pointer;
 }
+
 
 h3 {
     display: flex;
