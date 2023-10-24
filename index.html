@@ -6,400 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cliente web Administración</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" type="module"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
 
 <body>
 
     <header class="header">
-        <a href="#" class="logo">Administración</a>
+        <a href="#/" class="logo">Administración</a>
 
         <nav class="navbar">
-            <a href="#" class="Login">Login</a>
+            <!-- <a class="Login" href="#" >Login</a> -->
+            <a class="Ascensores" href="#/ascensores" >Ascensores</a>
+            <a class="Visitantes" href="#/visitantes" >Visitantes</a>
+
         </nav>
     </header>
-    <main>
-
-        <section class="seleccionador">
-            <h4>Seleccione una para desplegar lista</h4>
-            <div class="opciones">
-                <label>
-                    <input type="radio" name="r1" id="radioAscensores" value="Asc" />
-                    <span class="burbuja-Ascensores"></span>
-                    <div>Ascensores</div>
-                </label>
-                <label>
-                    <input type="radio" name="r1" id="radioVisitantes" value="Visit" />
-                    <span class="burbuja-Visitantes"></span>
-                    <div>Visitantes</div>
-                </label>
-            </div>
-            <input type="submit" value="Agregar Popup" />
-        </section>
-
-        <section class="seccionListas">
-            <h3>Ascensores/Visitantes</h3>
-            <div class="elemento">
-                <a class="tagItem" title="ACA VA EL UUID">Ascensor 1</a>
-                <input type="text" class="textFieldNombreAscensor" placeholder="Inserte nombre de Ascensor" required>
-                <div class="picker">
-                    <div class="select-btn">
-                        <span class="btn-text">Elija Pisos Permitidos</span>
-                        <span class="arrow-dwn">
-                            <i class="fa-solid fa-chevron-down"></i>
-                        </span>
-                    </div>
-                    <ul class="list-items">
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">1</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">2</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">3</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">4</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">5</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">6</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">7</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">8</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">9</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">10</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">11</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">12</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">13</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">14</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">15</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">16</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">17</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">18</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">19</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">20</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">21</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">22</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">23</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">24</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">25</span>
-                        </li>
-                    </ul>
-                </div>
-                <button class="botonBorrar">
-                    <label class="labelBorrar">
-                        Borrar
-                    </label>
-                    <span class="garbageItem">
-                        <i class="fa-solid fa-trash"></i>
-                    </span>
-                </button>
-            </div>
-
-            <div class="elementoVisitante">
-                <a class="tagItem">Visitante 1</a>
-                <input type="text" class="textFieldNombreVisitante" placeholder="Inserte nombre completo" required>
-                <input type="text" class="textFieldEdadVisitante" placeholder="Inserte edad" required>
-                <input type="text" class="textFieldEmailVisitante" placeholder="Inserte email" required>
-                <div class="containerDatePicker1">
-                    <label class="fechaIngreso">Fecha Ingreso</label>
-                    <input type="date" class="datePicker">
-                </div>
-                <div class="containerDatePicker2">
-                    <label class="fechaEgreso">Fecha Egreso</label>
-                    <input type="date" class="datePicker">
-                </div>
-                <div class="picker">
-                    <div class="select-btn">
-                        <span class="btn-text">Elija Pisos Permitidos</span>
-                        <span class="arrow-dwn">
-                            <i class="fa-solid fa-chevron-down"></i>
-                        </span>
-                    </div>
-                    <ul class="list-items">
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">1</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">2</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">3</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">4</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">5</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">6</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">7</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">8</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">9</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">10</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">11</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">12</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">13</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">14</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">15</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">16</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">17</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">18</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">19</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">20</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">21</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">22</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">23</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">24</span>
-                        </li>
-                        <li class="item">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                            <span class="item-text">25</span>
-                        </li>
-                    </ul>
-                </div>
-                <button class="botonBorrar">
-                    <label class="labelBorrar">
-                        Borrar
-                    </label>
-                    <span class="garbageItem">
-                        <i class="fa-solid fa-trash"></i>
-                    </span>
-                </button>
-            </div>
-
-        </section>
-
-    </main>
-
-    <script src="script.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!-- POP UP - FALTA REACOMODARLO (O BORRAR) 
+    <section class="seleccionador">
+        <h4>Seleccione una para desplegar lista</h4>
+        <div class="opciones">
+            <label>
+                <input type="radio" name="r1" id="radioAscensores" value="Asc" />
+                <span class="burbuja-Ascensores"></span>
+                <div>Ascensores</div>
+            </label>
+            <label>
+                <input type="radio" name="r1" id="radioVisitantes" value="Visit" />
+                <span class="burbuja-Visitantes"></span>
+                <div>Visitantes</div>
+            </label>
+        </div>
+        <input type="submit" value="Agregar Popup" />
+    </section>
+    -->
+    <div class="container">
+        <section id="root"></section>
+    </div>
 </body>
 
 </html>
