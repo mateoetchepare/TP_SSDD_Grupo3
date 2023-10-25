@@ -22,9 +22,9 @@ export default async() => {
             listaVisitantesElement.innerHTML += `
             <li class="elementoVisitante">
                 <a class="tagItem">Visitante ${visitante.id}</a>
-                <input type="text" class="textFieldNombreVisitante" placeholder="Inserte nombre completo" required>
-                <input type="text" class="textFieldEdadVisitante" placeholder="Inserte edad" required>
-                <input type="text" class="textFieldEmailVisitante" placeholder="Inserte email" required>
+                <input type="text" class="textFieldNombreVisitante" placeholder="${visitante.nombre}" required>
+                <input type="text" class="textFieldEdadVisitante" placeholder="${visitante.edad}" required>
+                <input type="text" class="textFieldEmailVisitante" placeholder="${visitante.email}" required>
                 <div class="containerDatePicker1">
                     <label class="fechaIngreso">Fecha Ingreso</label>
                     <input type="date" class="datePicker">
