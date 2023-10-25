@@ -30,7 +30,7 @@ export default async() => {
             <input type="text" class="textFieldNombreAscensor" placeholder="nombre" value='${ascensor.nombre}' required>
             <div class="picker">
                 <div class="select-btn">
-                    <span class="btn-text">Elija Pisos Permitidos</span>
+                    <span class="btn-text">Seleccione Pisos Habilitados</span>
                     <span class="arrow-dwn">
                         <i class="fa-solid fa-chevron-down"></i>
                     </span>
@@ -45,6 +45,10 @@ export default async() => {
                     </li>
                 </ul>
             </div>
+            <button class="botonGuardar">
+                <label class="labelGuardar">Guardar</label>
+                <span class="saveItem"><i class="fa-regular fa-floppy-disk"></i></span>
+            </button>
             <button class="botonBorrar">
                 <label class="labelBorrar">Borrar</label>
                 <span class="garbageItem"><i class="fa-solid fa-trash"></i></span>
@@ -111,9 +115,9 @@ items.forEach((item, index) => {
         const checked = picker.querySelectorAll(".checked");
         
         if (checked && checked.length > 0) {
-            btnText.innerText = `${checked.length} Pisos Permitidos`;
+            btnText.innerText = `${checked.length} Pisos Habilitados`;
         } else {
-            btnText.innerText = "0 Pisos Permitidos";
+            btnText.innerText = "Seleccione Pisos Habilitados";
         }
     });
 });
