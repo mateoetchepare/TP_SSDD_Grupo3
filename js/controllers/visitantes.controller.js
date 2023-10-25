@@ -1,5 +1,4 @@
 import { getVisitantes } from "../services/visitantes.services.js";
-
 export default async() => {
 
     const view = 
@@ -9,11 +8,11 @@ export default async() => {
   
     const divElement = document.createElement("div");
     divElement.innerHTML = view;
-  
+    divElement.className = "divVisitantes"
 
     //Recupera visitantes del back y genera un elemento HTML para cada uno
     const visitantes = await getVisitantes();
-    console.log(visitantes);
+    console.log(visitantes)
     const listaVisitantesElement = divElement.querySelector("#listaVisitantes");
 
 
@@ -35,7 +34,7 @@ export default async() => {
                 </div>
                 <div class="picker">
                     <div class="select-btn">
-                        <span class="btn-text">Elija Pisos Permitidos</span>
+                        <span class="btn-text">Seleccione Pisos Permitidos</span>
                         <span class="arrow-dwn">
                             <i class="fa-solid fa-chevron-down"></i>
                         </span>
@@ -49,6 +48,10 @@ export default async() => {
                         </li>
                     </ul>
                 </div>
+                <button class="botonGuardar">
+                <label class="labelGuardar">Guardar</label>
+                <span class="saveItem"><i class="fa-regular fa-floppy-disk"></i></span>
+                </button>
                 <button class="botonBorrar">
                     <label class="labelBorrar">
                         Borrar
@@ -122,7 +125,7 @@ export default async() => {
             if (checked && checked.length > 0) {
                 btnText.innerText = `${checked.length} Pisos Permitidos`;
             } else {
-                btnText.innerText = "0 Pisos Permitidos";
+                btnText.innerText = "Seleccione Pisos Permitidos";
             }
         });
     });
