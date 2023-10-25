@@ -26,8 +26,8 @@ export default async() => {
     ascensores.forEach(ascensor => {  
         listaAscensoresElement.innerHTML += `
         <li class = "elementoAscensor">
-            <a class="tagItem">${ascensor.nombre}</a>
-            <input type="text" class="textFieldNombreAscensor" placeholder="Inserte nombre de Ascensor" required>
+            <a class="tagItem">${ascensor.id}</a>
+            <input type="text" class="textFieldNombreAscensor" placeholder=${ascensor.nombre} required>
             <div class="picker">
                 <div class="select-btn">
                     <span class="btn-text">Elija Pisos Permitidos</span>
