@@ -13,7 +13,7 @@ export default async() => {
 
   const divElement = document.createElement("div");
   divElement.innerHTML = view;
-
+  divElement.className = "divAscensores"
 
   //Recupera ascensores del back y genera un elemento HTML para cada uno
 
