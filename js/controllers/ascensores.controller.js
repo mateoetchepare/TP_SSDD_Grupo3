@@ -68,6 +68,13 @@ export default async() => {
    await createHTMLelements();
 
 
+   const botonNuevoAscensor = divElement.querySelector("#nuevoAscensor");
+        botonNuevoAscensor.addEventListener("click", async function() {
+            await agregarAscensor();
+            visitantes = await getVisitantes();
+            await createHTMLelements();
+        });
+
   //Agrega, en cada lista de opciones, las 25 opciones con JS
 
   const addListOptions = () => {
