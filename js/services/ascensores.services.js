@@ -1,5 +1,3 @@
-const getAscensores = async () => {
-
     const ascensores = [ //Datos para probar el front
         {
           id: "7408f6a4-564a-4511-b96c-0e9fa114e9c5",
@@ -32,9 +30,6 @@ const getAscensores = async () => {
           estado: "Disponible"
         }
       ];
-      
-    return ascensores;
-  };
 
   function agregarAscensor() {
     const nuevoAscensor = {
@@ -43,12 +38,16 @@ const getAscensores = async () => {
         pisos: [],
         estado: ""
     };
-    visitantes.push(nuevoVisitante);
+    ascensores.push(nuevoAscensor);
   }
 
-  const getVisitantes = async () => {
-    return visitantes;
+  function ultimoAscensor() {
+    return ascensores[ascensores.length-1];
+  }
+
+  const getAscensores = async () => {
+    return ascensores;
   };
 
 
-export { getAscensores };
+export { getAscensores, ultimoAscensor,  agregarAscensor};

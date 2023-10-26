@@ -1,4 +1,4 @@
-import { getAscensores } from "../services/ascensores.services.js";
+import { getAscensores, ultimoAscensor, agregarAscensor } from "../services/ascensores.services.js";
 
 
 
@@ -23,56 +23,51 @@ export default async() => {
 
   //Recupera ascensores del back y genera un elemento HTML para cada uno
 
-  const createHTMLelements=async () => {
-
-    const ascensores = await getAscensores();
-    console.log(ascensores);
-    const listaAscensoresElement = divElement.querySelector("#listaAscensores");
-
-    ascensores.forEach(ascensor => {  
-        listaAscensoresElement.innerHTML += `
-        <li class = "elementoAscensor">
-            <a class="tagItem">${ascensor.id}</a>
-            <input type="text" class="textFieldNombreAscensor" placeholder="nombre" value='${ascensor.nombre}' required>
-            <div class="picker">
-                <div class="select-btn">
-                    <span class="btn-text">Seleccione Pisos Habilitados</span>
-                    <span class="arrow-dwn">
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </span>
-                </div>
-
-                <ul class="list-items">
-                    <li class="item">
-                        <span class="checkbox">
-                            <i class="fa-solid fa-check check-icon"></i>
-                        </span>
-                        <span class="item-text">1</span>
-                    </li>
-                </ul>
+const ascensores = await getAscensores();
+const listaAscensoresElement = divElement.querySelector("#listaAscensores");
+for (const ascensor of ascensores) {
+    await createHTMLelements(ascensor);
+}
+  
+  async function createHTMLelements(ascensor) {
+    listaAscensoresElement.innerHTML += `
+    <li class = "elementoAscensor">
+        <a class="tagItem">31907f35-17c1-459a-a99e-4b1ee084f01b</a>
+        <input type="text" class="textFieldNombreAscensor" placeholder="nombre" value='${ascensor.nombre}' required>
+        <div class="picker">
+            <div class="select-btn">
+                <span class="btn-text">Seleccione Pisos Habilitados</span>
+                <span class="arrow-dwn">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </span>
             </div>
-            <button class="botonGuardar">
-                <label class="labelGuardar">Guardar</label>
-                <span class="saveItem"><i class="fa-regular fa-floppy-disk"></i></span>
-            </button>
-            <button class="botonBorrar">
-                <label class="labelBorrar">Borrar</label>
-                <span class="garbageItem"><i class="fa-solid fa-trash"></i></span>
-            </button>
 
-        </li>`
-        
-    });
-  }
+            <ul class="list-items">
+                <li class="item">
+                    <span class="checkbox">
+                        <i class="fa-solid fa-check check-icon"></i>
+                    </span>
+                    <span class="item-text">1</span>
+                </li>
+            </ul>
+        </div>
+        <button class="botonGuardar">
+            <label class="labelGuardar">Guardar</label>
+            <span class="saveItem"><i class="fa-regular fa-floppy-disk"></i></span>
+        </button>
+        <button class="botonBorrar">
+            <label class="labelBorrar">Borrar</label>
+            <span class="garbageItem"><i class="fa-solid fa-trash"></i></span>
+        </button>
 
-   await createHTMLelements();
-
+    </li>`
+  } 
 
    const botonNuevoAscensor = divElement.querySelector("#nuevoAscensor");
         botonNuevoAscensor.addEventListener("click", async function() {
-            await agregarAscensor();
-            visitantes = await getVisitantes();
-            await createHTMLelements();
+            agregarAscensor();
+            const ultAscensor = ultimoAscensor();
+            await createHTMLelements(ultAscensor);
         });
 
   //Agrega, en cada lista de opciones, las 25 opciones con JS

@@ -29,6 +29,7 @@ body {
     backdrop-filter: blur(50px);
     border-bottom: 2px solid rgba(255, 255, 255, .2);
     margin-bottom: 50px;
+    z-index: 2;
 }
 
 .header::before {
@@ -315,6 +316,7 @@ h3 {
     cursor: pointer;
     background-color: #fff;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    z-index: 0;
 }
 
 .btn-text {

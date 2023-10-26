@@ -60,11 +60,14 @@
     visitantes.push(nuevoVisitante);
   }
 
+  function ultimoVisitante() {
+    return visitantes[visitantes.length-1];
+  }
+
   const getVisitantes = async () => {
     return visitantes;
   };
 
 
-
-export { getVisitantes, agregarVisitante };
+export { getVisitantes, agregarVisitante, ultimoVisitante };
 

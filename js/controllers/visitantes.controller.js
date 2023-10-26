@@ -1,4 +1,4 @@
-import { agregarVisitante, getVisitantes } from "../services/visitantes.services.js";
+import { agregarVisitante, getVisitantes, ultimoVisitante } from "../services/visitantes.services.js";
 
 export default async() => {
 
@@ -21,11 +21,12 @@ export default async() => {
     //Recupera visitantes del back y genera un elemento HTML para cada uno
     let visitantes = await getVisitantes();
     const listaVisitantesElement = divElement.querySelector("#listaVisitantes");
-
-
-    const createHTMLelements=async () => {
-        visitantes.forEach(visitante => {  
-            listaVisitantesElement.innerHTML += `
+    for (const visitante of visitantes) {
+        await createHTMLelements(visitante);
+    }
+    
+    async function createHTMLelements(visitante) {
+        listaVisitantesElement.innerHTML += `
             <li class="elementoVisitante">
                 <a class="tagItem">Visitante ${visitante.id}</a>
                 <input type="text" class="textFieldNombreVisitante" placeholder="nombre" value='${visitante.nombre}'required>
@@ -68,17 +69,13 @@ export default async() => {
                     </span>
                 </button>
             </li>`
-            
-        });
     }
-
-   await createHTMLelements();
 
         const botonNuevoVisitante = divElement.querySelector("#nuevoVisitante");
         botonNuevoVisitante.addEventListener("click", async function() {
-            await agregarVisitante();
-            visitantes = await getVisitantes();
-            await createHTMLelements();
+            agregarVisitante();
+            const ultVisitante = ultimoVisitante();
+            await createHTMLelements(ultVisitante);
         });
   
 
