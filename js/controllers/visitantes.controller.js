@@ -1,9 +1,17 @@
-import { getVisitantes } from "../services/visitantes.services.js";
+import { agregarVisitante, getVisitantes } from "../services/visitantes.services.js";
+
 export default async() => {
 
     const view = 
-    `<h3>Lista visitantes</h3>
-        <ul class="list-group" id="listaVisitantes" style="height: 70vh; overflow: auto"> </ul>
+    `
+    <div class="listaBotonVisitantes">
+    <h3>Lista visitantes</h3>
+    <button class="botonNuevo" id="nuevoVisitante">
+        <label class="labelNuevo">Nuevo</label>
+        <span class="newItem"><i class="fa-regular fa-pen-to-square"></i></span>
+    </button>
+    </div>
+        <ul class="list-group" id="listaVisitantes"> </ul>
       `;
   
     const divElement = document.createElement("div");
@@ -11,8 +19,7 @@ export default async() => {
     divElement.className = "divVisitantes"
 
     //Recupera visitantes del back y genera un elemento HTML para cada uno
-    const visitantes = await getVisitantes();
-    console.log(visitantes)
+    let visitantes = await getVisitantes();
     const listaVisitantesElement = divElement.querySelector("#listaVisitantes");
 
 
@@ -65,8 +72,14 @@ export default async() => {
         });
     }
 
-    await createHTMLelements();
+   await createHTMLelements();
 
+        const botonNuevoVisitante = divElement.querySelector("#nuevoVisitante");
+        botonNuevoVisitante.addEventListener("click", async function() {
+            await agregarVisitante();
+            visitantes = await getVisitantes();
+            await createHTMLelements();
+        });
   
 
   //Agrega, en cada lista de opciones, las 25 opciones con JS
