@@ -5,8 +5,14 @@ import { getAscensores } from "../services/ascensores.services.js";
 export default async() => {
 
   const view = 
-    `<h3>Lista ascensores</h3>
-        <ul class="list-group" id="listaAscensores" style="height: 70vh; overflow: auto">
+    `<div class="listaBotonAscensores">
+        <h3>Lista ascensores</h3>
+        <button class="botonNuevo" id="nuevoAscensor">
+            <label class="labelNuevo">Nuevo</label>
+            <span class="newItem"><i class="fa-regular fa-pen-to-square"></i></span>
+        </button>
+    </div>
+        <ul class="list-group" id="listaAscensores">
 
         </ul>
     `;

@@ -36,5 +36,19 @@ const getAscensores = async () => {
     return ascensores;
   };
 
+  function agregarAscensor() {
+    const nuevoAscensor = {
+        id: "",
+        nombre: "",
+        pisos: [],
+        estado: ""
+    };
+    visitantes.push(nuevoVisitante);
+  }
+
+  const getVisitantes = async () => {
+    return visitantes;
+  };
+
 
 export { getAscensores };
