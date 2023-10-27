@@ -4,7 +4,7 @@ const url = require('url');
 const puertoAscensores = 3502;
 
 const server = http.createServer((req,res) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    
 
     const { url , method } = req;
     console.log(`URL: ${url} - METHOD: ${method}`);
@@ -45,7 +45,6 @@ const server = http.createServer((req,res) => {
                             },
                         };
                     
-                
                         const request = http.request("http://localhost:" + puertoAscensores + url, 
                         options,
                         function(response){
