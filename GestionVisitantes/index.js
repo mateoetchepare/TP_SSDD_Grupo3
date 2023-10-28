@@ -1,9 +1,12 @@
 const http = require('http')
 const fs = require('fs')
 const archivoVisitantes = __dirname + '/visitantes.json'
+const Ajv = require('ajv')
+
+const schema = require('./esquema.json')
 
 
-
+// REQUEST METODO DELETE (UN VISITANTE POR ID)
 function deleteVisitante(res, id) {
     fs.readFile(archivoVisitantes, 'utf8', (err, data) => {
         if (err) {
@@ -39,9 +42,9 @@ function deleteVisitante(res, id) {
           res.end(`Visitante con ID ${id} no encontrado.`)
         }
       })
-  }
+}
   
-
+// REQUEST METODO GET (TODOS LOS VISITANTES)
 function getVisitantes(res){
     fs.readFile(archivoVisitantes, 'utf8', (err, data) => {
         if (err) {
@@ -60,6 +63,7 @@ function getVisitantes(res){
 
 }
 
+// REQUEST METODO GET (UN VISITANTE POR ID)
 function getVisitante(res, id){
 
     fs.readFile(archivoVisitantes, 'utf8', (err, data) => {
@@ -88,7 +92,37 @@ function getVisitante(res, id){
     })
 }
 
+// REQUEST INCORRECTA
+function rutaNoEncontrada(res){
+    res.writeHead(404,{'Content-Type':'application/json'}) // devuelvo json
+    res.write("Error, no se encuentra la ruta en gestionVisitantes") // envio la sucursal  
+    res.end()
+}
 
+function datosIncorrectos(res){
+    res.writeHead(404,{'Content-Type':'text/plain'}) 
+    res.write("Error en el formato de los datos") 
+    res.end()
+}
+
+function validacionDatos(visitante){
+
+    const ajv = new Ajv()
+
+    
+
+    console.log('estoy dentro  de validacion de datos')
+    const validate = ajv.compile(schema)
+    console.log('pase el compile')
+    const isValid = validate(visitante)
+    console.log(isValid)
+    if(isValid)
+        console.log('los datos aportados son validos')
+    else
+        console.log('los datos aportados no son validos')
+    return  isValid
+
+}
 
 const server = http.createServer((req,res)=>{
 
@@ -115,6 +149,8 @@ const server = http.createServer((req,res)=>{
                 console.log(`Request para devolver un visitante especificado (ID: ${visitanteId})`)
 
                 getVisitante(res, visitanteId)
+            }else{
+                rutaNoEncontrada(res)
             }
 
         } else if(method === 'POST'){
@@ -123,6 +159,36 @@ const server = http.createServer((req,res)=>{
 
                 console.log('request para dar de alta a un visitante')
 
+                let data = ''
+
+                req.on('data', (chunk) => {
+                    data += chunk
+                })
+
+                req.on('end',()=>{
+                    try{
+                        const nuevoVisitante = JSON.parse(data)
+                        
+                        console.log(nuevoVisitante)
+                        console.log(nuevoVisitante.nombre)
+
+                        validacionDatos(nuevoVisitante)
+                        /*if(validacionDatos(nuevoVisitante)){
+
+                            //doy de alta
+
+                        }else{
+                            datosIncorrectos(res)
+                        }*/
+
+                    }catch(error){
+                        datosIncorrectos(res)
+                    }
+
+                })
+            }
+            else{
+                rutaNoEncontrada(res)
             }
 
         } else if(method === 'DELETE'){
@@ -133,6 +199,8 @@ const server = http.createServer((req,res)=>{
                 console.log(`Request para dar de baja a un visitante (ID: ${visitanteId})`)
                 deleteVisitante(res, visitanteId)
 
+            }else{
+                rutaNoEncontrada(res)
             }
 
         }else if(method === 'PUT'){
@@ -142,13 +210,17 @@ const server = http.createServer((req,res)=>{
                 const visitanteId = parametros[2]
                 console.log(`Request para modificar un visitante especificado (ID: ${visitanteId})`)
 
+            }else{
+                rutaNoEncontrada(res)
             }
         }
 
         
         
     }else{
-        console.log('no entro al if')
+
+        rutaNoEncontrada(res)
+    
     }
 
     
@@ -158,48 +230,3 @@ const server = http.createServer((req,res)=>{
 
 server.listen(3501)//puerto de gestion visitantes
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /*if(url.startsWith("/api/sucursales")){
-        let parametros = url.split("/");
-        console.log(parametros)
-        parametros = parametros.filter(el => el != '')   //filtro los vacios
-        console.log(parametros.length)
-        console.log(parametros)
-            if(parametros.length == 2){ // todas las sucursales
-                //getSucursales(res)
-            }
-            if(parametros.length == 3){ // una unica suscursal
-                //let idSucursal = parametros[2];
-               // getSucursal(res,idSucursal)
-    
-            }    
-    }*/
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-    // metodo POST para alta de un visitante
-   /* if (method === 'POST'){
-        let body = ''
-        req.setEncoding('utf8')
-
-        req.on('data', (chunk) =>{
-            body += chunk
-        })
-
-        req.on('end', () =>{
-            console.log(body)
-
-            try {
-                const jsonData = JSON.parse(body)
-
-                console.log('JSON data: ', jsonData)
-
-            } catch(error){
-                res.statusCode = 400
-                res.end('Error analizando JSON')
-            }
-        })
-
-    }*/

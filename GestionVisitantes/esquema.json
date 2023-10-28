@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "nombre": { "type": "string" },
+      "edad": { "type": "integer", "minimum": 0 },
+      "email": { "type": "string" },
+      "pisos_permitidos": {
+        "type": "array",
+        "items": { "type": "integer" }
+      },
+      "fecha_checkIn": { "type": "string", "format": "date" },
+      "fecha_checkOut": { "type": "string", "format": "date" }
+    },
+    "required": ["nombre", "edad", "email", "pisos_permitidos", "fecha_checkIn", "fecha_checkOut"],
+    "dependencies": {
+      "fecha_checkIn": ["fecha_checkOut"],
+      "fecha_checkOut": ["fecha_checkIn"]
+    }
+  }
+  
