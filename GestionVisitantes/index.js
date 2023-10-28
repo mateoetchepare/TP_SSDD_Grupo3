@@ -1,26 +1,94 @@
 const http = require('http')
-const visitantes =  require('./visitantes.json')
+const fs = require('fs')
+const archivoVisitantes = __dirname + '/visitantes.json'
+
+
+
+function deleteVisitante(res, id) {
+    fs.readFile(archivoVisitantes, 'utf8', (err, data) => {
+        if (err) {
+          console.error(err)
+          res.writeHead(500, { 'Content-Type': 'text/plain' })
+          res.end('Error interno del servidor')
+          return
+        }
+    
+        const visitantes = JSON.parse(data)
+        
+        const visitanteIndex = visitantes.findIndex(visitante => visitante.id === id)
+    
+        if (visitanteIndex !== -1) {
+          visitantes.splice(visitanteIndex, 1) // Elimina el visitante del arreglo
+          console.log(`Visitante con ID ${id} eliminado.`)
+    
+          // Guarda el archivo JSON actualizado
+          fs.writeFile(archivoVisitantes, JSON.stringify(visitantes, null, 2), (err) => {
+            if (err) {
+              console.error(err)
+              res.writeHead(500, { 'Content-Type': 'text/plain' })
+              res.end('Error interno del servidor')
+              return
+            }
+    
+            res.writeHead(200, { 'Content-Type': 'text/plain' })
+            res.end(`Visitante con ID ${id} eliminado.`)
+          });
+        } else {
+          console.log(`Visitante con ID ${id} no encontrado.`)
+          res.writeHead(404, { 'Content-Type': 'text/plain' })
+          res.end(`Visitante con ID ${id} no encontrado.`)
+        }
+      })
+  }
+  
 
 function getVisitantes(res){
-    res.writeHead(200,{'Content-Type':'application/json'})// devuelvo json
-    res.write(JSON.stringify(visitantes)) // envio las visitantes
-    res.end()
+    fs.readFile(archivoVisitantes, 'utf8', (err, data) => {
+        if (err) {
+          console.error(err)
+          res.writeHead(500, { 'Content-Type': 'text/plain' })
+          res.end('Error interno del servidor')
+          return
+        }
+    
+        const visitantes = JSON.parse(data);
+        
+        res.writeHead(200,{'Content-Type':'application/json'})// devuelvo json
+        res.write(JSON.stringify(visitantes)) // envio las visitantes
+        res.end()
+    })
+
 }
 
 function getVisitante(res, id){
-    let visitante = visitantes.find(visitante=> visitante.id == id)
 
-    if( visitante != undefined){
-        res.writeHead(200,{'Content-Type':'application/json'})
-        res.write(JSON.stringify(visitante))
-    }
-    else{
-        res.writeHead(404,{'Content-Type':'application/json'}) // devuelvo json
-        res.write("Error, no se encuentra esa visitante") // envio la sucursal  
-     }
+    fs.readFile(archivoVisitantes, 'utf8', (err, data) => {
+        if (err) {
+          console.error(err)
+          res.writeHead(500, { 'Content-Type': 'text/plain' })
+          res.end('Error interno del servidor')
+          return
+        }
+    
+        const visitantes = JSON.parse(data)
 
-   res.end()
+
+        let visitante = visitantes.find(visitante=> visitante.id == id)
+
+        if( visitante != undefined){
+            res.writeHead(200,{'Content-Type':'application/json'})
+            res.write(JSON.stringify(visitante))
+        }
+        else{
+            res.writeHead(404,{'Content-Type':'application/json'}) // devuelvo json
+            res.write("Error, no se encuentra esa visitante") // envio la sucursal  
+        }
+
+        res.end()
+    })
 }
+
+
 
 const server = http.createServer((req,res)=>{
 
@@ -61,8 +129,9 @@ const server = http.createServer((req,res)=>{
 
             if(url.startsWith('/api/visitantes/') && parametros.length === 3){ //eliminar visitante seleccionado
 
-                const visitanteId = parametros[2];
-                console.log(`Request para dar de baja a un visitante (ID: ${visitanteId})`);
+                const visitanteId = parametros[2]
+                console.log(`Request para dar de baja a un visitante (ID: ${visitanteId})`)
+                deleteVisitante(res, visitanteId)
 
             }
 
@@ -70,8 +139,8 @@ const server = http.createServer((req,res)=>{
 
             if(url.startsWith('/api/visitantes/') && parametros.length === 3){ //modificar datos del visitante seleccionado
 
-                const visitanteId = parametros[2];
-                console.log(`Request para modificar un visitante especificado (ID: ${visitanteId})`);
+                const visitanteId = parametros[2]
+                console.log(`Request para modificar un visitante especificado (ID: ${visitanteId})`)
 
             }
         }
