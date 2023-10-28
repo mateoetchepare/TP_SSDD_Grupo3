@@ -9,10 +9,58 @@ const schema = require('./esquema.json')
 // Define una función de validación personalizada para fechas en formato ISO (cadenas)
 function customISODateValidation(value) {
     return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/.test(value);
-  }
+}
   
 // Registra el formato personalizado en Ajv
 ajv.addFormat("custom-iso-date", customISODateValidation);
+
+// REQUEST METODO PUT (ACTUALIZAR DATOS VISITANTE POR ID)
+function modificacionVisitante(res,id,nuevosDatos){
+    fs.readFile(archivoVisitantes, 'utf8', (err, data) => {
+        if (err) {
+          console.error(err)
+          res.writeHead(500, { 'Content-Type': 'text/plain' })
+          res.end('Error interno del servidor')
+          return
+        }
+    
+        const visitantes = JSON.parse(data)
+
+
+        let visitante = visitantes.find(visitante=> visitante.id == id)
+
+        console.log('datos originales:',visitante)
+        console.log('nuevos datos: ',nuevosDatos)
+
+        if( visitante != undefined){
+            visitante.nombre = nuevosDatos.nombre;
+            visitante.edad = nuevosDatos.edad;
+            visitante.email= nuevosDatos.email
+            visitante.pisos_permitidos = nuevosDatos.pisos_permitidos
+            visitante.fecha_checkIn = nuevosDatos.fecha_checkIn
+            visitante.fecha_checkOut = nuevosDatos.fecha_checkOut
+
+            console.log('datos actualizados:',visitante)
+
+            fs.writeFile(archivoVisitantes, JSON.stringify(visitantes, null, 2), (err) => {
+                if (err) {
+                  console.error(err)
+                  res.writeHead(500, { 'Content-Type': 'text/plain' })
+                  res.end('Error interno del servidor')
+                  return
+                }
+        
+                res.writeHead(200, { 'Content-Type': 'text/plain' })
+                res.end(`Visitante con ID ${id} actualizado.`)
+              });
+        }
+        else{
+            res.writeHead(404,{'Content-Type':'application/json'}) // devuelvo json
+            res.write("Error, no se encuentra esa visitante") // envio la sucursal  
+        }
+
+    })
+}
 
 // REQUEST METODO POST (ALTA VISITANTE)
 function altaVisitante(res,visitante){
@@ -25,7 +73,6 @@ function altaVisitante(res,visitante){
         }
     
         const visitantes = JSON.parse(data);
-        console.log(visitante)
 
         //FALTA CREAR UNA FUNCIONPARA GENERAR EL ID
         visitante.id = "XXXX";
@@ -242,6 +289,36 @@ const server = http.createServer((req,res)=>{
 
                 const visitanteId = parametros[2]
                 console.log(`Request para modificar un visitante especificado (ID: ${visitanteId})`)
+                
+                
+                let data = ''
+
+                req.on('data', (chunk) => {
+                    data += chunk
+                })
+
+                req.on('end',()=>{
+                    try{
+                        const nuevosDatos = JSON.parse(data)
+                        
+                        console.log(nuevosDatos)
+
+                        
+                        if(validacionDatos(nuevosDatos)){
+
+                            //doy de alta
+                            modificacionVisitante(res,visitanteId,nuevosDatos)
+
+                        }else{
+                            datosIncorrectos(res)
+                        }
+
+                    }catch(error){
+                        console.log(error)
+                        datosIncorrectos(res)
+                    }
+
+                })
 
             }else{
                 rutaNoEncontrada(res)
