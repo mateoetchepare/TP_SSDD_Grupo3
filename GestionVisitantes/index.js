@@ -2,9 +2,49 @@ const http = require('http')
 const fs = require('fs')
 const archivoVisitantes = __dirname + '/visitantes.json'
 const Ajv = require('ajv')
+const ajv = new Ajv({ allErrors: true })
 
 const schema = require('./esquema.json')
 
+// Define una función de validación personalizada para fechas en formato ISO (cadenas)
+function customISODateValidation(value) {
+    return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/.test(value);
+  }
+  
+// Registra el formato personalizado en Ajv
+ajv.addFormat("custom-iso-date", customISODateValidation);
+
+// REQUEST METODO POST (ALTA VISITANTE)
+function altaVisitante(res,visitante){
+    fs.readFile(archivoVisitantes, 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            res.writeHead(500, { 'Content-Type': 'text/plain' });
+            res.end('Error interno del servidor');
+            return;
+        }
+    
+        const visitantes = JSON.parse(data);
+        console.log(visitante)
+
+        //FALTA CREAR UNA FUNCIONPARA GENERAR EL ID
+        visitante.id = "XXXX";
+    
+        visitantes.push(visitante);
+    
+        fs.writeFile(archivoVisitantes, JSON.stringify(visitantes, null, 2), (err) => {
+            if (err) {
+                console.error(err);
+                res.writeHead(500, { 'Content-Type': 'text/plain' });
+                res.end('Error interno del servidor');
+                return;
+            }
+    
+            res.writeHead(201, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify(visitante));
+        });
+    });
+}
 
 // REQUEST METODO DELETE (UN VISITANTE POR ID)
 function deleteVisitante(res, id) {
@@ -107,22 +147,13 @@ function datosIncorrectos(res){
 
 function validacionDatos(visitante){
 
-    const ajv = new Ajv()
-
-    
-
-    console.log('estoy dentro  de validacion de datos')
     const validate = ajv.compile(schema)
-    console.log('pase el compile')
     const isValid = validate(visitante)
-    console.log(isValid)
-    if(isValid)
-        console.log('los datos aportados son validos')
-    else
-        console.log('los datos aportados no son validos')
+
     return  isValid
 
 }
+
 
 const server = http.createServer((req,res)=>{
 
@@ -172,16 +203,18 @@ const server = http.createServer((req,res)=>{
                         console.log(nuevoVisitante)
                         console.log(nuevoVisitante.nombre)
 
-                        validacionDatos(nuevoVisitante)
-                        /*if(validacionDatos(nuevoVisitante)){
+                        //validacionDatos(nuevoVisitante)
+                        if(validacionDatos(nuevoVisitante)){
 
                             //doy de alta
+                            altaVisitante(res,nuevoVisitante)
 
                         }else{
                             datosIncorrectos(res)
-                        }*/
+                        }
 
                     }catch(error){
+                        console.log(error)
                         datosIncorrectos(res)
                     }
 
@@ -229,4 +262,6 @@ const server = http.createServer((req,res)=>{
 })
 
 server.listen(3501)//puerto de gestion visitantes
+
+
 

@@ -16,7 +16,9 @@
     "nombre": "Otro Nombre",
     "edad": 30,
     "email": "otro_email@gmail.com",
-    "pisos_permitidos": [2],
+    "pisos_permitidos": [
+      2
+    ],
     "fecha_checkIn": "2023-09-14T10:15:00.000Z",
     "fecha_checkOut": "2023-09-16T10:15:00.000Z"
   },
