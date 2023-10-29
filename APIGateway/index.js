@@ -75,7 +75,10 @@ const server = http.createServer((req,res) => {
                 
                 
                     })
-              
+            
+            //case "DELETE":
+
+            //case "PUT":
         }
 
 
