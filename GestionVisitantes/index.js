@@ -219,7 +219,7 @@ function rutaNoEncontrada(res){
 }
 
 function datosIncorrectos(res){
-    res.writeHead(404,{'Content-Type':'application/json'});
+    res.writeHead(400,{'Content-Type':'application/json'});
     res.write("Error en el formato de los datos");
     res.end();
 }
@@ -277,6 +277,8 @@ const server = http.createServer((req,res)=>{
 
                 req.on('end',()=>{
                     try{
+                        console.log(data.length)
+                        console.log(typeof data)
                         const nuevoVisitante = JSON.parse(data);
                         
                         console.log(nuevoVisitante);
@@ -287,7 +289,7 @@ const server = http.createServer((req,res)=>{
 
                             //doy de alta
                             altaVisitante(res,nuevoVisitante);
-
+                            console.log('se dio de alta el visitante')
                         }else{
                             datosIncorrectos(res);
                         }

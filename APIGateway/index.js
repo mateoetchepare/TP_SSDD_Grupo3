@@ -113,11 +113,14 @@ const server = http.createServer((req,res) => {
             case "POST":
                 bodyParser(req)
                     .then(() => {
+
+                        const bodyData = req.body;
+
                         const options = {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
-                            },
+                            }
                         };
                     
                         const request = http.request("http://localhost:" + puertoVisitantes + url, 
@@ -134,8 +137,9 @@ const server = http.createServer((req,res) => {
                                     "Content-Type": "application/json",
                                 });
                                 console.log('el body es: ',body)
-                                body = JSON.parse(body);
-                                res.write(JSON.stringify(body));
+                                //body = JSON.parse(body);
+                                //res.write(JSON.stringify(body));
+                                res.write(body)
                                 res.end();
                             });
 
@@ -145,7 +149,7 @@ const server = http.createServer((req,res) => {
 
                         });
 
-                        //request.write();
+                        request.write(JSON.stringify(bodyData));
                         request.end();
                 
                     }).catch((error) => console.error(error));
