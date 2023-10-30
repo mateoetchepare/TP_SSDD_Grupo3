@@ -145,7 +145,7 @@ const server = http.createServer((req,res) => {
 
                         });
 
-                        request.write();
+                        //request.write();
                         request.end();
                 
                     }).catch((error) => console.error(error));
@@ -193,7 +193,7 @@ const server = http.createServer((req,res) => {
                         })
 
                         //request.write(payload);
-                        request.write();
+                        //request.write();
                         request.end();
                     }).catch((error) => console.error(error));
 
@@ -202,14 +202,14 @@ const server = http.createServer((req,res) => {
             case "PUT": //a chequear
                 bodyParser(req) //OJO ACA, VER BIEN
                     .then(() => {
-                        payload = JSON.stringify({
+                        /*payload = JSON.stringify({
                             userID: req.body.userID,
-                        });
+                        });*/
                         const options = {
                             method: "PUT",
                             headers:{
                                 "Content-Type": "application/json",
-                                "Content-Length": Buffer.byteLength(req.body),
+                                //"Content-Length": Buffer.byteLength(req.body),
                             },
                         };
 
@@ -237,7 +237,7 @@ const server = http.createServer((req,res) => {
 
                         })
 
-                        request.write(payload);
+                        //request.write(payload);
                         request.end();
                     }).catch((error) => console.error(error));
 
