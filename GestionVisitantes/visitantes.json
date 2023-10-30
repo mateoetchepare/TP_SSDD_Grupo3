@@ -174,19 +174,6 @@
     ],
     "fecha_checkIn": "2023-09-13T23:09:40.880Z",
     "fecha_checkOut": "2023-09-15T23:09:40.880Z",
-    "id": "A015"
-  },
-  {
-    "nombre": "nombre1",
-    "edad": 10,
-    "email": "email@gmail.com",
-    "pisos_permitidos": [
-      2,
-      5,
-      9
-    ],
-    "fecha_checkIn": "2023-09-13T23:09:40.880Z",
-    "fecha_checkOut": "2023-09-15T23:09:40.880Z",
     "id": "A016"
   }
 ]

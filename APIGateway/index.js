@@ -171,7 +171,6 @@ const server = http.createServer((req,res) => {
                 options,
                 function(response){
                     let data = "";
-
                     response.on("data", (chunk) => {
                         data += chunk;
                     });
@@ -191,7 +190,7 @@ const server = http.createServer((req,res) => {
                     });
                 })
                 
-                request.write();
+                //request.write();
                 request.end();
                 break;
 
