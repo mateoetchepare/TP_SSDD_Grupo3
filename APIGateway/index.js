@@ -1,8 +1,9 @@
 const http = require('http');
 const { bodyParser } = require('./bodyParser');
 const url = require('url');
-const puertoAscensores = 3502;
 const puertoVisitantes = 3501;
+const puertoAscensores = 3502;
+const puertoPermisos = 3503;
 
 const server = http.createServer((req,res) => {
     
@@ -10,7 +11,7 @@ const server = http.createServer((req,res) => {
     const { url , method } = req;
     console.log(`URL: ${url} - METHOD: ${method}`);
 
-    let param = url.split("/");
+    let param = url.split("/"); //chequear que este bien spliteado
 
     if(url.startsWith("/ascensores")){
         switch(method){
@@ -136,7 +137,7 @@ const server = http.createServer((req,res) => {
                             });
 
                             response.on("close", () => {
-                                console.log("Connection closed");
+                                console.log("Connection closed.");
                             })
 
                         });
@@ -145,8 +146,9 @@ const server = http.createServer((req,res) => {
 
                         }
                 
-                
-                    })
+                    }).catch((error) => console.error(error));
+
+                break;
             
             case "DELETE":
                 bodyParser(req) //OJO ACA, VER BIEN
@@ -168,16 +170,74 @@ const server = http.createServer((req,res) => {
                             let body = "";
 
                             response.on("data", (chunk) => {
-                                
-                            })
+                                body += chunk;
+                            });
 
+                            response.on("end", () => {
+                                res.writeHead(response.statusCode,{
+                                    "Content-Type": "application/json",
+                                });
+                                body = JSON.parse(body);
+                                res.write(JSON.stringify(body));
+                                res.end();
+                            });
 
-                        }
-                        )
+                            response.on("close", () => {
+                                console.log("Connection closed.")
+                            });
 
-                    })
+                        })
 
-            //case "PUT":
+                        request.write(payload);
+                        request.end();
+                    }).catch((error) => console.error(error));
+
+                break;
+
+            case "PUT": //a chequear
+                bodyParser(req) //OJO ACA, VER BIEN
+                    .then(() => {
+                        payload = JSON.stringify({
+                            userID: req.body.userID,
+                        });
+                        const options = {
+                            method: "PUT",
+                            headers:{
+                                "Content-Type": "application/json",
+                                "Content-Length": Buffer.byteLength(req.body),
+                            },
+                        };
+
+                        const request = http.request("http://localhost:" + puertoVisitantes + url,
+                        options,
+                        function(response){
+                            let body = "";
+
+                            response.on("data", (chunk) => {
+                                body += chunk;
+                            });
+
+                            response.on("end", () => {
+                                res.writeHead(response.statusCode,{
+                                    "Content-Type": "application/json",
+                                });
+                                body = JSON.parse(body);
+                                res.write(JSON.stringify(body));
+                                res.end();
+                            });
+
+                            response.on("close", () => {
+                                console.log("Connection closed.")
+                            });
+
+                        })
+
+                        request.write(payload);
+                        request.end();
+                    }).catch((error) => console.error(error));
+
+                break;
+
         }
     }
 
