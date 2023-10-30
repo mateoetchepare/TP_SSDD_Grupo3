@@ -159,48 +159,40 @@ const server = http.createServer((req,res) => {
                 break;
             
             case "DELETE":
-                bodyParser(req) //OJO ACA, VER BIEN
-                    .then(() => {
-                        /*payload = JSON.stringify({
-                            userID: req.body.userID, 
-                        });*/
-                        const options = {
-                            method: "DELETE",
-                            headers:{
-                                "Content-Type": "application/json"//,
-                               // "Content-Length": Buffer.byteLength(req.body),
-                            },
-                        };
+                const options = {
+                    method: "DELETE",
+                    headers:{
+                        "Content-Type": "application/json"//,
+                       // "Content-Length": Buffer.byteLength(req.body),
+                    },
+                };
 
-                        const request = http.request("http://localhost:" + puertoVisitantes + url,
-                        options,
-                        function(response){
-                            let body = "";
+                const request = http.request("http://localhost:" + puertoVisitantes + url,
+                options,
+                function(response){
+                    let data = "";
 
-                            response.on("data", (chunk) => {
-                                body += chunk;
-                            });
+                    response.on("data", (chunk) => {
+                        data += chunk;
+                    });
 
-                            response.on("end", () => {
-                                res.writeHead(response.statusCode,{
-                                    "Content-Type": "application/json",
-                                });
-                                body = JSON.parse(body);
-                                res.write(JSON.stringify(body));
-                                res.end();
-                            });
+                    response.on("end", () => {
+                        res.writeHead(response.statusCode,{
+                            "Content-Type": "application/json",
+                        });
+                        //data = JSON.parse(data);
+                        //res.write(JSON.stringify(data));
+                        res.write(data)
+                        res.end();
+                    });
 
-                            response.on("close", () => {
-                                console.log("Connection closed.")
-                            });
-
-                        })
-
-                        //request.write(payload);
-                        //request.write();
-                        request.end();
-                    }).catch((error) => console.error(error));
-
+                    response.on("close", () => {
+                        console.log("Connection closed.")
+                    });
+                })
+                
+                request.write();
+                request.end();
                 break;
 
             case "PUT": //a chequear
