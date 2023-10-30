@@ -97,8 +97,10 @@ const server = http.createServer((req,res) => {
                         res.writeHead(respuesta.statusCode, {
                             "Content-Type": "application/json",
                         });
-                        data = JSON.parse(data);
-                        res.write(JSON.stringify(data));
+                        console.log('la data es: ',data)
+                        //data = JSON.parse(data);
+                        //res.write(JSON.stringify(data));
+                        res.write(data)
                         res.end();
                     });
                 })
@@ -128,9 +130,10 @@ const server = http.createServer((req,res) => {
                             });
 
                             response.on("end", () => {
-                                res.writehead(response.statusCode,{
+                                res.writeHead(response.statusCode,{
                                     "Content-Type": "application/json",
                                 });
+                                console.log('el body es: ',body)
                                 body = JSON.parse(body);
                                 res.write(JSON.stringify(body));
                                 res.end();
