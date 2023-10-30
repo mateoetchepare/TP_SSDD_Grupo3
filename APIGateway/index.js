@@ -145,7 +145,7 @@ const server = http.createServer((req,res) => {
 
                         });
 
-                        //request.write();
+                        //request.write(bodyData);
                         request.end();
                 
                     }).catch((error) => console.error(error));
