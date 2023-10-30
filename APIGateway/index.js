@@ -84,7 +84,7 @@ const server = http.createServer((req,res) => {
         }
     }
 
-    if(url.startsWith("/visitantes")){
+    if(url.startsWith("/api/visitantes")){
         switch(method){
             case "GET":
                 http.get("http://localhost:" + puertoVisitantes + url,
@@ -142,25 +142,26 @@ const server = http.createServer((req,res) => {
 
                         });
 
-                        if(param[1] == ""){ //hay que definir la interfaz
-
-                        }
+                        request.write();
+                        request.end();
                 
                     }).catch((error) => console.error(error));
+
+                    
 
                 break;
             
             case "DELETE":
                 bodyParser(req) //OJO ACA, VER BIEN
                     .then(() => {
-                        payload = JSON.stringify({
-                            userID: req.body.userID,
-                        });
+                        /*payload = JSON.stringify({
+                            userID: req.body.userID, 
+                        });*/
                         const options = {
                             method: "DELETE",
                             headers:{
-                                "Content-Type": "application/json",
-                                "Content-Length": Buffer.byteLength(req.body),
+                                "Content-Type": "application/json"//,
+                               // "Content-Length": Buffer.byteLength(req.body),
                             },
                         };
 
@@ -188,7 +189,8 @@ const server = http.createServer((req,res) => {
 
                         })
 
-                        request.write(payload);
+                        //request.write(payload);
+                        request.write();
                         request.end();
                     }).catch((error) => console.error(error));
 

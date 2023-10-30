@@ -67,7 +67,7 @@ function altaVisitante(res,visitante){
     fs.readFile(archivoVisitantes, 'utf8', (err, data) => {
         if (err) {
             console.error(err);
-            res.writeHead(500, { 'Content-Type': 'text/plain' });
+            res.writeHead(500, { 'Content-Type': 'application/json' });
             res.end('Error interno del servidor');
             return;
         }
@@ -75,14 +75,14 @@ function altaVisitante(res,visitante){
         const visitantes = JSON.parse(data);
 
         //FALTA CREAR UNA FUNCIONPARA GENERAR EL ID
-        visitante.id = "XXXX";
+        visitante.id = generarSiguienteIdentificador(visitantes);
     
         visitantes.push(visitante);
     
         fs.writeFile(archivoVisitantes, JSON.stringify(visitantes, null, 2), (err) => {
             if (err) {
                 console.error(err);
-                res.writeHead(500, { 'Content-Type': 'text/plain' });
+                res.writeHead(500, { 'Content-Type': 'application/json' });
                 res.end('Error interno del servidor');
                 return;
             }
@@ -93,12 +93,44 @@ function altaVisitante(res,visitante){
     });
 }
 
+function generarSiguienteIdentificador(visitantes) {
+    // Encontrar el identificador más grande
+    let maxId = 'A000'; // Inicializar con un valor base
+  
+    for (const visitante of visitantes) {
+      const id = visitante.id;
+      if (id >= maxId) {
+        maxId = id;
+      }
+    }
+  
+    // Generar el siguiente identificador
+    let prefix = maxId.charAt(0);
+    let number = parseInt(maxId.slice(1));
+  
+    // Lógica para incrementar el número y cambiar la letra cuando sea necesario
+    number++;
+    if (number > 999) {
+      number = 0;
+      prefix = String.fromCharCode(prefix.charCodeAt(0) + 1);
+      if (prefix > 'Z') {
+        // Si llegamos a 'Z', comenzamos con 'AA000'
+        prefix = 'AA';
+      }
+    }
+  
+    const siguienteId = prefix + number.toString().padStart(3, '0');
+  
+    return siguienteId;
+}
+  
+
 // REQUEST METODO DELETE (UN VISITANTE POR ID)
 function deleteVisitante(res, id) {
     fs.readFile(archivoVisitantes, 'utf8', (err, data) => {
         if (err) {
           console.error(err);
-          res.writeHead(500, { 'Content-Type': 'text/plain' });
+          res.writeHead(500, { 'Content-Type': 'application/json' });
           res.end('Error interno del servidor');
           return
         }
@@ -115,17 +147,17 @@ function deleteVisitante(res, id) {
           fs.writeFile(archivoVisitantes, JSON.stringify(visitantes, null, 2), (err) => {
             if (err) {
               console.error(err);
-              res.writeHead(500, { 'Content-Type': 'text/plain' });
+              res.writeHead(500, { 'Content-Type': 'application/json' });
               res.end('Error interno del servidor');
               return
             }
     
-            res.writeHead(200, { 'Content-Type': 'text/plain' });
+            res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(`Visitante con ID ${id} eliminado.`);
           });
         } else {
           console.log(`Visitante con ID ${id} no encontrado.`);
-          res.writeHead(404, { 'Content-Type': 'text/plain' });
+          res.writeHead(404, { 'Content-Type': 'application/json' });
           res.end(`Visitante con ID ${id} no encontrado.`);
         }
       })
@@ -187,7 +219,7 @@ function rutaNoEncontrada(res){
 }
 
 function datosIncorrectos(res){
-    res.writeHead(404,{'Content-Type':'text/plain'});
+    res.writeHead(404,{'Content-Type':'application/json'});
     res.write("Error en el formato de los datos");
     res.end();
 }
@@ -335,7 +367,6 @@ const server = http.createServer((req,res)=>{
 
     
 
-    
 })
 
 server.listen(3501);//puerto de gestion visitantes
