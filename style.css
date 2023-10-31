@@ -129,32 +129,43 @@ h3 {
     justify-content: space-between;
     align-items: center; /*esto aprendi tocando todo asjhkdajskd */
     flex-direction: row;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #FFF;
-    border-radius: 5px;
-    max-width: 95%;
     height: 100%;
     padding: 20px;
     flex-wrap: wrap;
-    margin-bottom: 20px;
-
-}
-
-.elementoVisitante {
-    display: flex;
-    justify-content: space-between;
-    align-items: last baseline; /*esto aprendi tocando todo asjhkdajskd */
-    flex-direction: row;
+    margin-bottom: 2%;
     border-style: solid;
     border-width: 1px;
     border-color: #FFF;
     border-radius: 5px;
+}
+
+    .elementoVisitante {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;  /*esto aprendi tocando todo asjhkdajskd */
+    flex-direction: row;
     padding: 20px;
-    max-width: 80%;
+    max-width: 100%;
     margin-bottom: 20px;
     flex-wrap: wrap;
     min-height: 175px;
+}  
+
+.infoVisitante {
+    margin-right: .3vw;
+}
+
+.infoVisitante, .infoPisos {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #FFF;
+    border-radius: 5px;
+    padding: 10px;
+    height: 10vh;
 }
 
 
@@ -163,8 +174,8 @@ h3 {
     flex-wrap: wrap;
     text-align: center;
     color: white;
-    width: 20%;
-    margin-right: 5px;
+    width: 15%;
+    margin-right: 0px;
     font-size: calc(7px + .8vw);
     font-weight: 700;
 }
@@ -172,14 +183,15 @@ h3 {
 .textFieldNombreAscensor, .textFieldNombreVisitante,
 .textFieldEdadVisitante, .textFieldEmailVisitante {
     display: flex;
-    height: 50px;
-    width: 25%;
+    height: 70%;
+    width: calc(17.5% - .5vw);
     border: 1px solid #d1d1d1;
     border-radius: 10px;
     font-size: calc(4px + .8vw);
     padding: 12px;
     box-shadow: inset 0px 1px 8px rgba(0, 0, 0, 0.5);
     line-height: 1.45;
+    margin-right: calc(.3% - .05vw);
     outline: none;
     -webkit-transition: .18s ease-out;
     -moz-transition: .18s ease-out;
@@ -202,8 +214,11 @@ h3 {
 .containerDatePicker1, .containerDatePicker2 {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: first baseline;
+    justify-content: space-between;
     width: 20%;
+    height: 75%;
+    margin-right: calc(.3% - .05vw);
 }
 
 .datePicker {
@@ -227,14 +242,6 @@ h3 {
     border-radius: 3px;
 }
 
-.listaBotonAscensores {
-    margin-top: 10vh;
-}
-
-.listaBotonVisitantes {
-    margin-top: 10vh;
-}
-
 .listaBotonAscensores, .listaBotonVisitantes {
     display: flex;
     flex-direction: row;
@@ -242,32 +249,41 @@ h3 {
     justify-content:space-evenly;
     width: 100%;
     margin-bottom: 1%;
+    margin-top: 10vh;
+    height: 6vh;
 }
 
-.botonBorrar, .botonGuardar, .botonNuevo {
+.botonBorrar, .botonGuardar, .botonNuevo,
+.botonGuardarPisos {
     display: flex;
     align-items:center;
     justify-content: center;
     background: none;
     background-color: white;
     border: 1px solid lighten(gray, 24%);
-    height: 48px;
+    height: calc(60% - 0.35vh);
     width: 10.5%;
     padding: 0 24px 0 16px;
     letter-spacing: .25px;
     border-radius: 24px;
-    transition: 0.2s
+    transition: 0.2s;
+    margin-right: calc(.3% - .075vw);
+}
+
+.botonGuardarPisos {   
+    width: 40%;
 }
 
 .botonNuevo {
     color: rgb(131, 7, 238);
+    height: 70%;
 }
 
 .botonBorrar {
     color: red;
 }
 
-.botonGuardar {
+.botonGuardar, .botonGuardarPisos {
     color: blue;
 }
 
@@ -287,7 +303,8 @@ h3 {
     cursor: pointer;
 }
 
-.botonGuardar:hover, .labelGuardar:hover, .saveItem:hover {
+.botonGuardar:hover, .labelGuardar:hover, 
+.saveItem:hover, .botonGuardarPisos:hover {
     color: white;
     background-color: blue;
     cursor: pointer;
