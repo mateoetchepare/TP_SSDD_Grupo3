@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "properties": {
+    "nombre": { "type": "string" },
+    "edad": { "type": "integer", "minimum": 0 },
+    "email": { "type": "string"},
+    "pisos_permitidos": {
+      "type": "array",
+      "items": { "type": "integer" }
+    },
+    "fecha_checkIn": { "type": "string", "format": "custom-iso-date" },
+    "fecha_checkOut": { "type": "string", "format": "custom-iso-date" }
+  },
+  "required": ["nombre", "edad", "email", "pisos_permitidos", "fecha_checkIn", "fecha_checkOut"],
+  "additionalProperties": false
+}

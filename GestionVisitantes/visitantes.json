@@ -1,0 +1,179 @@
+[
+  {
+    "id": "A001",
+    "nombre": "Nombre Completo",
+    "edad": 25,
+    "email": "email@gmail.com",
+    "pisos_permitidos": [
+      1,
+      3
+    ],
+    "fecha_checkIn": "2023-09-13T23:09:40.880Z",
+    "fecha_checkOut": "2023-09-15T23:09:40.880Z"
+  },
+  {
+    "id": "A003",
+    "nombre": "Nombre Tres",
+    "edad": 28,
+    "email": "tercer_email@gmail.com",
+    "pisos_permitidos": [
+      1,
+      2,
+      3
+    ],
+    "fecha_checkIn": "2023-09-15T08:30:20.500Z",
+    "fecha_checkOut": "2023-09-17T08:30:20.500Z"
+  },
+  {
+    "id": "A004",
+    "nombre": "Cuatro Nombre",
+    "edad": 35,
+    "email": "cuarto_email@gmail.com",
+    "pisos_permitidos": [
+      1
+    ],
+    "fecha_checkIn": "2023-09-16T15:45:30.250Z",
+    "fecha_checkOut": "2023-09-18T15:45:30.250Z"
+  },
+  {
+    "id": "A005",
+    "nombre": "Nombre Cinco",
+    "edad": 22,
+    "email": "quinto_email@gmail.com",
+    "pisos_permitidos": [
+      3
+    ],
+    "fecha_checkIn": "2023-09-17T12:00:10.750Z",
+    "fecha_checkOut": "2023-09-19T12:00:10.750Z"
+  },
+  {
+    "nombre": "nombre1",
+    "edad": 10,
+    "email": "email@gmail.com",
+    "pisos_permitidos": [
+      2,
+      5,
+      9
+    ],
+    "fecha_checkIn": "2023-09-13T23:09:40.880Z",
+    "fecha_checkOut": "2023-09-15T23:09:40.880Z",
+    "id": "A006"
+  },
+  {
+    "nombre": "nombre1",
+    "edad": 10,
+    "email": "email@gmail.com",
+    "pisos_permitidos": [
+      2,
+      5,
+      9
+    ],
+    "fecha_checkIn": "2023-09-13T23:09:40.880Z",
+    "fecha_checkOut": "2023-09-15T23:09:40.880Z",
+    "id": "A007"
+  },
+  {
+    "nombre": "nombre1",
+    "edad": 10,
+    "email": "email@gmail.com",
+    "pisos_permitidos": [
+      2,
+      5,
+      9
+    ],
+    "fecha_checkIn": "2023-09-13T23:09:40.880Z",
+    "fecha_checkOut": "2023-09-15T23:09:40.880Z",
+    "id": "A008"
+  },
+  {
+    "nombre": "nombre1",
+    "edad": 10,
+    "email": "email@gmail.com",
+    "pisos_permitidos": [
+      2,
+      5,
+      9
+    ],
+    "fecha_checkIn": "2023-09-13T23:09:40.880Z",
+    "fecha_checkOut": "2023-09-15T23:09:40.880Z",
+    "id": "A009"
+  },
+  {
+    "nombre": "nombre1",
+    "edad": 10,
+    "email": "email@gmail.com",
+    "pisos_permitidos": [
+      2,
+      5,
+      9
+    ],
+    "fecha_checkIn": "2023-09-13T23:09:40.880Z",
+    "fecha_checkOut": "2023-09-15T23:09:40.880Z",
+    "id": "A010"
+  },
+  {
+    "nombre": "nombre1",
+    "edad": 10,
+    "email": "email@gmail.com",
+    "pisos_permitidos": [
+      2,
+      5,
+      9
+    ],
+    "fecha_checkIn": "2023-09-13T23:09:40.880Z",
+    "fecha_checkOut": "2023-09-15T23:09:40.880Z",
+    "id": "A011"
+  },
+  {
+    "nombre": "nombre1",
+    "edad": 10,
+    "email": "email@gmail.com",
+    "pisos_permitidos": [
+      2,
+      5,
+      9
+    ],
+    "fecha_checkIn": "2023-09-13T23:09:40.880Z",
+    "fecha_checkOut": "2023-09-15T23:09:40.880Z",
+    "id": "A012"
+  },
+  {
+    "nombre": "nombre1",
+    "edad": 10,
+    "email": "email@gmail.com",
+    "pisos_permitidos": [
+      2,
+      5,
+      9
+    ],
+    "fecha_checkIn": "2023-09-13T23:09:40.880Z",
+    "fecha_checkOut": "2023-09-15T23:09:40.880Z",
+    "id": "A013"
+  },
+  {
+    "nombre": "nombre1",
+    "edad": 10,
+    "email": "email@gmail.com",
+    "pisos_permitidos": [
+      2,
+      5,
+      9
+    ],
+    "fecha_checkIn": "2023-09-13T23:09:40.880Z",
+    "fecha_checkOut": "2023-09-15T23:09:40.880Z",
+    "id": "A014"
+  },
+  {
+    "nombre": "nombre1",
+    "edad": 10,
+    "email": "email@gmail.com",
+    "pisos_permitidos": [
+      2,
+      5,
+      9
+    ],
+    "fecha_checkIn": "2023-09-13T23:09:40.880Z",
+    "fecha_checkOut": "2023-09-15T23:09:40.880Z",
+    "id": "A016"
+  }
+]
