@@ -6,8 +6,7 @@ const archivoVisitantes = path.join(__dirname, '..', 'gestionVisitantes','visita
 
 function getPermisos(res, idVisitante){
     fs.readFile(archivoVisitantes, 'utf8', (err, data) => {
-        if (err) {
-            console.log("aca es el error");
+        if (err) {;
             console.error(err);
             res.writeHead(500, { 'Content-Type': 'text/plain' });
             res.end('Error interno del servidor');
@@ -50,8 +49,8 @@ function modificacionPermisos(res,id,nuevosDatos){
         console.log('datos originales:',visitante);
         console.log('nuevos datos: ',nuevosDatos);
 
-        if(visitante != undefined){
-            visitante.pisos_permitidos = nuevosDatos.pisos_permitidos;
+        if(visitante != undefined){ //VERIFICAR EL TIPO DE DATO PARA EL ARREGLO
+            visitante.pisos_permitidos = nuevosDatos;
 
             console.log('datos actualizados:',visitante);
 
@@ -99,7 +98,6 @@ const server = http.createServer((req, res) => {
 
     let parametros = url.split('/');
     parametros = parametros.filter(el => el != '');
-    console.log(parametros);
 
     if(url.startsWith("/api/permisos")){
 
@@ -132,11 +130,11 @@ const server = http.createServer((req, res) => {
                             
                             console.log(nuevosDatos);
     
-                            if(validacionDatos(nuevosDatos)){
+                            //if(validacionDatos(nuevosDatos)){
                                 modificacionPermisos(res,idVisitante,nuevosDatos);
-                            }else{
-                                datosIncorrectos(res);
-                            }
+                            //}else{
+                              //  datosIncorrectos(res);
+                            //}
     
                         }catch(error){
                             console.log(error);
@@ -152,10 +150,7 @@ const server = http.createServer((req, res) => {
 
         }
 
-
-
     }
-
 
 })
 

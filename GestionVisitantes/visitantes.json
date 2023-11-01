@@ -16,11 +16,14 @@
     "nombre": "Nombre Tres",
     "edad": 28,
     "email": "tercer_email@gmail.com",
-    "pisos_permitidos": [
-      1,
-      2,
-      3
-    ],
+    "pisos_permitidos": {
+      "pisos_permitidos": [
+        3,
+        7,
+        16,
+        19
+      ]
+    },
     "fecha_checkIn": "2023-09-15T08:30:20.500Z",
     "fecha_checkOut": "2023-09-17T08:30:20.500Z"
   },
@@ -40,9 +43,13 @@
     "nombre": "Nombre Cinco",
     "edad": 22,
     "email": "quinto_email@gmail.com",
-    "pisos_permitidos": [
-      3
-    ],
+    "pisos_permitidos": {
+      "pisos_permitidos": [
+        3,
+        7,
+        11
+      ]
+    },
     "fecha_checkIn": "2023-09-17T12:00:10.750Z",
     "fecha_checkOut": "2023-09-19T12:00:10.750Z"
   },
