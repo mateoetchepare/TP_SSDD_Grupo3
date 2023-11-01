@@ -1,27 +1,28 @@
 const http = require('http');
 const fs = require('fs');
-const archivoVisitantes = __dirname + '/visitantes.json';
+const path = require('path');
+const archivoVisitantes = path.join(__dirname, '..', 'gestionVisitantes','visitantes.json');
 
 
 function getPermisos(res, idVisitante){
     fs.readFile(archivoVisitantes, 'utf8', (err, data) => {
         if (err) {
-          console.error(err);
-          res.writeHead(500, { 'Content-Type': 'text/plain' });
-          res.end('Error interno del servidor');
-          return
+            console.log("aca es el error");
+            console.error(err);
+            res.writeHead(500, { 'Content-Type': 'text/plain' });
+            res.end('Error interno del servidor');
+            return
         }
     
         const visitantes = JSON.parse(data);
 
-        let visitante = visitantes.find(visitante=> visitante.id == id);
+        let visitante = visitantes.find(visitante=> visitante.id == idVisitante);
 
         if( visitante != undefined){
-            res.writeHead(200,{'Content-Type':'application/json'});
-
             //aca deberia agregar la logica para solo tomar los pisos a los que puede acceder
+            res.writeHead(200,{'Content-Type':'application/json'});
+            res.write(JSON.stringify(visitante.pisos_permitidos));
 
-            res.write(JSON.stringify(visitante));
         }
         else{
             res.writeHead(404,{'Content-Type':'application/json'}); // devuelvo json
@@ -44,7 +45,7 @@ function modificacionPermisos(res,id,nuevosDatos){
     
         const visitantes = JSON.parse(data);
 
-        let visitante = visitantes.find(visitante=> visitante.id == id);
+        let visitante = visitantes.find(visitante=> visitante.id == idVisitante);
 
         console.log('datos originales:',visitante);
         console.log('nuevos datos: ',nuevosDatos);
@@ -68,16 +69,10 @@ function modificacionPermisos(res,id,nuevosDatos){
         }
         else{
             res.writeHead(404,{'Content-Type':'application/json'}); // devuelvo json
-            res.write("Error, no se encuentra ese visitante"); // envio la sucursal  
+            res.write("Error, no se encuentra ese visitante"); 
         }
 
     })
-}
-
-
-function modificacionPermisos(res,visitanteId,nuevosDatos){
-
-
 }
 
 
@@ -90,7 +85,7 @@ function datosIncorrectos(res){
 
 function rutaNoEncontrada(res){
     res.writeHead(404,{'Content-Type':'application/json'}); // devuelvo json
-    res.write("Error, no se encuentra la ruta en gestionVisitantes"); // envio la sucursal  
+    res.write("Error, no se encuentra la ruta en gestion permisos");   
     res.end();
 }
 
@@ -101,8 +96,10 @@ const server = http.createServer((req, res) => {
     
     const {url , method} = req;
     console.log(`URL: ${url} - METHOD: ${method}`);
-    
+
     let parametros = url.split('/');
+    parametros = parametros.filter(el => el != '');
+    console.log(parametros);
 
     if(url.startsWith("/api/permisos")){
 
@@ -110,7 +107,7 @@ const server = http.createServer((req, res) => {
             case "GET":
                 if(parametros.length === 3){
                     idVisitante = parametros[2];
-                    console.log(`Request para devolver permisos de un visitante (ID: ${visitanteId})`);
+                    console.log(`Request para devolver permisos de un visitante (ID: ${idVisitante})`);
                     getPermisos(res, idVisitante);
                 }else{
                     rutaNoEncontrada(res);
@@ -121,7 +118,7 @@ const server = http.createServer((req, res) => {
             case "PUT":
                 if(parametros.length === 3){
                     idVisitante = parametros[2];
-                    console.log(`Request para cambiar los permisos de un visitante (ID: ${visitanteId})`);
+                    console.log(`Request para cambiar los permisos de un visitante (ID: ${idVisitante})`);
                     
                     let data = '';
 
@@ -136,7 +133,7 @@ const server = http.createServer((req, res) => {
                             console.log(nuevosDatos);
     
                             if(validacionDatos(nuevosDatos)){
-                                modificacionPermisos(res,visitanteId,nuevosDatos);
+                                modificacionPermisos(res,idVisitante,nuevosDatos);
                             }else{
                                 datosIncorrectos(res);
                             }
