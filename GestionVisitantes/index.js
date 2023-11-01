@@ -56,7 +56,7 @@ function modificacionVisitante(res,id,nuevosDatos){
         }
         else{
             res.writeHead(404,{'Content-Type':'application/json'}); // devuelvo json
-            res.write("Error, no se encuentra esa visitante"); // envio la sucursal  
+            res.write("Error, no se encuentra ese visitante"); // envio la sucursal  
         }
 
     })
