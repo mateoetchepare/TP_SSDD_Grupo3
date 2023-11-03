@@ -172,7 +172,7 @@ const server = http.createServer((req,res) => {
 
 
     //ASCENSORES
-    if(url.startsWith("/ascensores")){
+    if(url.startsWith("/api/ascensores")){
         switch(method){
             case "GET":
                 http.get("http://localhost:" + puertoAscensores + url,
