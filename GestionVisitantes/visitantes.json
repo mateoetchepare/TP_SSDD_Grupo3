@@ -18,10 +18,10 @@
     "email": "tercer_email@gmail.com",
     "pisos_permitidos": {
       "pisos_permitidos": [
-        3,
-        7,
-        16,
-        19
+        2,
+        6,
+        15,
+        18
       ]
     },
     "fecha_checkIn": "2023-09-15T08:30:20.500Z",
