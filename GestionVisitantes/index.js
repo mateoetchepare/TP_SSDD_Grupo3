@@ -4,6 +4,8 @@ const archivoVisitantes = __dirname + '/visitantes.json';
 const Ajv = require('ajv');
 const ajv = new Ajv({ allErrors: true });
 
+//probando nuevamente git
+
 const schema = require('./esquema.json');
 
 // Define una función de validación personalizada para fechas en formato ISO (cadenas)
