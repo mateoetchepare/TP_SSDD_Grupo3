@@ -1,0 +1,34 @@
+[
+  {
+    "id": "c84605b4-7a59-11ee-b962-0242ac120002",
+    "nombre": "A",
+    "pisos": [
+      1,
+      5,
+      13
+    ],
+    "estado": "disponible"
+  },
+  {
+    "id": "c84605b6-7a59-11ye-b982-0242ac129002",
+    "nombre": "B",
+    "pisos": [
+      2,
+      4,
+      7,
+      9
+    ],
+    "estado": "disponible"
+  },
+  {
+    "id": "c84605a4-7a60-11ye-b982-0242ac129300",
+    "nombre": "C",
+    "pisos": [
+      1,
+      3,
+      8,
+      30
+    ],
+    "estado": "no disponible"
+  }
+]

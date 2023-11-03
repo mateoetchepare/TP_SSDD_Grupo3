@@ -3,13 +3,13 @@
     "properties": {
       "id": { "type": "string" },
       "nombre": { "type": "string" },
-      "pisos_permitidos": {
+      "pisos": {
         "type": "array",
         "items": { "type": "integer" }
       },
       "estado": { "type": "string"}
     },
-    "required": ["id", "nombre", "pisos_permitidos", "estado"],
+    "required": ["id", "nombre", "pisos", "estado"],
     "additionalProperties": false
   }
   

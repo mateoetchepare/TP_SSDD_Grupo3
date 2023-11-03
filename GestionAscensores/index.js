@@ -57,7 +57,7 @@ function getAscensor(res, id){
 
 
 // REQUEST METODO POST (ALTA VISITANTE)
-function altaAscensor(res,visitante){
+function altaAscensor(res,ascensor){
     fs.readFile(archivoAscensores, 'utf8', (err, data) => {
         if (err) {
             console.error(err);
@@ -126,7 +126,7 @@ function deleteAscensor(res, id) {
 
 // REQUEST METODO PUT (ACTUALIZAR DATOS VISITANTE POR ID)
 function modificacionAscensor(res,id,nuevosDatos){
-    fs.readFile(archivoAscnesores, 'utf8', (err, data) => {
+    fs.readFile(archivoAscensores, 'utf8', (err, data) => {
         if (err) {
           console.error(err);
           res.writeHead(500, { 'Content-Type': 'text/plain' });
@@ -144,7 +144,7 @@ function modificacionAscensor(res,id,nuevosDatos){
 
         if(ascensor != undefined){
             ascensor.nombre = nuevosDatos.nombre;
-            ascensor.pisos_permitidos = nuevosDatos.pisos_permitidos;
+            ascensor.pisos = nuevosDatos.pisos;
             ascensor.estado = nuevosDatos.estado;
 
             console.log('datos actualizados:',ascensor);
@@ -187,6 +187,11 @@ function rutaNoEncontrada(res){
     res.end();
 }
 
+function datosIncorrectos(res){
+    res.writeHead(400,{'Content-Type':'application/json'});
+    res.write("Error en el formato de los datos");
+    res.end();
+}
 
 
 const server = http.createServer((req,res) => {
@@ -211,9 +216,9 @@ const server = http.createServer((req,res) => {
             }else if(url.startsWith('/api/ascensores/') && parametros.length === 3){ //devolver datos del ascensor seleccioinado
 
                 const visitanteId = parametros[2];
-                console.log(`Request para devolver un visitante especificado (ID: ${ AAAAAAAAAAAAAAA })`);//MODIFICAR
+                console.log(`Request para devolver un visitante especificado (ID: ${ visitanteId })`);//MODIFICAR
 
-                getAscensor(res, visitanteId); //METODO QUE HAY QUE HACER
+                getAscensor(res, visitanteId);
             }else{
                 rutaNoEncontrada(res);
             }
@@ -323,4 +328,4 @@ const server = http.createServer((req,res) => {
 
 })
 
-server.listen(3503);
+server.listen(3502);
