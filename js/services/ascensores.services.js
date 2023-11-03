@@ -33,7 +33,6 @@
       ];
 
   function agregarAscensor() {
-    const uuid = uuidv4();
     const nuevoAscensor = {
         id: "",
         nombre: "",
@@ -57,5 +56,6 @@
 
   }
 */
+
 
 export { getAscensores, ultimoAscensor,  agregarAscensor};
