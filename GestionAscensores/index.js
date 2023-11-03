@@ -7,8 +7,6 @@ const ajv = new Ajv({ allErrors: true });
 const schema = require('./esquema.json');
 
 
-
-
 // REQUEST METODO GET (TODOS LOS ASCENSORES)
 function getAscensores(res){
     fs.readFile(archivoAscensores, 'utf8', (err, data) => {
@@ -90,6 +88,47 @@ function altaAscensor(res,visitante){
 }
 
 
+// REQUEST METODO DELETE (UN VISITANTE POR ID)
+function deleteAscensor(res, id) {
+    fs.readFile(archivoAscensores, 'utf8', (err, data) => {
+        if (err) {
+          console.error(err);
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end('Error interno del servidor');
+          return
+        }
+    
+        const ascensores = JSON.parse(data);
+        
+        const ascensorIndex = ascensores.findIndex(ascensor => ascensor.id === id)
+    
+        if (ascensorIndex !== -1) {
+          ascensores.splice(ascensorIndex, 1); // Elimina el ascensor del arreglo
+          console.log(`Visitante con ID ${id} eliminado.`);
+    
+          // Guarda el archivo JSON actualizado
+          fs.writeFile(archivoAscensores, JSON.stringify(ascensores, null, 2), (err) => {
+            if (err) {
+              console.error(err);
+              res.writeHead(500, { 'Content-Type': 'application/json' });
+              res.end('Error interno del servidor');
+              return
+            }
+    
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(`Ascensor con ID ${id} eliminado.`);
+          });
+        } else {
+          console.log(`Ascensor con ID ${id} no encontrado.`);
+          res.writeHead(404, { 'Content-Type': 'application/json' });
+          res.end(`Ascensor con ID ${id} no encontrado.`);
+        }
+      })
+}
+
+
+
+
 function validacionDatos(ascensor){
 
     const validate = ajv.compile(schema);
@@ -159,7 +198,6 @@ const server = http.createServer((req,res) => {
                         console.log(nuevoAscensor.nombre);
 
                         if(validacionDatos(nuevoAscensor)){
-
                             //doy de alta
                             altaAscensor(res,nuevoAscensor);
                             console.log('se dio de alta el ascensor')
@@ -180,11 +218,11 @@ const server = http.createServer((req,res) => {
 
         } else if(method === 'DELETE'){
 
-            if(url.startsWith('/api/visitantes/') && parametros.length === 3){ //eliminar visitante seleccionado
+            if(url.startsWith('/api/ascensores/') && parametros.length === 3){ //eliminar ascensor seleccionado
 
-                const visitanteId = parametros[2];
-                console.log(`Request para dar de baja a un visitante (ID: ${visitanteId})`);
-                deleteVisitante(res, visitanteId);
+                const ascensorID = parametros[2];
+                console.log(`Request para dar de baja a un ascensor (ID: ${ascensorID})`);
+                deleteAscensor(res, ascensorID);
 
             }else{
                 rutaNoEncontrada(res);
@@ -192,10 +230,10 @@ const server = http.createServer((req,res) => {
 
         }else if(method === 'PUT'){
 
-            if(url.startsWith('/api/visitantes/') && parametros.length === 3){ //modificar datos del visitante seleccionado
+            if(url.startsWith('/api/ascensores/') && parametros.length === 3){ //modificar datos del ascensor seleccionado
 
-                const visitanteId = parametros[2];
-                console.log(`Request para modificar un visitante especificado (ID: ${visitanteId})`);
+                const ascensorID = parametros[2];
+                console.log(`Request para modificar un ascensor especificado (ID: ${ascensorID})`);
                 
                 
                 let data = '';
@@ -214,7 +252,7 @@ const server = http.createServer((req,res) => {
                         if(validacionDatos(nuevosDatos)){
 
                             //doy de alta
-                            modificacionVisitante(res,visitanteId,nuevosDatos);
+                            modificacionAscensor(res,ascensorID,nuevosDatos);
 
                         }else{
                             datosIncorrectos(res);
