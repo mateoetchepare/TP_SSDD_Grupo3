@@ -101,13 +101,6 @@ h3 {
     width: 100%;
 }
 
-.divAscensores, .divVisitantes {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
-
 .list-group {
     display: flex;
     align-items: center;
@@ -130,9 +123,10 @@ h3 {
     align-items: center; /*esto aprendi tocando todo asjhkdajskd */
     flex-direction: row;
     height: 100%;
+    width: 100%;
     padding: 20px;
     flex-wrap: wrap;
-    margin-bottom: 2%;
+    margin-bottom: 1.2%;
     border-style: solid;
     border-width: 1px;
     border-color: #FFF;
@@ -141,12 +135,12 @@ h3 {
 
     .elementoVisitante {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;  /*esto aprendi tocando todo asjhkdajskd */
     flex-direction: row;
     padding: 20px;
     max-width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: -1.5%;
     flex-wrap: wrap;
     min-height: 175px;
 }  
@@ -218,6 +212,7 @@ h3 {
     justify-content: space-between;
     width: 20%;
     height: 75%;
+    margin-bottom: .375vh;
     margin-right: calc(.3% - .05vw);
 }
 

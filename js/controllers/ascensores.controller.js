@@ -32,7 +32,7 @@ for (const ascensor of ascensores) {
   async function createHTMLelements(ascensor) {
     listaAscensoresElement.innerHTML += `
     <li class = "elementoAscensor">
-        <a class="tagItem">31907f35-17c1-459a-a99e-4b1ee084f01b</a>
+        <a class="tagItem">${ascensor.id}</a>
         <input type="text" class="textFieldNombreAscensor" placeholder="nombre" value='${ascensor.nombre}' required>
         <div class="picker">
             <div class="select-btn">

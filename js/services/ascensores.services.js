@@ -1,3 +1,4 @@
+
     const ascensores = [ //Datos para probar el front
         {
           id: "7408f6a4-564a-4511-b96c-0e9fa114e9c5",
@@ -32,6 +33,7 @@
       ];
 
   function agregarAscensor() {
+    const uuid = uuidv4();
     const nuevoAscensor = {
         id: "",
         nombre: "",
@@ -48,6 +50,12 @@
   const getAscensores = async () => {
     return ascensores;
   };
+/*
+  function modificarAscensor(ascensor) {
+    // const ascensorEncontrado = ascensores.find(ascensorArray => ascensor.id === ascensorArray.id);
+    
 
+  }
+*/
 
 export { getAscensores, ultimoAscensor,  agregarAscensor};
