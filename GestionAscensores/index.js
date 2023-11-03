@@ -67,9 +67,6 @@ function altaAscensor(res,visitante){
         }
     
         const ascensores = JSON.parse(data);
-
-        //FALTA CREAR UNA FUNCIONPARA GENERAR EL ID
-        ascensor.id = generarSiguienteIdentificador(ascensores);
     
         ascensores.push(ascensor);
     
@@ -126,6 +123,51 @@ function deleteAscensor(res, id) {
       })
 }
 
+
+// REQUEST METODO PUT (ACTUALIZAR DATOS VISITANTE POR ID)
+function modificacionAscensor(res,id,nuevosDatos){
+    fs.readFile(archivoAscnesores, 'utf8', (err, data) => {
+        if (err) {
+          console.error(err);
+          res.writeHead(500, { 'Content-Type': 'text/plain' });
+          res.end('Error interno del servidor');
+          return
+        }
+    
+        const ascensores = JSON.parse(data);
+
+
+        let ascensor = ascensores.find(ascensor=> ascensor.id == id);
+
+        console.log('datos originales:',ascensor);
+        console.log('nuevos datos: ',nuevosDatos);
+
+        if(ascensor != undefined){
+            ascensor.nombre = nuevosDatos.nombre;
+            ascensor.pisos_permitidos = nuevosDatos.pisos_permitidos;
+            ascensor.estado = nuevosDatos.estado;
+
+            console.log('datos actualizados:',ascensor);
+
+            fs.writeFile(archivoAscensores, JSON.stringify(ascensores, null, 2), (err) => {
+                if (err) {
+                  console.error(err);
+                  res.writeHead(500, { 'Content-Type': 'text/plain' });
+                  res.end('Error interno del servidor');
+                  return
+                }
+        
+                res.writeHead(200, { 'Content-Type': 'text/plain' });
+                res.end(`Visitante con ID ${id} actualizado.`);
+              });
+        }
+        else{
+            res.writeHead(404,{'Content-Type':'application/json'}); // devuelvo json
+            res.write("Error, no se encuentra ese ascensor"); // envio la sucursal  
+        }
+
+    })
+}
 
 
 
