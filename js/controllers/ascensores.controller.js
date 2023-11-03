@@ -1,11 +1,11 @@
-import { getAscensores, ultimoAscensor, agregarAscensor } from "../services/ascensores.services.js";
+import { getAscensores, ultimoAscensor, agregarAscensor, modificarAscensor } from "../services/ascensores.services.js";
 
 
 
-export default async() => {
+export default async () => {
 
-  const view = 
-    `<div class="listaBotonAscensores">
+    const view =
+        `<div class="listaBotonAscensores">
         <h3>Lista ascensores</h3>
         <button class="botonNuevo" id="nuevoAscensor">
             <label class="labelNuevo">Nuevo</label>
@@ -17,20 +17,20 @@ export default async() => {
         </ul>
     `;
 
-  const divElement = document.createElement("div");
-  divElement.innerHTML = view;
-  divElement.className = "divAscensores"
+    const divElement = document.createElement("div");
+    divElement.innerHTML = view;
+    divElement.className = "divAscensores"
 
-  //Recupera ascensores del back y genera un elemento HTML para cada uno
+    //Recupera ascensores del back y genera un elemento HTML para cada uno
 
-const ascensores = await getAscensores();
-const listaAscensoresElement = divElement.querySelector("#listaAscensores");
-for (const ascensor of ascensores) {
-    await createHTMLelements(ascensor);
-}
-  
-  async function createHTMLelements(ascensor) {
-    listaAscensoresElement.innerHTML += `
+    const ascensores = await getAscensores();
+    const listaAscensoresElement = divElement.querySelector("#listaAscensores");
+    for (const ascensor of ascensores) {
+        await createHTMLelements(ascensor);
+    }
+
+    async function createHTMLelements(ascensor) {
+        listaAscensoresElement.innerHTML += `
     <li class = "elementoAscensor">
         <a class="tagItem">${ascensor.id}</a>
         <input type="text" class="textFieldNombreAscensor" placeholder="nombre" value='${ascensor.nombre}' required>
@@ -61,22 +61,15 @@ for (const ascensor of ascensores) {
         </button>
 
     </li>`
-  } 
 
-   const botonNuevoAscensor = divElement.querySelector("#nuevoAscensor");
-        botonNuevoAscensor.addEventListener("click", async function() {
-            agregarAscensor();
-            const ultAscensor = ultimoAscensor();
-            await createHTMLelements(ultAscensor);
-        });
+    }
 
-  //Agrega, en cada lista de opciones, las 25 opciones con JS
+    //Agrega, en cada lista de opciones, las 25 opciones con JS
 
-  const addListOptions = () => {
-    const listaOpciones = divElement.querySelectorAll(".list-items");//Agarro todas las listas de opciones 
-    console.log(listaOpciones);
+    const addListOptions = () => {
+        const listaOpciones = divElement.querySelectorAll(".list-items");//Agarro todas las listas de opciones 
 
-    listaOpciones.forEach(listaOpciones => {
+        listaOpciones.forEach(listaOpciones => {
             for (let i = 2; i <= 25; i++) {
                 const li = document.createElement("li");
                 li.className = "item";
@@ -94,42 +87,89 @@ for (const ascensor of ascensores) {
 
                 listaOpciones.appendChild(li);
             }
+        });
+    }
+
+    addListOptions();
+
+    //Agregar un evento de click a cada botón de selección
+
+    const selectBtns = divElement.querySelectorAll(".select-btn");
+    const items = divElement.querySelectorAll(".item");
+
+    selectBtns.forEach((selectBtn, index) => {
+        selectBtn.addEventListener("click", () => {
+            // Obtener los elementos relacionados para el picker específico
+            const itemsForPicker = items[index];
+            selectBtn.classList.toggle("open");
+            itemsForPicker.classList.toggle("open");
+        });
     });
-  }
 
-  addListOptions();
+    // Agregar un evento de click a cada elemento de ítem
+    items.forEach((item, index) => {
+        item.addEventListener("click", () => {
+            item.classList.toggle("checked");
+            // Obtener los elementos relacionados para el picker específico
+            const picker = item.closest(".picker");
+            const btnText = picker.querySelector(".btn-text");
+            const checked = picker.querySelectorAll(".checked");
 
-  //Agregar un evento de click a cada botón de selección
-
-  const selectBtns = divElement.querySelectorAll(".select-btn");
-  const items = divElement.querySelectorAll(".item");
-
-  selectBtns.forEach((selectBtn, index) => {
-    selectBtn.addEventListener("click", () => {
-        // Obtener los elementos relacionados para el picker específico
-        const itemsForPicker = items[index];
-        selectBtn.classList.toggle("open");
-        itemsForPicker.classList.toggle("open");
+            if (checked && checked.length > 0) {
+                btnText.innerText = `${checked.length} Pisos Habilitados`;
+            } else {
+                btnText.innerText = "Seleccione Pisos Habilitados";
+            }
+        });
     });
-});
 
-// Agregar un evento de click a cada elemento de ítem
-items.forEach((item, index) => {
-    item.addEventListener("click", () => {
-        item.classList.toggle("checked");
-        // Obtener los elementos relacionados para el picker específico
-        const picker = item.closest(".picker");
-        const btnText = picker.querySelector(".btn-text");
-        const checked = picker.querySelectorAll(".checked");
-        
-        if (checked && checked.length > 0) {
-            btnText.innerText = `${checked.length} Pisos Habilitados`;
-        } else {
-            btnText.innerText = "Seleccione Pisos Habilitados";
+    const elementosAscensor = document.querySelectorAll('.elementoAscensor');
+        const cantidadElementos = elementosAscensor.length;
+        console.log(cantidadElementos.length)
+        if (cantidadElementos === getAscensores.length) {
+            tildaItems();
         }
+
+    const botonNuevoAscensor = divElement.querySelector("#nuevoAscensor");
+    botonNuevoAscensor.addEventListener("click", async function () {
+        agregarAscensor();
+        const ultAscensor = ultimoAscensor();
+        await createHTMLelements(ultAscensor);
     });
-});
 
+    function tildaItems() {
+        const elementosAscensor = listaAscensoresElement.querySelectorAll('.elementoAscensor');
+        elementosAscensor.forEach(elementoAscensor => {
+            const ascensorId = elementoAscensor.querySelector('.tagItem'); // Obtener el elemento con la clase "tagItem"
+            const idAscensor = ascensorId.textContent; // Obtener el contenido (ID del ascensor)
+            const ascensor = ascensores.find(asc => asc.id == idAscensor);
+            if (ascensor) {
+                const pisosHabilitados = ascensor.pisos;
+                const listaItems = elementoAscensor.querySelector('.list-items');
+                listaItems.querySelectorAll('.item').forEach(item => {
+                    const picker = item.closest(".picker");
+                    const btnText = picker.querySelector(".btn-text");
+                    const checked = picker.querySelectorAll(".checked");
+                    const itemText = item.querySelector('.item-text');
+                    const numeroPiso = parseInt(itemText.textContent, 10);
+                    if (pisosHabilitados.includes(numeroPiso)) {
+                        item.classList.add('checked');
+                    }
+                    btnText.innerText = `${ascensor.pisos.length} Pisos Habilitados`;
+                });
+            }
+        });
+    }
 
-  return divElement;
-};
+    const botonesGuardar = divElement.querySelectorAll('.elementoAscensor .botonGuardar');
+    botonesGuardar.forEach(botonGuardar => {
+        botonGuardar.addEventListener('click', async () => {
+            const idAscensor = botonGuardar.parentElement.querySelector('.tagItem').textContent;
+            const nuevoNombre = botonGuardar.parentElement.querySelector('.textFieldNombreAscensor').value;
+            const itemsChecked = Array.from(botonGuardar.parentElement.querySelectorAll('.item.checked'));
+            const itemsSeleccionados = itemsChecked.map(item => item.querySelector('.item-text').textContent);
+            modificarAscensor(idAscensor, nuevoNombre, itemsSeleccionados);
+        });
+    });
+    return divElement;
+}

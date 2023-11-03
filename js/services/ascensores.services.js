@@ -9,7 +9,7 @@
         {
           id: "fbcda1e1-4a88-4e34-b62c-1a0d9b2d49a2",
           nombre: "B",
-          pisos: [2, 4, 6],
+          pisos: [4, 6],
           estado: "Disponible"
         },
         {
@@ -50,12 +50,20 @@
   const getAscensores = async () => {
     return ascensores;
   };
-/*
-  function modificarAscensor(ascensor) {
-    // const ascensorEncontrado = ascensores.find(ascensorArray => ascensor.id === ascensorArray.id);
-    
 
+  function modificarAscensor(idAsc, nuevoNombre, pisosNuevos) {
+    const indice = ascensores.findIndex(ascensor => ascensor.id === idAsc);
+    if (indice !== -1) {
+      const ascensorModificado = {
+        id: idAsc,
+        nombre: nuevoNombre,
+        pisos: pisosNuevos,
+        estado: ascensores[indice].estado
+      };
+      ascensores[indice] = ascensorModificado;
+      console.log(ascensorModificado.estado, ascensorModificado.id, ascensorModificado.nombre, ascensorModificado.pisos);
+    }
   }
-*/
 
-export { getAscensores, ultimoAscensor,  agregarAscensor};
+
+export { getAscensores, ultimoAscensor,  agregarAscensor, modificarAscensor};
