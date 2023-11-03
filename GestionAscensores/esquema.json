@@ -1,0 +1,15 @@
+{
+    "type": "object",
+    "properties": {
+      "id": { "type": "string" },
+      "nombre": { "type": "string" },
+      "pisos_permitidos": {
+        "type": "array",
+        "items": { "type": "integer" }
+      },
+      "estado": { "type": "string"}
+    },
+    "required": ["id", "nombre", "pisos_permitidos", "estado"],
+    "additionalProperties": false
+  }
+  
