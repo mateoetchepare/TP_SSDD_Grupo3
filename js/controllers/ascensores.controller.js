@@ -144,9 +144,7 @@ export default async () => {
             const idAscensor = ascensorId.textContent; // Obtener el contenido (ID del ascensor)
             const ascensor = ascensores.find(asc => asc.id == idAscensor);
             if (ascensor) {
-                console.log(idAscensor);
                 const pisosHabilitados = ascensor.pisos;
-                console.log(pisosHabilitados);
                 const listaItems = elementoAscensor.querySelector('.list-items');
                 listaItems.querySelectorAll('.item').forEach(item => {
                     const picker = item.closest(".picker");
@@ -154,10 +152,8 @@ export default async () => {
                     const checked = picker.querySelectorAll(".checked");
                     const itemText = item.querySelector('.item-text');
                     const numeroPiso = parseInt(itemText.textContent, 10);
-                    console.log(`pisos habilitados: ${pisosHabilitados} y numero de piso ${numeroPiso}`);
                     if (pisosHabilitados.includes(numeroPiso)) {
                         item.classList.add('checked');
-                        console.log(numeroPiso);
                     }
                     btnText.innerText = `${ascensor.pisos.length} Pisos Habilitados`;
                 });
@@ -176,7 +172,6 @@ export default async () => {
             const nuevoNombre = botonGuardar.parentElement.querySelector('.textFieldNombreAscensor').value;
             const itemsChecked = Array.from(botonGuardar.parentElement.querySelectorAll('.item.checked'));
             const itemsSeleccionados = itemsChecked.map(item => parseInt(item.querySelector('.item-text').textContent, 10));
-            console.log(itemsSeleccionados);
             modificarAscensor(idAscensor, nuevoNombre, itemsSeleccionados);
            // tildaItems();
         });

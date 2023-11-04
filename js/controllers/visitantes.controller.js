@@ -96,8 +96,6 @@ export default async () => {
     const addListOptions = () => {
         const listaOpciones = divElement.querySelectorAll(".list-items");
 
-        console.log(listaOpciones);
-
         listaOpciones.forEach(listaOpciones => {
             for (let i = 2; i <= 25; i++) {
                 const li = document.createElement("li");
@@ -190,15 +188,11 @@ export default async () => {
             const visitanteId = elementoVisitante.querySelector('.tagItem'); // Obtener el elemento con la clase "tagItem"
             const idVisitante = visitanteId.textContent; // Obtener el contenido (ID del visitante)
             const idVisitanteFormateado = idVisitante.split(" ");
-            console.log(idVisitanteFormateado[1]);
             const visitante = visitantes.find(vis => vis.id == idVisitanteFormateado[1]);
-            console.log(visitante);
             if (visitante) {
                 const fechas = elementoVisitante.querySelectorAll(".datePicker");
-                console.log(visitante.fecha_checkIn);
                 fechas[0].value = visitante.fecha_checkIn;
                 fechas[1].value = visitante.fecha_checkOut;
-                console.log(`la fecha de checkin es ${fechas[0].value}`);
             }
         });
     }
@@ -215,8 +209,6 @@ export default async () => {
 
             const nuevaFecha_checkIn = nuevasFechas[0].value;
             const nuevaFecha_checkOut = nuevasFechas[1].value;
-
-            console.log(idVisitante[1], nuevoNombre, nuevaEdad, nuevoEmail, nuevaFecha_checkIn, nuevaFecha_checkOut);
             modificarInfoVisitantes(idVisitante[1], nuevoNombre, nuevaEdad, nuevoEmail, nuevaFecha_checkIn, nuevaFecha_checkOut);
         });
     });

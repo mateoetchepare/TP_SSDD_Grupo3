@@ -48,8 +48,10 @@ let visitantes = [
 ];
 
 function agregarVisitante() {
+  const idUltimo = visitantes[visitantes.length - 1].id;
+  const nuevoID = siguienteID(idUltimo);
   const nuevoVisitante = {
-    id: "",
+    id: `${nuevoID}`,
     nombre: "",
     edad: 0,
     email: "",
@@ -104,6 +106,35 @@ const getVisitantes = async () => {
   return visitantes;
 };
 
+function siguienteID(ultimoID) {
+  const alfabeto = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let match = ultimoID.match(/([A-Z]+)(\d+)/);
+  
+  if (match) {
+    const parteAlfabetica = match[1];
+    let numero = parseInt(match[2], 10);
+    
+    if (!isNaN(numero)) {
+      numero++; // Incrementar el número en 1
+
+      // Verificar si el número supera 999
+      if (numero > 999) {
+        const parteAlfabeticaIndex = alfabeto.indexOf(parteAlfabetica);
+        if (parteAlfabeticaIndex >= 0) {
+          parteAlfabetica = alfabeto[parteAlfabeticaIndex + 1]; // Pasar a la siguiente letra del alfabeto
+          numero = 1; // Restablecer el número a 1
+        }
+      }
+
+      // Formatear el número como cadena con ceros a la izquierda
+      const numeroFormateado = numero.toString().padStart(3, '0');
+      return `${parteAlfabetica}${numeroFormateado}`;
+    }
+  }
+
+  // Si el formato no coincide, devolver el último ID sin cambios
+  return ultimoID;
+}
 
 export { getVisitantes, agregarVisitante, ultimoVisitante, modificarInfoVisitantes, modificarPermisosVisitantes};
 
