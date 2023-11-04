@@ -86,6 +86,7 @@ export default async () => {
         agregarVisitante();
         const ultVisitante = ultimoVisitante();
         await createHTMLelements(ultVisitante);
+        addListOptions();
         recuperarFecha();
         recuperarPisos();
     });
