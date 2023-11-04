@@ -23,6 +23,7 @@ export default async () => {
 
     //Recupera ascensores del back y genera un elemento HTML para cada uno
 
+
     const ascensores = await getAscensores();
     const listaAscensoresElement = divElement.querySelector("#listaAscensores");
     for (const ascensor of ascensores) {
@@ -122,13 +123,12 @@ export default async () => {
             }
         });
     });
-
-    const elementosAscensor = document.querySelectorAll('.elementoAscensor');
-        const cantidadElementos = elementosAscensor.length;
-        console.log(cantidadElementos.length)
-        if (cantidadElementos === getAscensores.length) {
-            tildaItems();
-        }
+    // esto levanta los pisos tildados de cada ascensor
+    const elementosAscensor1 = listaAscensoresElement.querySelectorAll('.elementoAscensor');
+    const cantidadElementos = elementosAscensor1.length;
+    if (cantidadElementos === ascensores.length) {
+        tildaItems();
+    }
 
     const botonNuevoAscensor = divElement.querySelector("#nuevoAscensor");
     botonNuevoAscensor.addEventListener("click", async function () {
@@ -144,7 +144,9 @@ export default async () => {
             const idAscensor = ascensorId.textContent; // Obtener el contenido (ID del ascensor)
             const ascensor = ascensores.find(asc => asc.id == idAscensor);
             if (ascensor) {
+                console.log(idAscensor);
                 const pisosHabilitados = ascensor.pisos;
+                console.log(pisosHabilitados);
                 const listaItems = elementoAscensor.querySelector('.list-items');
                 listaItems.querySelectorAll('.item').forEach(item => {
                     const picker = item.closest(".picker");
@@ -152,14 +154,20 @@ export default async () => {
                     const checked = picker.querySelectorAll(".checked");
                     const itemText = item.querySelector('.item-text');
                     const numeroPiso = parseInt(itemText.textContent, 10);
+                    console.log(`pisos habilitados: ${pisosHabilitados} y numero de piso ${numeroPiso}`);
                     if (pisosHabilitados.includes(numeroPiso)) {
                         item.classList.add('checked');
+                        console.log(numeroPiso);
                     }
                     btnText.innerText = `${ascensor.pisos.length} Pisos Habilitados`;
                 });
             }
         });
     }
+    
+    setTimeout(() => {
+        tildaItems();
+    }, 2000)
 
     const botonesGuardar = divElement.querySelectorAll('.elementoAscensor .botonGuardar');
     botonesGuardar.forEach(botonGuardar => {
@@ -167,9 +175,13 @@ export default async () => {
             const idAscensor = botonGuardar.parentElement.querySelector('.tagItem').textContent;
             const nuevoNombre = botonGuardar.parentElement.querySelector('.textFieldNombreAscensor').value;
             const itemsChecked = Array.from(botonGuardar.parentElement.querySelectorAll('.item.checked'));
-            const itemsSeleccionados = itemsChecked.map(item => item.querySelector('.item-text').textContent);
+            const itemsSeleccionados = itemsChecked.map(item => parseInt(item.querySelector('.item-text').textContent, 10));
+            console.log(itemsSeleccionados);
             modificarAscensor(idAscensor, nuevoNombre, itemsSeleccionados);
+           // tildaItems();
         });
     });
     return divElement;
+
+
 }

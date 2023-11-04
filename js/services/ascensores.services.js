@@ -33,7 +33,6 @@
       ];
 
   function agregarAscensor() {
-    const uuid = uuidv4();
     const nuevoAscensor = {
         id: "",
         nombre: "",
@@ -53,6 +52,7 @@
 
   function modificarAscensor(idAsc, nuevoNombre, pisosNuevos) {
     const indice = ascensores.findIndex(ascensor => ascensor.id === idAsc);
+    console.log(indice);
     if (indice !== -1) {
       const ascensorModificado = {
         id: idAsc,
@@ -61,9 +61,8 @@
         estado: ascensores[indice].estado
       };
       ascensores[indice] = ascensorModificado;
-      console.log(ascensorModificado.estado, ascensorModificado.id, ascensorModificado.nombre, ascensorModificado.pisos);
+      console.log(ascensorModificado.pisos);
     }
   }
-
 
 export { getAscensores, ultimoAscensor,  agregarAscensor, modificarAscensor};

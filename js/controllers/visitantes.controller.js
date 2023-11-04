@@ -1,4 +1,4 @@
-import { agregarVisitante, getVisitantes, ultimoVisitante } from "../services/visitantes.services.js";
+import { agregarVisitante, getVisitantes, ultimoVisitante, modificarInfoVisitantes, modificarPermisosVisitantes } from "../services/visitantes.services.js";
 
 export default async () => {
 
@@ -86,6 +86,8 @@ export default async () => {
         agregarVisitante();
         const ultVisitante = ultimoVisitante();
         await createHTMLelements(ultVisitante);
+        recuperarFecha();
+        recuperarPisos();
     });
 
 
@@ -147,6 +149,86 @@ export default async () => {
             } else {
                 btnText.innerText = "Seleccione Pisos Permitidos";
             }
+        });
+    });
+
+    const elementosVisitante = document.querySelectorAll('.elementoVisitante');
+    const cantidadElementos = elementosVisitante.length;
+    if (cantidadElementos === getVisitantes.length) {
+        recuperarFecha();
+        recuperarPisos();
+    }
+
+    function recuperarPisos() {
+        const elementosVisitante = listaVisitantesElement.querySelectorAll('.elementoVisitante');
+        elementosVisitante.forEach(elementoVisitante => {
+            const visitanteId = elementoVisitante.querySelector('.tagItem'); // Obtener el elemento con la clase "tagItem"
+            const idVisitante = visitanteId.textContent; // Obtener el contenido (ID del visitante)
+            const idVisitanteFormateado = idVisitante.split(" ");
+            const visitante = visitantes.find(vis => vis.id == idVisitanteFormateado[1]);
+            if (visitante) {
+                const pisosHabilitados = visitante.pisos_permitidos;
+                const listaItems = elementoVisitante.querySelector('.list-items');
+                listaItems.querySelectorAll('.item').forEach(item => {
+                    const picker = item.closest(".picker");
+                    const btnText = picker.querySelector(".btn-text");
+                    const checked = picker.querySelectorAll(".checked");
+                    const itemText = item.querySelector('.item-text');
+                    const numeroPiso = parseInt(itemText.textContent, 10);
+                    if (pisosHabilitados.includes(numeroPiso)) {
+                        item.classList.add('checked');
+                    }
+                    btnText.innerText = `${visitante.pisos_permitidos.length} Pisos Habilitados`;
+                });
+            }
+        });
+    }
+
+    function recuperarFecha() {
+        const elementosVisitantes = listaVisitantesElement.querySelectorAll('.elementoVisitante');
+        elementosVisitantes.forEach(elementoVisitante => {
+            const visitanteId = elementoVisitante.querySelector('.tagItem'); // Obtener el elemento con la clase "tagItem"
+            const idVisitante = visitanteId.textContent; // Obtener el contenido (ID del visitante)
+            const idVisitanteFormateado = idVisitante.split(" ");
+            console.log(idVisitanteFormateado[1]);
+            const visitante = visitantes.find(vis => vis.id == idVisitanteFormateado[1]);
+            console.log(visitante);
+            if (visitante) {
+                const fechas = elementoVisitante.querySelectorAll(".datePicker");
+                console.log(visitante.fecha_checkIn);
+                fechas[0].value = visitante.fecha_checkIn;
+                fechas[1].value = visitante.fecha_checkOut;
+                console.log(`la fecha de checkin es ${fechas[0].value}`);
+            }
+        });
+    }
+
+    const botonesGuardar = divElement.querySelectorAll('.elementoVisitante .botonGuardar');
+    botonesGuardar.forEach(botonGuardar => {
+        botonGuardar.addEventListener('click', async () => {
+            const idVisitanteCompleto = botonGuardar.parentElement.querySelector('.tagItem').textContent;
+            const idVisitante = idVisitanteCompleto.split(" ");
+            const nuevoNombre = botonGuardar.parentElement.querySelector('.textFieldNombreVisitante').value;
+            const nuevaEdad = botonGuardar.parentElement.querySelector('.textFieldEdadVisitante').value;
+            const nuevoEmail = botonGuardar.parentElement.querySelector('.textFieldEmailVisitante').value;
+            const nuevasFechas = botonGuardar.parentElement.querySelectorAll('.datePicker');
+
+            const nuevaFecha_checkIn = nuevasFechas[0].value;
+            const nuevaFecha_checkOut = nuevasFechas[1].value;
+
+            console.log(idVisitante[1], nuevoNombre, nuevaEdad, nuevoEmail, nuevaFecha_checkIn, nuevaFecha_checkOut);
+            modificarInfoVisitantes(idVisitante[1], nuevoNombre, nuevaEdad, nuevoEmail, nuevaFecha_checkIn, nuevaFecha_checkOut);
+        });
+    });
+
+    const botonesGuardarPisos = divElement.querySelectorAll('.elementoVisitante .botonGuardarPisos');
+    botonesGuardarPisos.forEach(botonGuardarPisos => {
+        botonGuardarPisos.addEventListener('click', async () => {
+            const idVisitanteCompleto = botonGuardarPisos.closest('.elementoVisitante').querySelector('.tagItem').textContent;
+            const idVisitante = idVisitanteCompleto.split(" ");
+            const itemsChecked = Array.from(botonGuardarPisos.parentElement.querySelectorAll('.item.checked'));
+            const itemsSeleccionados = itemsChecked.map(item => parseInt(item.querySelector('.item-text').textContent, 10));
+            modificarPermisosVisitantes(idVisitante[1], itemsSeleccionados);
         });
     });
 
