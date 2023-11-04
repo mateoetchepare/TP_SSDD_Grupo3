@@ -179,7 +179,7 @@ export default async () => {
                     if (pisosHabilitados.includes(numeroPiso)) {
                         item.classList.add('checked');
                     }
-                    btnText.innerText = `${visitante.pisos_permitidos.length} Pisos Habilitados`;
+                    btnText.innerText = `${visitante.pisos_permitidos.length} Pisos Permitidos`;
                 });
             }
         });
