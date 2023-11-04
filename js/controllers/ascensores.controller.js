@@ -156,8 +156,10 @@ export default async () => {
                     const checked = picker.querySelectorAll(".checked");
                     const itemText = item.querySelector('.item-text');
                     const numeroPiso = parseInt(itemText.textContent, 10);
+                    console.log(numeroPiso);
                     if (pisosHabilitados.includes(numeroPiso)) {
                         item.classList.add('checked');
+                        console.log(pisosHabilitados, numeroPiso);
                     }
                     btnText.innerText = `${ascensor.pisos.length} Pisos Habilitados`;
                 });
@@ -181,6 +183,7 @@ export default async () => {
     addListOptions();
     querySelectBtns();
     guardarInfo();
+    tildaItems();
     return divElement;
 
 

@@ -155,7 +155,7 @@ export default async () => {
 
     const elementosVisitante = document.querySelectorAll('.elementoVisitante');
     const cantidadElementos = elementosVisitante.length;
-    if (cantidadElementos === getVisitantes.length) {
+    if (cantidadElementos === visitantes.length) {
         recuperarFecha();
         recuperarPisos();
     }
@@ -237,6 +237,7 @@ export default async () => {
     querySelectBtns();
     guardarInfo();
     guardarPisos();
-
+    recuperarFecha();
+    recuperarPisos();
     return divElement;
 };
