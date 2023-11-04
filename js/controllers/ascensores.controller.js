@@ -91,38 +91,39 @@ export default async () => {
         });
     }
 
-    addListOptions();
-
     //Agregar un evento de click a cada botón de selección
+    function querySelectBtns() {
+        const selectBtns = divElement.querySelectorAll(".select-btn");
+        const items = divElement.querySelectorAll(".item");
 
-    const selectBtns = divElement.querySelectorAll(".select-btn");
-    const items = divElement.querySelectorAll(".item");
-
-    selectBtns.forEach((selectBtn, index) => {
-        selectBtn.addEventListener("click", () => {
-            // Obtener los elementos relacionados para el picker específico
-            const itemsForPicker = items[index];
-            selectBtn.classList.toggle("open");
-            itemsForPicker.classList.toggle("open");
+        selectBtns.forEach((selectBtn, index) => {
+            selectBtn.addEventListener("click", () => {
+                // Obtener los elementos relacionados para el picker específico
+                const itemsForPicker = items[index];
+                selectBtn.classList.toggle("open");
+                itemsForPicker.classList.toggle("open");
+            });
         });
-    });
 
-    // Agregar un evento de click a cada elemento de ítem
-    items.forEach((item, index) => {
-        item.addEventListener("click", () => {
-            item.classList.toggle("checked");
-            // Obtener los elementos relacionados para el picker específico
-            const picker = item.closest(".picker");
-            const btnText = picker.querySelector(".btn-text");
-            const checked = picker.querySelectorAll(".checked");
+        // Agregar un evento de click a cada elemento de ítem
+        items.forEach((item, index) => {
+            item.addEventListener("click", () => {
+                item.classList.toggle("checked");
+                // Obtener los elementos relacionados para el picker específico
+                const picker = item.closest(".picker");
+                const btnText = picker.querySelector(".btn-text");
+                const checked = picker.querySelectorAll(".checked");
 
-            if (checked && checked.length > 0) {
-                btnText.innerText = `${checked.length} Pisos Habilitados`;
-            } else {
-                btnText.innerText = "Seleccione Pisos Habilitados";
-            }
+                if (checked && checked.length > 0) {
+                    btnText.innerText = `${checked.length} Pisos Habilitados`;
+                } else {
+                    btnText.innerText = "Seleccione Pisos Habilitados";
+                }
+            });
         });
-    });
+    }
+
+
     // esto levanta los pisos tildados de cada ascensor
     const elementosAscensor1 = listaAscensoresElement.querySelectorAll('.elementoAscensor');
     const cantidadElementos = elementosAscensor1.length;
@@ -135,6 +136,9 @@ export default async () => {
         agregarAscensor();
         const ultAscensor = ultimoAscensor();
         await createHTMLelements(ultAscensor);
+        addListOptions();
+        querySelectBtns();
+        guardarInfo();
     });
 
     function tildaItems() {
@@ -160,22 +164,23 @@ export default async () => {
             }
         });
     }
-    
-    setTimeout(() => {
-        tildaItems();
-    }, 2000)
 
-    const botonesGuardar = divElement.querySelectorAll('.elementoAscensor .botonGuardar');
-    botonesGuardar.forEach(botonGuardar => {
-        botonGuardar.addEventListener('click', async () => {
-            const idAscensor = botonGuardar.parentElement.querySelector('.tagItem').textContent;
-            const nuevoNombre = botonGuardar.parentElement.querySelector('.textFieldNombreAscensor').value;
-            const itemsChecked = Array.from(botonGuardar.parentElement.querySelectorAll('.item.checked'));
-            const itemsSeleccionados = itemsChecked.map(item => parseInt(item.querySelector('.item-text').textContent, 10));
-            modificarAscensor(idAscensor, nuevoNombre, itemsSeleccionados);
-           // tildaItems();
+    function guardarInfo() {
+        const botonesGuardar = divElement.querySelectorAll('.elementoAscensor .botonGuardar');
+        botonesGuardar.forEach(botonGuardar => {
+            botonGuardar.addEventListener('click', async () => {
+                const idAscensor = botonGuardar.parentElement.querySelector('.tagItem').textContent;
+                const nuevoNombre = botonGuardar.parentElement.querySelector('.textFieldNombreAscensor').value;
+                const itemsChecked = Array.from(botonGuardar.parentElement.querySelectorAll('.item.checked'));
+                const itemsSeleccionados = itemsChecked.map(item => parseInt(item.querySelector('.item-text').textContent, 10));
+                modificarAscensor(idAscensor, nuevoNombre, itemsSeleccionados);
+            });
         });
-    });
+    }
+
+    addListOptions();
+    querySelectBtns();
+    guardarInfo();
     return divElement;
 
 

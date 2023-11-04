@@ -87,8 +87,10 @@ export default async () => {
         const ultVisitante = ultimoVisitante();
         await createHTMLelements(ultVisitante);
         addListOptions();
+        querySelectBtns();
         recuperarFecha();
-        recuperarPisos();
+        guardarInfo();
+        guardarPisos();
     });
 
 
@@ -118,38 +120,38 @@ export default async () => {
         });
     }
 
-    addListOptions();
+    function querySelectBtns() {
+        // Obtener todos los botones de selección y elementos de ítem
+        const selectBtns = divElement.querySelectorAll(".select-btn");
+        const items = divElement.querySelectorAll(".item");
 
-    // Obtener todos los botones de selección y elementos de ítem
-    const selectBtns = divElement.querySelectorAll(".select-btn");
-    const items = divElement.querySelectorAll(".item");
-
-    // Agregar un evento de clic a cada botón de selección
-    selectBtns.forEach((selectBtn, index) => {
-        selectBtn.addEventListener("click", () => {
-            // Obtener los elementos relacionados para el picker específico
-            const itemsForPicker = items[index];
-            selectBtn.classList.toggle("open");
-            itemsForPicker.classList.toggle("open");
+        // Agregar un evento de clic a cada botón de selección
+        selectBtns.forEach((selectBtn, index) => {
+            selectBtn.addEventListener("click", () => {
+                // Obtener los elementos relacionados para el picker específico
+                const itemsForPicker = items[index];
+                selectBtn.classList.toggle("open");
+                itemsForPicker.classList.toggle("open");
+            });
         });
-    });
 
-    // Agregar un evento de clic a cada elemento de ítem
-    items.forEach((item, index) => {
-        item.addEventListener("click", () => {
-            item.classList.toggle("checked");
-            // Obtener los elementos relacionados para el picker específico
-            const picker = item.closest(".picker");
-            const btnText = picker.querySelector(".btn-text");
-            const checked = picker.querySelectorAll(".checked");
+        // Agregar un evento de clic a cada elemento de ítem
+        items.forEach((item, index) => {
+            item.addEventListener("click", () => {
+                item.classList.toggle("checked");
+                // Obtener los elementos relacionados para el picker específico
+                const picker = item.closest(".picker");
+                const btnText = picker.querySelector(".btn-text");
+                const checked = picker.querySelectorAll(".checked");
 
-            if (checked && checked.length > 0) {
-                btnText.innerText = `${checked.length} Pisos Permitidos`;
-            } else {
-                btnText.innerText = "Seleccione Pisos Permitidos";
-            }
+                if (checked && checked.length > 0) {
+                    btnText.innerText = `${checked.length} Pisos Permitidos`;
+                } else {
+                    btnText.innerText = "Seleccione Pisos Permitidos";
+                }
+            });
         });
-    });
+    }
 
     const elementosVisitante = document.querySelectorAll('.elementoVisitante');
     const cantidadElementos = elementosVisitante.length;
@@ -198,6 +200,7 @@ export default async () => {
         });
     }
 
+    function guardarInfo() {
     const botonesGuardar = divElement.querySelectorAll('.elementoVisitante .botonGuardar');
     botonesGuardar.forEach(botonGuardar => {
         botonGuardar.addEventListener('click', async () => {
@@ -213,7 +216,9 @@ export default async () => {
             modificarInfoVisitantes(idVisitante[1], nuevoNombre, nuevaEdad, nuevoEmail, nuevaFecha_checkIn, nuevaFecha_checkOut);
         });
     });
+}
 
+    function guardarPisos() {
     const botonesGuardarPisos = divElement.querySelectorAll('.elementoVisitante .botonGuardarPisos');
     botonesGuardarPisos.forEach(botonGuardarPisos => {
         botonGuardarPisos.addEventListener('click', async () => {
@@ -222,8 +227,16 @@ export default async () => {
             const itemsChecked = Array.from(botonGuardarPisos.parentElement.querySelectorAll('.item.checked'));
             const itemsSeleccionados = itemsChecked.map(item => parseInt(item.querySelector('.item-text').textContent, 10));
             modificarPermisosVisitantes(idVisitante[1], itemsSeleccionados);
+            console.log(idVisitante[1], itemsSeleccionados);
+            recuperarPisos();
         });
     });
+}
+
+    addListOptions();
+    querySelectBtns();
+    guardarInfo();
+    guardarPisos();
 
     return divElement;
 };
