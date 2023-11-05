@@ -8,13 +8,13 @@ const router = async (route) => {
 
   switch (route) {
     case '#/': {
-      return content.appendChild(await pages.visitantes());
+      content.appendChild(pages.navbar());return content.appendChild(await pages.visitantes());
     }
     case '#/visitantes': {
-      return content.appendChild(await pages.visitantes());
+      content.appendChild(pages.navbar());return content.appendChild(await pages.visitantes());
     }
     case '#/ascensores': {
-      return content.appendChild(await pages.ascensores());
+      content.appendChild(pages.navbar());return content.appendChild(await pages.ascensores());
     }
     default: {
       return content.appendChild(pages.notFound());
