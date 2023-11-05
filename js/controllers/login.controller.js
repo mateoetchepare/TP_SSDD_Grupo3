@@ -3,10 +3,10 @@ export default async () => {
 
     const view =
         `
-        <div id="fondo_login">
+        <div class="container-login"> 
             <div class="login-box">
                 <h1>Administracion</h1>
-                <input type="button" id="btnLogin" value="Login" />
+                <input type="button" id="botonLogin" value="Login" />
            </div> 
         </div>
       `;
@@ -14,7 +14,8 @@ export default async () => {
     const divElement = document.createElement("div");
     divElement.innerHTML = view;
     divElement.className = "divLogin"
-
+    const body = document.querySelector("body");
+    body.style.height= '100vh';
 
     return divElement;
 };

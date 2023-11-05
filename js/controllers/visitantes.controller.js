@@ -17,7 +17,9 @@ export default async () => {
     const divElement = document.createElement("div");
     divElement.innerHTML = view;
     divElement.className = "divVisitantes"
-
+    const body = document.querySelector("body");
+    body.style.height= 'auto';
+    
     //Recupera visitantes del back y genera un elemento HTML para cada uno
     let visitantes = await getVisitantes();
     const listaVisitantesElement = divElement.querySelector("#listaVisitantes");

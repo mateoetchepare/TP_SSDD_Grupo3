@@ -20,10 +20,10 @@ export default async () => {
     const divElement = document.createElement("div");
     divElement.innerHTML = view;
     divElement.className = "divAscensores"
+    const body = document.querySelector("body");
+    body.style.height= 'auto';
 
     //Recupera ascensores del back y genera un elemento HTML para cada uno
-
-
     const ascensores = await getAscensores();
     const listaAscensoresElement = divElement.querySelector("#listaAscensores");
     for (const ascensor of ascensores) {
