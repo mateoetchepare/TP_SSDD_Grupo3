@@ -153,13 +153,6 @@ export default async () => {
         });
     }
 
-    const elementosVisitante = document.querySelectorAll('.elementoVisitante');
-    const cantidadElementos = elementosVisitante.length;
-    if (cantidadElementos === visitantes.length) {
-        recuperarFecha();
-        recuperarPisos();
-    }
-
     function recuperarPisos() {
         const elementosVisitante = listaVisitantesElement.querySelectorAll('.elementoVisitante');
         elementosVisitante.forEach(elementoVisitante => {
@@ -211,7 +204,9 @@ export default async () => {
             const nuevoEmail = botonGuardar.parentElement.querySelector('.textFieldEmailVisitante').value;
             const nuevasFechas = botonGuardar.parentElement.querySelectorAll('.datePicker');
 
+
             const nuevaFecha_checkIn = nuevasFechas[0].value;
+            console.log(nuevaFecha_checkIn);
             const nuevaFecha_checkOut = nuevasFechas[1].value;
             modificarInfoVisitantes(idVisitante[1], nuevoNombre, nuevaEdad, nuevoEmail, nuevaFecha_checkIn, nuevaFecha_checkOut);
         });
@@ -228,7 +223,6 @@ export default async () => {
             const itemsSeleccionados = itemsChecked.map(item => parseInt(item.querySelector('.item-text').textContent, 10));
             modificarPermisosVisitantes(idVisitante[1], itemsSeleccionados);
             console.log(idVisitante[1], itemsSeleccionados);
-            recuperarPisos();
         });
     });
 }
@@ -237,7 +231,15 @@ export default async () => {
     querySelectBtns();
     guardarInfo();
     guardarPisos();
-    recuperarFecha();
-    recuperarPisos();
+
+    const elementosVisitante = listaVisitantesElement.querySelectorAll('.elementoVisitante');
+    const cantidadElementos = elementosVisitante.length;
+    console.log(elementosVisitante);
+    console.log(visitantes.length);
+    if (cantidadElementos === visitantes.length) {
+        recuperarFecha();
+        recuperarPisos();
+    }
+
     return divElement;
 };
