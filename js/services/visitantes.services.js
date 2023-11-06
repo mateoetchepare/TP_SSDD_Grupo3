@@ -6,8 +6,8 @@ let visitantes = [
     edad: 30,
     email: "carlos@gmail.com",
     pisos_permitidos: [1, 3, 5],
-    fecha_checkIn: "2009-04-11",
-    fecha_checkOut: "2011-06-12",
+    fecha_checkIn: "2023-09-13T23:09:40.880Z",
+    fecha_checkOut: "2023-09-15T23:09:40.880Z",
   },
   {
     id: "A002",

@@ -153,13 +153,6 @@ export default async () => {
         });
     }
 
-    const elementosVisitante = document.querySelectorAll('.elementoVisitante');
-    const cantidadElementos = elementosVisitante.length;
-    if (cantidadElementos === visitantes.length) {
-        recuperarFecha();
-        recuperarPisos();
-    }
-
     function recuperarPisos() {
         const elementosVisitante = listaVisitantesElement.querySelectorAll('.elementoVisitante');
         elementosVisitante.forEach(elementoVisitante => {
@@ -194,50 +187,73 @@ export default async () => {
             const visitante = visitantes.find(vis => vis.id == idVisitanteFormateado[1]);
             if (visitante) {
                 const fechas = elementoVisitante.querySelectorAll(".datePicker");
-                fechas[0].value = visitante.fecha_checkIn;
-                fechas[1].value = visitante.fecha_checkOut;
+                const fechaISO8601_checkIn = visitante.fecha_checkIn;
+                const fecha_In = new Date(fechaISO8601_checkIn);
+                const yyyy_In = fecha_In.getFullYear();
+                const mm_In = String(fecha_In.getMonth() + 1).padStart(2, '0'); // El mes es 0-indexado, por lo que sumamos 1 y lo formateamos
+                const dd_In = String(fecha_In.getDate()).padStart(2, '0'); // Formateamos el día
+                const fecha_checkInFormateada = `${yyyy_In}-${mm_In}-${dd_In}`;
+
+                const fechaISO8601_checkOut = visitante.fecha_checkOut;
+                const fecha_Out = new Date(fechaISO8601_checkOut);
+                const yyyy_Out = fecha_Out.getFullYear();
+                const mm_Out = String(fecha_Out.getMonth() + 1).padStart(2, '0'); // El mes es 0-indexado, por lo que sumamos 1 y lo formateamos
+                const dd_Out = String(fecha_Out.getDate()).padStart(2, '0'); // Formateamos el día
+                const fecha_checkOutFormeateada = `${yyyy_Out}-${mm_Out}-${dd_Out}`;
+
+                fechas[0].value = fecha_checkInFormateada;
+                fechas[1].value = fecha_checkOutFormeateada;
             }
         });
     }
 
     function guardarInfo() {
-    const botonesGuardar = divElement.querySelectorAll('.elementoVisitante .botonGuardar');
-    botonesGuardar.forEach(botonGuardar => {
-        botonGuardar.addEventListener('click', async () => {
-            const idVisitanteCompleto = botonGuardar.parentElement.querySelector('.tagItem').textContent;
-            const idVisitante = idVisitanteCompleto.split(" ");
-            const nuevoNombre = botonGuardar.parentElement.querySelector('.textFieldNombreVisitante').value;
-            const nuevaEdad = botonGuardar.parentElement.querySelector('.textFieldEdadVisitante').value;
-            const nuevoEmail = botonGuardar.parentElement.querySelector('.textFieldEmailVisitante').value;
-            const nuevasFechas = botonGuardar.parentElement.querySelectorAll('.datePicker');
+        const botonesGuardar = divElement.querySelectorAll('.elementoVisitante .botonGuardar');
+        botonesGuardar.forEach(botonGuardar => {
+            botonGuardar.addEventListener('click', async () => {
+                const idVisitanteCompleto = botonGuardar.parentElement.querySelector('.tagItem').textContent;
+                const idVisitante = idVisitanteCompleto.split(" ");
+                const nuevoNombre = botonGuardar.parentElement.querySelector('.textFieldNombreVisitante').value;
+                const nuevaEdad = botonGuardar.parentElement.querySelector('.textFieldEdadVisitante').value;
+                const nuevoEmail = botonGuardar.parentElement.querySelector('.textFieldEmailVisitante').value;
+                const nuevasFechas = botonGuardar.parentElement.querySelectorAll('.datePicker');
 
-            const nuevaFecha_checkIn = nuevasFechas[0].value;
-            const nuevaFecha_checkOut = nuevasFechas[1].value;
-            modificarInfoVisitantes(idVisitante[1], nuevoNombre, nuevaEdad, nuevoEmail, nuevaFecha_checkIn, nuevaFecha_checkOut);
+
+                const nuevaFecha_checkIn = nuevasFechas[0].value;
+                console.log(nuevaFecha_checkIn);
+                const nuevaFecha_checkOut = nuevasFechas[1].value;
+                modificarInfoVisitantes(idVisitante[1], nuevoNombre, nuevaEdad, nuevoEmail, nuevaFecha_checkIn, nuevaFecha_checkOut);
+            });
         });
-    });
-}
+    }
 
     function guardarPisos() {
-    const botonesGuardarPisos = divElement.querySelectorAll('.elementoVisitante .botonGuardarPisos');
-    botonesGuardarPisos.forEach(botonGuardarPisos => {
-        botonGuardarPisos.addEventListener('click', async () => {
-            const idVisitanteCompleto = botonGuardarPisos.closest('.elementoVisitante').querySelector('.tagItem').textContent;
-            const idVisitante = idVisitanteCompleto.split(" ");
-            const itemsChecked = Array.from(botonGuardarPisos.parentElement.querySelectorAll('.item.checked'));
-            const itemsSeleccionados = itemsChecked.map(item => parseInt(item.querySelector('.item-text').textContent, 10));
-            modificarPermisosVisitantes(idVisitante[1], itemsSeleccionados);
-            console.log(idVisitante[1], itemsSeleccionados);
-            recuperarPisos();
+        const botonesGuardarPisos = divElement.querySelectorAll('.elementoVisitante .botonGuardarPisos');
+        botonesGuardarPisos.forEach(botonGuardarPisos => {
+            botonGuardarPisos.addEventListener('click', async () => {
+                const idVisitanteCompleto = botonGuardarPisos.closest('.elementoVisitante').querySelector('.tagItem').textContent;
+                const idVisitante = idVisitanteCompleto.split(" ");
+                const itemsChecked = Array.from(botonGuardarPisos.parentElement.querySelectorAll('.item.checked'));
+                const itemsSeleccionados = itemsChecked.map(item => parseInt(item.querySelector('.item-text').textContent, 10));
+                modificarPermisosVisitantes(idVisitante[1], itemsSeleccionados);
+                console.log(idVisitante[1], itemsSeleccionados);
+            });
         });
-    });
-}
+    }
 
     addListOptions();
     querySelectBtns();
     guardarInfo();
     guardarPisos();
-    recuperarFecha();
-    recuperarPisos();
+
+    const elementosVisitante = listaVisitantesElement.querySelectorAll('.elementoVisitante');
+    const cantidadElementos = elementosVisitante.length;
+    console.log(elementosVisitante);
+    console.log(visitantes.length);
+    if (cantidadElementos === visitantes.length) {
+        recuperarFecha();
+        recuperarPisos();
+    }
+
     return divElement;
 };

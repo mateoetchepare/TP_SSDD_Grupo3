@@ -123,14 +123,6 @@ export default async () => {
         });
     }
 
-
-    // esto levanta los pisos tildados de cada ascensor
-    const elementosAscensor1 = listaAscensoresElement.querySelectorAll('.elementoAscensor');
-    const cantidadElementos = elementosAscensor1.length;
-    if (cantidadElementos === ascensores.length) {
-        tildaItems();
-    }
-
     const botonNuevoAscensor = divElement.querySelector("#nuevoAscensor");
     botonNuevoAscensor.addEventListener("click", async function () {
         agregarAscensor();
@@ -183,7 +175,13 @@ export default async () => {
     addListOptions();
     querySelectBtns();
     guardarInfo();
-    tildaItems();
+
+   // esto levanta los pisos tildados de cada ascensor
+   const elementosAscensor1 = listaAscensoresElement.querySelectorAll('.elementoAscensor');
+   const cantidadElementos = elementosAscensor1.length;
+   if (cantidadElementos === ascensores.length) {
+       tildaItems();
+   }
     return divElement;
 
 
