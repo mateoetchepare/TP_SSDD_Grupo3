@@ -27,7 +27,7 @@ export default async () => {
 
     async function createHTMLelements(visitante) {
         listaVisitantesElement.innerHTML += `
-        <li class="elementoVisitante">
+        <li class="elementoVisitante" id=visitante-${visitante.id}>
         <div class="infoVisitante">
             <a class="tagItem">Visitante ${visitante.id}</a>
             <input type="text" class="textFieldNombreVisitante" placeholder="nombre" value='${visitante.nombre}'
@@ -36,13 +36,13 @@ export default async () => {
             <input type="text" class="textFieldEmailVisitante" placeholder="email" value='${visitante.email}' required>
             <div class="containerDatePicker1">
                 <label class="fechaIngreso">Fecha Ingreso</label>
-                <input type="date" class="datePicker">
+                <input type="date" class="datePicker" id="dateFechaIn">
             </div>
             <div class="containerDatePicker2">
                 <label class="fechaEgreso">Fecha Egreso</label>
-                <input type="date" class="datePicker">
+                <input type="date" class="datePicker" id="dateFechaOut">
             </div>
-            <button class="botonGuardar" id="guardarInfoVisitante">
+            <button class="botonGuardar" id="guardarInfoVisitante-${visitante.id}>
                 <label class="labelGuardar">Guardar</label>
                 <span class="saveItem"><i class="fa-regular fa-floppy-disk"></i></span>
             </button>
@@ -72,7 +72,7 @@ export default async () => {
                     </li>
                 </ul>
             </div>
-            <button class="botonGuardarPisos" id="guardarPermisosVisitantes">
+            <button class="botonGuardarPisos" id="guardarPermisosVisitantes-${visitante.id}">
                 <label class="labelGuardar">Guardar</label>
                 <span class="saveItem"><i class="fa-regular fa-floppy-disk"></i></span>
         </button>
@@ -218,11 +218,24 @@ export default async () => {
                 const nuevoEmail = botonGuardar.parentElement.querySelector('.textFieldEmailVisitante').value;
                 const nuevasFechas = botonGuardar.parentElement.querySelectorAll('.datePicker');
 
+                const fecha_checkIn = new Date(nuevasFechas[0].value); 
+                fecha_checkIn.setUTCHours(10);    
+                fecha_checkIn.setUTCMinutes(0);   
+                fecha_checkIn.setUTCSeconds(0);   
+                fecha_checkIn.setUTCMilliseconds(0);
+                const fecha_checkInFormateada = fecha_checkIn.toISOString(); 
 
-                const nuevaFecha_checkIn = nuevasFechas[0].value;
-                console.log(nuevaFecha_checkIn);
-                const nuevaFecha_checkOut = nuevasFechas[1].value;
-                modificarInfoVisitantes(idVisitante[1], nuevoNombre, nuevaEdad, nuevoEmail, nuevaFecha_checkIn, nuevaFecha_checkOut);
+                const fecha_checkOut = new Date(nuevasFechas[1].value); 
+                fecha_checkOut.setUTCHours(15);   
+                fecha_checkOut.setUTCMinutes(0);   
+                fecha_checkOut.setUTCSeconds(0);   
+                fecha_checkOut.setUTCMilliseconds(0); 
+                const fecha_checkOutFormateada = fecha_checkOut.toISOString(); 
+
+                console.log(fecha_checkInFormateada);
+                console.log(fecha_checkOutFormateada);
+
+                modificarInfoVisitantes(idVisitante[1], nuevoNombre, nuevaEdad, nuevoEmail, fecha_checkInFormateada, fecha_checkOutFormateada);
             });
         });
     }
