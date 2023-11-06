@@ -6,10 +6,9 @@ export default () => {
         <a href="#/" class="logo">Administración</a>
 
             <nav class="navbar">
-                <!-- <a class="Login" href="#" >Login</a> -->
                 <a class="Ascensores" href="#/ascensores">Ascensores</a>
                 <a class="Visitantes" href="#/visitantes">Visitantes</a>
-
+                <a class="Visitantes" id="logout" >Logout</a>
             </nav>
         </header>
       `;

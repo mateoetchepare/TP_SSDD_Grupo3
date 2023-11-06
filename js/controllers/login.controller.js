@@ -1,3 +1,4 @@
+//import { createAuthClient } from "../services/auth.services";
 
 export default async () => {
 
@@ -16,6 +17,8 @@ export default async () => {
     divElement.className = "divLogin"
     const body = document.querySelector("body");
     body.style.height= '100vh';
+
+    createAuthClient(divElement);
 
     return divElement;
 };

@@ -1,10 +1,11 @@
+
 export const createAuthClient = (divElement) => {
 
     auth0.createAuth0Client({
         domain: "dev-h74gvie66akma5zh.us.auth0.com",
         clientId: "LHeNnWrtoPJVYK7vFbQnVpcf2LPzOzCu",
         authorizationParams: {
-          redirect_uri: window.location.origin + '/#/login' 
+          redirect_uri: window.location.origin + '/#/visitantes' 
         }
       }).then(async (auth0Client) => {
         //Se carga el cliente de auth0 para llamar a los metodos de login y logout
@@ -23,6 +24,7 @@ export const createAuthClient = (divElement) => {
         }
       
         // Assumes a button with id "logout" in the DOM
+        /*
         const logoutButton = document.getElementById("logout");
       
         logoutButton.addEventListener("click", (e) => {
@@ -45,7 +47,7 @@ export const createAuthClient = (divElement) => {
         } else {
           profileElement.style.display = "none";
         }
+        */
       });
-
-
+      
 }
