@@ -67,7 +67,12 @@ function altaAscensor(res,ascensor){
         }
     
         const ascensores = JSON.parse(data);
-    
+
+        //creo el proceso hijo para el ascensor
+        const childProcess = spawn('node', ['script.js', 'alta', JSON.stringify(ascensor)]);
+        //lo guardo con el id del ascensor para poder accederlo
+        ascensoresProcesos[ascensor.id] = childProcess;
+
         ascensores.push(ascensor);
     
         fs.writeFile(archivoAscensores, JSON.stringify(ascensores, null, 2), (err) => {
@@ -99,7 +104,16 @@ function deleteAscensor(res, id) {
         
         const ascensorIndex = ascensores.findIndex(ascensor => ascensor.id === id)
     
-        if (ascensorIndex !== -1) {
+        //busco el proceso  del ascensor 
+        const childProcess = ascensoresProcesos[id];
+
+        //verifico que se encontro tanto en el json como en ascensoresProcesos
+        if (ascensorIndex !== -1 && childProcess) {
+          //finalizo el proceso
+          childProcess.kill();
+          //elimino el proceso guardado en ascensoresProcesos
+          delete ascensoresProcesos[id];
+        
           ascensores.splice(ascensorIndex, 1); // Elimina el ascensor del arreglo
           console.log(`Visitante con ID ${id} eliminado.`);
     
@@ -136,18 +150,27 @@ function modificacionAscensor(res,id,nuevosDatos){
     
         const ascensores = JSON.parse(data);
 
+        const childProcess = ascensoresProcesos[id];
 
         let ascensor = ascensores.find(ascensor=> ascensor.id == id);
 
         console.log('datos originales:',ascensor);
         console.log('nuevos datos: ',nuevosDatos);
 
-        if(ascensor != undefined){
+        if(ascensor != undefined && childProcess){
             ascensor.nombre = nuevosDatos.nombre;
             ascensor.pisos = nuevosDatos.pisos;
             ascensor.estado = nuevosDatos.estado;
 
             console.log('datos actualizados:',ascensor);
+
+
+            childProcess.kill();
+            delete ascensoresProcesos[id];
+
+            const nuevoChildProces = spawn('node', ['script.js', 'alta', JSON.stringify(ascensor)]);
+
+            ascensoresProcesos[ascensor.id] = nuevoChildProces;
 
             fs.writeFile(archivoAscensores, JSON.stringify(ascensores, null, 2), (err) => {
                 if (err) {
@@ -193,6 +216,8 @@ function datosIncorrectos(res){
     res.end();
 }
 
+//aca se van a ir guardando los procesos de cada ascensor
+const ascensoresProcesos = {};
 
 const server = http.createServer((req,res) => {
 
