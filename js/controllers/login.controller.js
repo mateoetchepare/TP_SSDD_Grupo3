@@ -1,4 +1,4 @@
-//import { createAuthClient } from "../services/auth.services";
+import { createAuthClient } from "../services/auth.services.js";
 
 export default async () => {
 

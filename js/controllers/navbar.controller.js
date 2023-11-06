@@ -1,3 +1,5 @@
+import { createAuthClientLogOut } from "../services/auth.service.js";
+
 export default () => {
 
     const view =
@@ -8,7 +10,7 @@ export default () => {
             <nav class="navbar">
                 <a class="Ascensores" href="#/ascensores">Ascensores</a>
                 <a class="Visitantes" href="#/visitantes">Visitantes</a>
-                <a class="Visitantes" id="logout" >Logout</a>
+                <a class="Visitantes" id="botonLogout" >Logout</a>
             </nav>
         </header>
       `;
@@ -16,5 +18,7 @@ export default () => {
     const divElement = document.createElement("div");
     divElement.innerHTML = view;
 
+    createAuthClientLogOut(divElement);
+    
     return divElement;
 };
