@@ -169,5 +169,34 @@
     "fecha_checkIn": "2023-09-13T23:09:40.880Z",
     "fecha_checkOut": "2023-09-15T23:09:40.880Z",
     "id": "A014"
+  },
+  {
+    "nombre": "Lauro",
+    "edad": 50,
+    "email": "email@gmail.com",
+    "pisos_permitidos": [
+      2,
+      4,
+      10,
+      14,
+      24
+    ],
+    "fecha_checkIn": "2023-09-13T23:09:40.880Z",
+    "fecha_checkOut": "2023-09-15T23:09:40.880Z",
+    "id": "A015"
+  },
+  {
+    "nombre": "tomas",
+    "edad": 30,
+    "email": "email@gmail.com",
+    "pisos_permitidos": [
+      2,
+      4,
+      11,
+      12
+    ],
+    "fecha_checkIn": "2023-09-13T23:09:40.880Z",
+    "fecha_checkOut": "2023-09-15T23:09:40.880Z",
+    "id": "A016"
   }
 ]

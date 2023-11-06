@@ -14,7 +14,7 @@ const app = express();
 //RUTAS PARA VISISTANTES
 
 app.route('/api/visitantes*') //despies de visitantes agrega un * ATENTO POR SI FALLA ESO
-    
+
     .get((req, res) => {
         console.log(req.url);
         http.get("http://localhost:" + puertoVisitantes + req.url, (respuesta) => {
@@ -36,29 +36,32 @@ app.route('/api/visitantes*') //despies de visitantes agrega un * ATENTO POR SI 
 
     .post((req, res) => {
 
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        };
-
-        const request = http.request("http://localhost:" + puertoVisitantes + req.url,
-            options,
-            (response) => { //puede haber error aca
-                let body = '';
-                response.on('data', (chunk) => {
-                    body += chunk;
-                });
-
-                response.on('end', () => {
-                    res.status(response.statusCode).json(JSON.parse(body));
-                });
-            });
-
-        request.write(JSON.stringify(req.body));
-        request.end();
-
+        bodyParser(req)
+            .then(() => {
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                };
+        
+                const request = http.request("http://localhost:" + puertoVisitantes + req.url,
+                    options,
+                    (response) => { //puede haber error aca
+                        let body = '';
+                        response.on('data', (chunk) => {
+                            body += chunk;
+                        });
+        
+                        response.on('end', () => {
+                            res.status(response.statusCode).json(JSON.parse(body));
+                        });
+                    });
+        
+                request.write(JSON.stringify(req.body));
+                request.end();
+            }).catch((error) => console.error(error));
+            
     })
 
     .delete((req, res) => {
@@ -86,27 +89,36 @@ app.route('/api/visitantes*') //despies de visitantes agrega un * ATENTO POR SI 
     })
 
     .put((req, res) => {
-        const options = {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        };
 
-        const request = http.request("http://localhost:" + puertoVisitantes + requrl,
-            options,
-            (response) => {
-                let body = '';
-                response.on('data', (chunk) => {
-                    body += chunk;
-                });
-                response.on('end', () => {
-                    res.status(response.statusCode).json(JSON.parse(body));
-                });
-            });
+        bodyParser(req)
+            .then(() => {
 
-        request.write(JSON.stringify(req.body));
-        request.end();
+                const bodyData = req.body;
+
+                const options = {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                };
+
+                const request = http.request("http://localhost:" + puertoVisitantes + req.url,
+                    options,
+                    (response) => {
+                        let body = '';
+                        response.on('data', (chunk) => {
+                            body += chunk;
+                        });
+                        response.on('end', () => {
+                            res.status(response.statusCode).json(JSON.parse(body));
+                        });
+                    });
+
+                request.write(JSON.stringify(bodyData));
+                request.end();
+
+            }).catch((error) => console.error(error));
+
     });
 
 

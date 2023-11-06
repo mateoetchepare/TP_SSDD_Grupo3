@@ -90,7 +90,7 @@ function altaVisitante(res,visitante){
             }
     
             res.writeHead(201, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({message: 'Alta de visitnate exitosa'}));
+            res.end(JSON.stringify({message: 'Alta de visitante exitosa'}));
         });
     });
 }
