@@ -21,8 +21,8 @@ function modificacionVisitante(res,id,nuevosDatos){
     fs.readFile(archivoVisitantes, 'utf8', (err, data) => {
         if (err) {
           console.error(err);
-          res.writeHead(500, { 'Content-Type': 'text/plain' });
-          res.end('Error interno del servidor');
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({error:'Error interno del servidor'}));
           return
         }
     
@@ -47,18 +47,18 @@ function modificacionVisitante(res,id,nuevosDatos){
             fs.writeFile(archivoVisitantes, JSON.stringify(visitantes, null, 2), (err) => {
                 if (err) {
                   console.error(err);
-                  res.writeHead(500, { 'Content-Type': 'text/plain' });
-                  res.end('Error interno del servidor');
+                  res.writeHead(500, { 'Content-Type': 'application/json' });
+                  res.end(JSON.stringify({error:'Error interno del servidor'}));
                   return
                 }
         
-                res.writeHead(200, { 'Content-Type': 'text/plain' });
-                res.end(`Visitante con ID ${id} actualizado.`);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({message:`Visitante con ID ${id} actualizado.`}));
               });
         }
         else{
-            res.writeHead(404,{'Content-Type':'application/json'}); // devuelvo json
-            res.write("Error, no se encuentra ese visitante"); // envio la sucursal  
+            res.writeHead(404,{'Content-Type':'application/json'}); 
+            res.write(JSON.stringify({message:"Error, no se encuentra ese visitante"}));   
         }
 
     })
@@ -70,7 +70,7 @@ function altaVisitante(res,visitante){
         if (err) {
             console.error(err);
             res.writeHead(500, { 'Content-Type': 'application/json' });
-            res.end('Error interno del servidor');
+            res.end(JSON.stringify({error:'Error interno del servidor'}));
             return;
         }
     
@@ -85,12 +85,12 @@ function altaVisitante(res,visitante){
             if (err) {
                 console.error(err);
                 res.writeHead(500, { 'Content-Type': 'application/json' });
-                res.end('Error interno del servidor');
+                res.end(JSON.stringify({error:'Error interno del servidor'}));
                 return;
             }
     
             res.writeHead(201, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify(visitante));
+            res.end(JSON.stringify({message: 'Alta de visitnate exitosa'}));
         });
     });
 }
@@ -133,7 +133,7 @@ function deleteVisitante(res, id) {
         if (err) {
           console.error(err);
           res.writeHead(500, { 'Content-Type': 'application/json' });
-          res.end('Error interno del servidor');
+          res.end(JSON.stringify({error:'Error interno del servidor'}));
           return
         }
     
@@ -150,17 +150,17 @@ function deleteVisitante(res, id) {
             if (err) {
               console.error(err);
               res.writeHead(500, { 'Content-Type': 'application/json' });
-              res.end('Error interno del servidor');
+              res.end(JSON.stringify({error:'Error interno del servidor'}));
               return
             }
     
             res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(`Visitante con ID ${id} eliminado.`);
+            res.end(JSON.stringify({message:`Visitante con ID ${id} eliminado.`}));
           });
         } else {
           console.log(`Visitante con ID ${id} no encontrado.`);
           res.writeHead(404, { 'Content-Type': 'application/json' });
-          res.end(`Visitante con ID ${id} no encontrado.`);
+          res.end(JSON.stringify({message:`Visitante con ID ${id} no encontrado.`}));
         }
       })
 }
@@ -171,14 +171,14 @@ function getVisitantes(res){
         if (err) {
           console.error(err);
           res.writeHead(500, { 'Content-Type': 'text/plain' });
-          res.end('Error interno del servidor');
+          res.end(JSON.stringify({error:'Error interno del servidor'}));
           return
         }
     
         const visitantes = JSON.parse(data);
         
-        res.writeHead(200,{'Content-Type':'application/json'}); // devuelvo json
-        res.write(JSON.stringify(visitantes)); // envio las visitantes
+        res.writeHead(200,{'Content-Type':'application/json'}); 
+        res.write(JSON.stringify(visitantes)); 
         res.end();
     })
 
@@ -191,7 +191,7 @@ function getVisitante(res, id){
         if (err) {
           console.error(err);
           res.writeHead(500, { 'Content-Type': 'text/plain' });
-          res.end('Error interno del servidor');
+          res.end(JSON.stringify({error:'Error interno del servidor'}));
           return
         }
     
@@ -205,8 +205,8 @@ function getVisitante(res, id){
             res.write(JSON.stringify(visitante));
         }
         else{
-            res.writeHead(404,{'Content-Type':'application/json'}); // devuelvo json
-            res.write("Error, no se encuentra esa visitante"); // envio la sucursal  
+            res.writeHead(404,{'Content-Type':'application/json'}); 
+            res.write(JSON.stringify({message:"Error, no se encuentra esa visitante"})); 
         }
 
         res.end()
@@ -215,14 +215,14 @@ function getVisitante(res, id){
 
 // REQUEST INCORRECTA
 function rutaNoEncontrada(res){
-    res.writeHead(404,{'Content-Type':'application/json'}); // devuelvo json
-    res.write("Error, no se encuentra la ruta en gestionVisitantes"); // envio la sucursal  
+    res.writeHead(404,{'Content-Type':'application/json'}); 
+    res.write(JSON.stringify({message:"Error, no se encuentra la ruta en gestionVisitantes"})); 
     res.end();
 }
 
 function datosIncorrectos(res){
     res.writeHead(400,{'Content-Type':'application/json'});
-    res.write("Error en el formato de los datos");
+    res.write(JSON.stringify({message:"Error en el formato de los datos"}));
     res.end();
 }
 

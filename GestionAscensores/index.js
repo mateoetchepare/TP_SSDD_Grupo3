@@ -12,8 +12,8 @@ function getAscensores(res){
     fs.readFile(archivoAscensores, 'utf8', (err, data) => {
         if (err) {
           console.error(err);
-          res.writeHead(500, { 'Content-Type': 'text/plain' });
-          res.end('Error interno del servidor');
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({error:'Error interno del servidor'}));
           return
         }
     
@@ -32,8 +32,8 @@ function getAscensor(res, id){
     fs.readFile(archivoAscensores, 'utf8', (err, data) => {
         if (err) {
           console.error(err);
-          res.writeHead(500, { 'Content-Type': 'text/plain' });
-          res.end('Error interno del servidor');
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({error:'Error interno del servidor'}));
           return
         }
     
@@ -48,7 +48,7 @@ function getAscensor(res, id){
         }
         else{
             res.writeHead(404,{'Content-Type':'application/json'}); // devuelvo json
-            res.write("Error, no se encuentra ese ascensor"); // envio la sucursal  
+            res.write(JSON.stringify({message:"Error, no se encuentra ese ascensor"})); // envio la sucursal  
         }
 
         res.end()
@@ -62,7 +62,7 @@ function altaAscensor(res,ascensor){
         if (err) {
             console.error(err);
             res.writeHead(500, { 'Content-Type': 'application/json' });
-            res.end('Error interno del servidor');
+            res.end(JSON.stringify({error:'Error interno del servidor'}));
             return;
         }
     
@@ -79,12 +79,12 @@ function altaAscensor(res,ascensor){
             if (err) {
                 console.error(err);
                 res.writeHead(500, { 'Content-Type': 'application/json' });
-                res.end('Error interno del servidor');
+                res.end(JSON.stringify({error:'Error interno del servidor'}));
                 return;
             }
     
             res.writeHead(201, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify(ascensor));
+            res.end(JSON.stringify({message: 'Alta de ascensor exitosa'}));
         });
     });
 }
@@ -96,7 +96,7 @@ function deleteAscensor(res, id) {
         if (err) {
           console.error(err);
           res.writeHead(500, { 'Content-Type': 'application/json' });
-          res.end('Error interno del servidor');
+          res.end(JSON.stringify({error:'Error interno del servidor'}));
           return
         }
     
@@ -122,17 +122,17 @@ function deleteAscensor(res, id) {
             if (err) {
               console.error(err);
               res.writeHead(500, { 'Content-Type': 'application/json' });
-              res.end('Error interno del servidor');
+              res.end(JSON.stringify({error:'Error interno del servidor'}));
               return
             }
     
             res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(`Ascensor con ID ${id} eliminado.`);
+            res.end(JSON.stringify({message:`Ascensor con ID ${id} eliminado.`}));
           });
         } else {
           console.log(`Ascensor con ID ${id} no encontrado.`);
           res.writeHead(404, { 'Content-Type': 'application/json' });
-          res.end(`Ascensor con ID ${id} no encontrado.`);
+          res.end(JSON.stringify({message:`Ascensor con ID ${id} no encontrado.`}));
         }
       })
 }
@@ -143,8 +143,8 @@ function modificacionAscensor(res,id,nuevosDatos){
     fs.readFile(archivoAscensores, 'utf8', (err, data) => {
         if (err) {
           console.error(err);
-          res.writeHead(500, { 'Content-Type': 'text/plain' });
-          res.end('Error interno del servidor');
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({error:'Error interno del servidor'}));
           return
         }
     
@@ -175,18 +175,18 @@ function modificacionAscensor(res,id,nuevosDatos){
             fs.writeFile(archivoAscensores, JSON.stringify(ascensores, null, 2), (err) => {
                 if (err) {
                   console.error(err);
-                  res.writeHead(500, { 'Content-Type': 'text/plain' });
-                  res.end('Error interno del servidor');
+                  res.writeHead(500, { 'Content-Type': 'application/json' });
+                  res.end(JSON.stringify({error:'Error interno del servidor'}));
                   return
                 }
         
-                res.writeHead(200, { 'Content-Type': 'text/plain' });
-                res.end(`Visitante con ID ${id} actualizado.`);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({message:`Visitante con ID ${id} actualizado.`}));
               });
         }
         else{
-            res.writeHead(404,{'Content-Type':'application/json'}); // devuelvo json
-            res.write("Error, no se encuentra ese ascensor"); // envio la sucursal  
+            res.writeHead(404,{'Content-Type':'application/json'}); 
+            res.write(JSON.stringify({message:"Error, no se encuentra ese ascensor"})); 
         }
 
     })
@@ -205,14 +205,14 @@ function validacionDatos(ascensor){
 
 // REQUEST INCORRECTA
 function rutaNoEncontrada(res){
-    res.writeHead(404,{'Content-Type':'application/json'}); // devuelvo json
-    res.write("Error, no se encuentra la ruta en gestionAscensores"); // envio la sucursal  
+    res.writeHead(404,{'Content-Type':'application/json'}); 
+    res.write(JSON.stringify({message:"Error, no se encuentra la ruta en gestionAscensores"}));
     res.end();
 }
 
 function datosIncorrectos(res){
     res.writeHead(400,{'Content-Type':'application/json'});
-    res.write("Error en el formato de los datos");
+    res.write(JSON.stringify({message:"Error en el formato de los datos"}));
     res.end();
 }
 
