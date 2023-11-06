@@ -13,8 +13,10 @@ const app = express();
 
 //RUTAS PARA VISISTANTES
 
-app.route('/api/visitantes') //despies de visitantes agrega un * ATENTO POR SI FALLA ESO
+app.route('/api/visitantes*') //despies de visitantes agrega un * ATENTO POR SI FALLA ESO
+    
     .get((req, res) => {
+        console.log(req.url);
         http.get("http://localhost:" + puertoVisitantes + req.url, (respuesta) => {
             let data = '';
             respuesta.on('data', (chunk) => {
