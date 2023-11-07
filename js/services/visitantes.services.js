@@ -47,6 +47,7 @@ let visitantes = [
   },
 ];
 
+
 function agregarVisitante() {
   const idUltimo = visitantes[visitantes.length - 1].id;
   const nuevoID = siguienteID(idUltimo);
@@ -59,8 +60,31 @@ function agregarVisitante() {
     fecha_checkIn: "",
     fecha_checkOut: "",
   };
-  visitantes.push(nuevoVisitante);
+  // Realiza una solicitud POST a la API Gateway
+  const apiUrl = 'http://localhost:3501/api/visitantes/alta'; // Ajusta la URL de la API Gateway según tu configuración
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(nuevoVisitante),
+  };
+
+  fetch(apiUrl, requestOptions)
+    .then(response => {
+      if (response.status === 200) {
+        // La solicitud se completó con éxito
+        console.log('Nuevo visitante agregado con éxito.');
+      } else {
+        // Manejar otros códigos de estado o errores aquí
+        console.error('Error al agregar el visitante. Código de estado: ', response.status);
+      }
+    })
+    .catch(error => {
+      console.error('Error de red al agregar el visitante: ', error);
+    });
 }
+
 
 function modificarInfoVisitantes(idVisit, nombreVisit, edadVisit, emailVisit, fechaVisitIn, fechaVisitOut) {
   const indice = visitantes.findIndex(visitante => visitante.id === idVisit);
@@ -109,11 +133,11 @@ const getVisitantes = async () => {
 function siguienteID(ultimoID) {
   const alfabeto = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   let match = ultimoID.match(/([A-Z]+)(\d+)/);
-  
+
   if (match) {
     const parteAlfabetica = match[1];
     let numero = parseInt(match[2], 10);
-    
+
     if (!isNaN(numero)) {
       numero++; // Incrementar el número en 1
 
@@ -136,5 +160,5 @@ function siguienteID(ultimoID) {
   return ultimoID;
 }
 
-export { getVisitantes, agregarVisitante, ultimoVisitante, modificarInfoVisitantes, modificarPermisosVisitantes};
+export { getVisitantes, agregarVisitante, ultimoVisitante, modificarInfoVisitantes, modificarPermisosVisitantes };
 
