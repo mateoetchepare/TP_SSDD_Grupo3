@@ -98,7 +98,7 @@ function llamadaGateway(visitanteModificado, url, tipoMetodo, puerto) {
 function modificarPermisosVisitantes(idVisit, nuevosPisosPermitidos) {
   const indice = visitantes.findIndex(visitante => visitante.id === idVisit);
   if (indice !== -1) {
-    llamadaGateway(nuevosPisosPermitidos, `permisos/${visitanteModificado.id}`, 'PUT', `${puertoPermisos}`);
+    llamadaGateway(nuevosPisosPermitidos, `permisos/${idVisit}`, 'PUT', `${puertoPermisos}`);
   }
 }
 
