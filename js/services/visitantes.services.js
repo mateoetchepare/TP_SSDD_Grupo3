@@ -81,7 +81,7 @@ function modificarInfoVisitantes(idVisit, nombreVisit, edadVisit, emailVisit, fe
   }
   console.log(visitanteModificado);
   if (indice !== -1) { // el visitante existe entonces lo modifico nada mas con un PUT
-    llamadaGateway(visitanteModificado, `${visitanteModificado.id}`, 'PUT', puertoVisitantes);
+    llamadaGateway(visitanteModificado, `${visitanteModificado.id}`, 'PUT', `visitantes/${puertoVisitantes}`);
     //visitantes[indice] = visitanteModificado;
     
   } else { // el visitante no existia entonces hago un POST
@@ -93,7 +93,7 @@ function modificarInfoVisitantes(idVisit, nombreVisit, edadVisit, emailVisit, fe
 
 function llamadaGateway(visitanteModificado, url, tipoMetodo, puerto) {
   console.log(JSON.stringify(visitanteModificado));
-  const apiUrl = `http://localhost:${puerto}/api/visitantes/${url}`; // Ajusta la URL de la API Gateway según tu configuración
+  const apiUrl = `http://localhost:${puerto}/api/${url}`; // Ajusta la URL de la API Gateway según tu configuración
   const requestOptions = {
     method: `${tipoMetodo}`,
     headers: {
@@ -130,7 +130,7 @@ function modificarPermisosVisitantes(idVisit, nuevosPisosPermitidos) {
       fecha_checkIn: visitantes[indice].fecha_checkIn,
       fecha_checkOut: visitantes[indice].fechaVisitOut
     }
-    llamadaGateway(visitanteModificado, `${visitanteModificado.id}`, 'PUT', puertoPermisos);
+    llamadaGateway(visitanteModificado, `${visitanteModificado.id}`, 'PUT', `permisos/${puertoPermisos}`);
   }
 }
 
