@@ -46,13 +46,13 @@ function modificacionPermisos(res,id,nuevosDatos){
 
         let visitante = visitantes.find(visitante=> visitante.id == idVisitante);
 
-        console.log('datos originales:',visitante);
-        console.log('nuevos datos: ',nuevosDatos);
+        //console.log('datos originales:',visitante);
+        //console.log('nuevos datos: ',nuevosDatos);
 
         if(visitante != undefined){ //VERIFICAR EL TIPO DE DATO PARA EL ARREGLO
             visitante.pisos_permitidos = nuevosDatos;
 
-            console.log('datos actualizados:',visitante);
+            //console.log('datos actualizados:',visitante);
 
             fs.writeFile(archivoVisitantes, JSON.stringify(visitantes, null, 2), (err) => {
                 if (err) {
@@ -93,6 +93,11 @@ function rutaNoEncontrada(res){
 
 const server = http.createServer((req, res) => {
     
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Request-Method', '*');
+    res.setHeader('Access-Control-Allow-Methods', '*');
+    res.setHeader('Access-Control-Allow-Headers', '*');
+
     const {url , method} = req;
     console.log(`URL: ${url} - METHOD: ${method}`);
 

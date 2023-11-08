@@ -42,6 +42,8 @@
     "edad": 22,
     "email": "quinto_email@gmail.com",
     "pisos_permitidos": [
+      1,
+      2,
       3,
       7,
       11
@@ -57,5 +59,14 @@
     "email": "jose@gmail.com",
     "fecha_checkIn": "2001-04-19T10:00:00.000Z",
     "fecha_checkOut": "2001-04-19T15:00:00.000Z"
+  },
+  {
+    "id": "A007",
+    "nombre": "modificado",
+    "edad": 3,
+    "pisos_permitidos": [],
+    "email": "hgfds",
+    "fecha_checkIn": "2023-11-23T10:00:00.000Z",
+    "fecha_checkOut": "2023-12-01T15:00:00.000Z"
   }
 ]

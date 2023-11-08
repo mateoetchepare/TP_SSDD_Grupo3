@@ -23,7 +23,6 @@ ajv.addFormat("custom-iso-date", customISODateValidation);
 function modificacionVisitante(res,id,nuevosDatos){
     fs.readFile(archivoVisitantes, 'utf8', (err, data) => {
         if (err) {
-          console.error(err);
           res.writeHead(500, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({error:'Error interno del servidor'}));
           return
@@ -34,8 +33,8 @@ function modificacionVisitante(res,id,nuevosDatos){
 
         let visitante = visitantes.find(visitante=> visitante.id == id);
 
-        console.log('datos originales:',visitante);
-        console.log('nuevos datos: ',nuevosDatos);
+        //console.log('datos originales:',visitante);
+        //console.log('nuevos datos: ',nuevosDatos);
 
         if( visitante != undefined){
             visitante.nombre = nuevosDatos.nombre;
@@ -45,7 +44,7 @@ function modificacionVisitante(res,id,nuevosDatos){
             visitante.fecha_checkIn = nuevosDatos.fecha_checkIn;
             visitante.fecha_checkOut = nuevosDatos.fecha_checkOut;
 
-            console.log('datos actualizados:',visitante);
+            //console.log('datos actualizados:',visitante);
 
             fs.writeFile(archivoVisitantes, JSON.stringify(visitantes, null, 2), (err) => {
                 if (err) {
@@ -146,7 +145,7 @@ function deleteVisitante(res, id) {
     
         if (visitanteIndex !== -1) {
           visitantes.splice(visitanteIndex, 1); // Elimina el visitante del arreglo
-          console.log(`Visitante con ID ${id} eliminado.`);
+          //console.log(`Visitante con ID ${id} eliminado.`);
     
           // Guarda el archivo JSON actualizado
           fs.writeFile(archivoVisitantes, JSON.stringify(visitantes, null, 2), (err) => {
@@ -262,8 +261,8 @@ const server = http.createServer((req,res)=>{
 
         let parametros = url.split('/');
         parametros = parametros.filter(el => el != '');
-        console.log(parametros);
-        console.log(req.headers)
+        //console.log(parametros);
+        //console.log(req.headers)
         
 
         if(method === 'GET'){   
@@ -297,12 +296,12 @@ const server = http.createServer((req,res)=>{
 
                 req.on('end',()=>{
                     try{
-                        console.log(data.length)
-                        console.log(typeof data)
+                        //console.log(data.length)
+                        //console.log(typeof data)
                         const nuevoVisitante = JSON.parse(data);
                         
-                        console.log(nuevoVisitante);
-                        console.log(nuevoVisitante.nombre);
+                        //console.log(nuevoVisitante);
+                        //console.log(nuevoVisitante.nombre);
 
                         //validacionDatos(nuevoVisitante);
                         if(validacionDatos(nuevoVisitante)){
