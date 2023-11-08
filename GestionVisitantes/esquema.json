@@ -1,8 +1,9 @@
 {
   "type": "object",
   "properties": {
+    "id": {"type": "string"},
     "nombre": { "type": "string" },
-    "edad": { "type": "integer", "minimum": 0 },
+    "edad": { "type": "integer", "minimum": -1 },
     "email": { "type": "string"},
     "pisos_permitidos": {
       "type": "array",
@@ -11,6 +12,6 @@
     "fecha_checkIn": { "type": "string", "format": "custom-iso-date" },
     "fecha_checkOut": { "type": "string", "format": "custom-iso-date" }
   },
-  "required": ["nombre", "edad", "email", "pisos_permitidos", "fecha_checkIn", "fecha_checkOut"],
+  "required": ["id","nombre", "edad", "email", "pisos_permitidos", "fecha_checkIn", "fecha_checkOut"],
   "additionalProperties": false
 }
