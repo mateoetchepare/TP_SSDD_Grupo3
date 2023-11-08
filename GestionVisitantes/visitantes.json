@@ -1,18 +1,15 @@
 [
   {
     "id": "A001",
-    "nombre": "Nombre Completo",
-    "edad": 25,
+    "nombre": "hola",
+    "edad": 30,
     "email": "email@gmail.com",
     "pisos_permitidos": [
-        1,
-        5,
-        6,
-        7,
-        25
+      1,
+      2
     ],
-    "fecha_checkIn": "2023-09-13T23:09:40.880Z",
-    "fecha_checkOut": "2023-09-15T23:09:40.880Z"
+    "fecha_checkIn": "2023-09-13T10:00:00.000Z",
+    "fecha_checkOut": "2023-09-15T15:00:00.000Z"
   },
   {
     "id": "A003",

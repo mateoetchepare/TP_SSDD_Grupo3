@@ -41,7 +41,7 @@ function modificacionVisitante(res,id,nuevosDatos){
             visitante.nombre = nuevosDatos.nombre;
             visitante.edad = nuevosDatos.edad;
             visitante.email= nuevosDatos.email;
-            visitante.pisos_permitidos = nuevosDatos.pisos_permitidos;
+            //visitante.pisos_permitidos = nuevosDatos.pisos_permitidos;
             visitante.fecha_checkIn = nuevosDatos.fecha_checkIn;
             visitante.fecha_checkOut = nuevosDatos.fecha_checkOut;
 
