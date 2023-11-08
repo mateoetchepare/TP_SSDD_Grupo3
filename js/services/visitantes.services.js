@@ -1,53 +1,29 @@
 const puertoVisitantes = 3501;
 const puertoAscensores = 3502;
 const puertoPermisos = 3503;
-let visitantes = [
-  {
-    id: "A001",
-    nombre: "Carlos Pérez",
-    edad: 30,
-    email: "carlos@gmail.com",
-    pisos_permitidos: [1, 3, 5],
-    fecha_checkIn: "2023-09-13T23:09:40.880Z",
-    fecha_checkOut: "2023-09-15T23:09:40.880Z",
-  },
-  {
-    id: "A002",
-    nombre: "Ana García",
-    edad: 28,
-    email: "ana@gmail.com",
-    pisos_permitidos: [1, 2, 4],
-    fecha_checkIn: "2001-02-10",
-    fecha_checkOut: "2001-01-16",
-  },
-  {
-    id: "A003",
-    nombre: "Luis Rodríguez",
-    edad: 35,
-    email: "luis@gmail.com",
-    pisos_permitidos: [1, 3, 6],
-    fecha_checkIn: "2007-05-11",
-    fecha_checkOut: "2007-09-12",
-  },
-  {
-    id: "A004",
-    nombre: "María López",
-    edad: 27,
-    email: "maria@gmail.com",
-    pisos_permitidos: [1, 2, 7],
-    fecha_checkIn: "2001-04-19",
-    fecha_checkOut: "2001-04-21",
-  },
-  {
-    id: "A005",
-    nombre: "Juan Martínez",
-    edad: 32,
-    email: "juan@gmail.com",
-    pisos_permitidos: [1, 3, 8],
-    fecha_checkIn: "2005-03-15",
-    fecha_checkOut: "2005-03-18",
-  },
-];
+let visitantes = [];
+
+async function getVisitantes() {
+  const url = 'http://localhost:3501/api/visitantes/lista'; // Ajusta la URL de la API Gateway
+  try {
+    const response = await fetch(url);
+    if (response.ok) {
+      const jsonResponse = await response.json(); // Parsea la respuesta JSON
+      return jsonResponse;
+    } else {
+      throw new Error(`Error al obtener visitantes. Código de estado: ${response.status}`);
+    }
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
+// Llama a la función para obtener los visitantes
+getVisitantes()
+  .then(JsonParseado => {
+    visitantes = JsonParseado;
+  });
 
 
 function agregarVisitante() {
@@ -81,7 +57,7 @@ function modificarInfoVisitantes(idVisit, nombreVisit, edadVisit, emailVisit, fe
   }
   console.log(visitanteModificado);
   if (indice !== -1) { // el visitante existe entonces lo modifico nada mas con un PUT
-    llamadaGateway(visitanteModificado, `${visitanteModificado.id}`, 'PUT', `visitantes/${puertoVisitantes}`);
+    llamadaGateway(visitanteModificado, `visitantes/${visitanteModificado.id}`, 'PUT', `${puertoVisitantes}`);
     //visitantes[indice] = visitanteModificado;
     
   } else { // el visitante no existia entonces hago un POST
@@ -130,7 +106,7 @@ function modificarPermisosVisitantes(idVisit, nuevosPisosPermitidos) {
       fecha_checkIn: visitantes[indice].fecha_checkIn,
       fecha_checkOut: visitantes[indice].fechaVisitOut
     }
-    llamadaGateway(visitanteModificado, `${visitanteModificado.id}`, 'PUT', `permisos/${puertoPermisos}`);
+    llamadaGateway(visitanteModificado, `permisos/${visitanteModificado.id}`, 'PUT', `${puertoPermisos}`);
   }
 }
 
@@ -142,10 +118,6 @@ function existeVisitante(idVisit) {
 function ultimoVisitante() {
   return visitantes[visitantes.length - 1];
 }
-
-const getVisitantes = async () => {
-  return visitantes;
-};
 
 function siguienteID(ultimoID) {
   const alfabeto = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
