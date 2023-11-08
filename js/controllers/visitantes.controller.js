@@ -1,4 +1,4 @@
-import { agregarVisitante, getVisitantes, ultimoVisitante, modificarInfoVisitantes, modificarPermisosVisitantes } from "../services/visitantes.services.js";
+import { agregarVisitante, getVisitantes, ultimoVisitante, modificarInfoVisitantes, modificarPermisosVisitantes, existeVisitante } from "../services/visitantes.services.js";
 
 export default async () => {
 
@@ -83,16 +83,15 @@ export default async () => {
 
     const botonNuevoVisitante = divElement.querySelector("#nuevoVisitante");
     botonNuevoVisitante.addEventListener("click", async function () {
-        agregarVisitante();
-        const ultVisitante = ultimoVisitante();
+        const ultVisitante = agregarVisitante();
         await createHTMLelements(ultVisitante);
         addListOptions();
         querySelectBtns();
         recuperarFecha();
         guardarInfo();
         guardarPisos();
+        habilitaDeshabilitaBotonNuevo();
     });
-
 
     //Agrega, en cada lista de opciones, las 25 opciones con JS
 
@@ -266,6 +265,19 @@ export default async () => {
     if (cantidadElementos === visitantes.length) {
         recuperarFecha();
         recuperarPisos();
+    }
+
+    function habilitaDeshabilitaBotonNuevo() {
+        const botonNuevo = divElement.querySelector("#nuevoVisitante");
+        const ultimoElementoLi = listaVisitantesElement.lastElementChild;
+        const ultimoElementoTagItem = ultimoElementoLi.querySelector(".tagItem").textContent;
+        const idVisitante = ultimoElementoTagItem.split(" ");
+        if (!existeVisitante(idVisitante)) {
+            botonNuevo.disabled = true;
+        } else {
+            botonNuevo.disabled = false;
+        }
+        return divElement;
     }
 
     return divElement;

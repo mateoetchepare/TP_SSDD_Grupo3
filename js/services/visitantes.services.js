@@ -60,30 +60,10 @@ function agregarVisitante() {
     fecha_checkIn: "",
     fecha_checkOut: "",
   };
-  // Realiza una solicitud POST a la API Gateway
-  const apiUrl = 'http://localhost:3501/api/visitantes/alta'; // Ajusta la URL de la API Gateway según tu configuración
-  const requestOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(nuevoVisitante),
-  };
-
-  fetch(apiUrl, requestOptions)
-    .then(response => {
-      if (response.status === 200) {
-        // La solicitud se completó con éxito
-        console.log('Nuevo visitante agregado con éxito.');
-      } else {
-        // Manejar otros códigos de estado o errores aquí
-        console.error('Error al agregar el visitante. Código de estado: ', response.status);
-      }
-    })
-    .catch(error => {
-      console.error('Error de red al agregar el visitante: ', error);
-    });
+  return nuevoVisitante;
 }
+
+
 
 
 function modificarInfoVisitantes(idVisit, nombreVisit, edadVisit, emailVisit, fechaVisitIn, fechaVisitOut) {
@@ -99,10 +79,35 @@ function modificarInfoVisitantes(idVisit, nombreVisit, edadVisit, emailVisit, fe
       fecha_checkIn: fechaVisitIn,
       fecha_checkOut: fechaVisitOut
     }
-    visitantes[indice] = visitanteModificado;
-    console.log(visitantes[indice]);
+  } else {
+    // Realiza una solicitud POST a la API Gateway
+    const apiUrl = 'http://localhost:3501/api/visitantes/alta'; // Ajusta la URL de la API Gateway según tu configuración
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(nuevoVisitante),
+    };
+    
+    fetch(apiUrl, requestOptions)
+      .then(response => {
+        if (response.status === 200) {
+          // La solicitud se completó con éxito
+          console.log('Nuevo visitante agregado con éxito.');
+        } else {
+          // Manejar otros códigos de estado o errores aquí
+          console.error('Error al agregar el visitante. Código de estado: ', response.status);
+        }
+      })
+      .catch(error => {
+        console.error('Error de red al agregar el visitante: ', error);
+      });
   }
+  visitantes[indice] = visitanteModificado;
+  console.log(visitantes[indice]);
 }
+
 
 function modificarPermisosVisitantes(idVisit, nuevosPisosPermitidos) {
   const indice = visitantes.findIndex(visitante => visitante.id === idVisit);
@@ -120,6 +125,11 @@ function modificarPermisosVisitantes(idVisit, nuevosPisosPermitidos) {
     visitantes[indice] = visitanteModificado;
     console.log(visitantes[indice]);
   }
+}
+
+function existeVisitante(idVisit) {
+  const indice = visitantes.findIndex(visitante => visitante.id === idVisit);
+  return indice !== -1;
 }
 
 function ultimoVisitante() {
@@ -160,5 +170,6 @@ function siguienteID(ultimoID) {
   return ultimoID;
 }
 
-export { getVisitantes, agregarVisitante, ultimoVisitante, modificarInfoVisitantes, modificarPermisosVisitantes };
+
+export { getVisitantes, agregarVisitante, ultimoVisitante, modificarInfoVisitantes, modificarPermisosVisitantes, existeVisitante };
 
