@@ -113,6 +113,15 @@ const server = http.createServer((req, res) => {
         });
         res.end();
 
+    }else if (method === 'OPTIONS') {
+        // Configura los encabezados CORS para permitir la solicitud desde el origen específico
+        res.writeHead(200, {
+          'Access-Control-Allow-Origin': 'http://127.0.0.1:5500', // Reemplaza con tu origen permitido
+          'Access-Control-Allow-Methods': 'POST, GET, DELETE, PUT', // Reemplaza con los métodos permitidos
+          'Access-Control-Allow-Headers': 'Content-Type', // Reemplaza con los encabezados permitidos
+        });
+        res.end();
+
     }else if(url.startsWith("/api/permisos")){
 
         switch(method){ //DEFINI CUANDO NO TENGAS SUEÑO SI CONVIENE USAR CASE O IFs ANIDADOS
