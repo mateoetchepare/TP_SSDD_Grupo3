@@ -10,7 +10,10 @@ const schema = require('./esquema.json');
 
 // Define una función de validación personalizada para fechas en formato ISO (cadenas)
 function customISODateValidation(value) {
-    return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/.test(value);
+    if(value === ''){
+        return true;
+    }
+    return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/.test(value) ;
 }
   
 // Registra el formato personalizado en Ajv
@@ -76,8 +79,8 @@ function altaVisitante(res,visitante){
     
         const visitantes = JSON.parse(data);
 
-        //FALTA CREAR UNA FUNCIONPARA GENERAR EL ID
-        visitante.id = generarSiguienteIdentificador(visitantes);
+        
+        //visitante.id = generarSiguienteIdentificador(visitantes);//cambio el id viene del front
     
         visitantes.push(visitante);
     
@@ -238,15 +241,27 @@ function validacionDatos(visitante){
 
 const server = http.createServer((req,res)=>{
 
+
     const{ url, method} = req;
 
     console.log(`URL: ${url} - METHOD: ${method}`);
     
-    if(url.startsWith("/api/visitantes")){
+    if (method === 'OPTIONS') {
+        // Configura los encabezados CORS para permitir la solicitud desde el origen específico
+        res.writeHead(200, {
+          'Access-Control-Allow-Origin': 'http://127.0.0.1:5500', // Reemplaza con tu origen permitido
+          'Access-Control-Allow-Methods': 'POST, GET, DELETE, PUT', // Reemplaza con los métodos permitidos
+          'Access-Control-Allow-Headers': 'Content-Type', // Reemplaza con los encabezados permitidos
+        });
+        res.end();
+
+      }else if(url.startsWith("/api/visitantes")){
 
         let parametros = url.split('/');
         parametros = parametros.filter(el => el != '');
-        //console.log(parametros);
+        console.log(parametros);
+        console.log(req.headers)
+        
 
         if(method === 'GET'){   
 
@@ -293,6 +308,7 @@ const server = http.createServer((req,res)=>{
                             altaVisitante(res,nuevoVisitante);
                             console.log('se dio de alta el visitante')
                         }else{
+                            console.log('datos incorrectos')
                             datosIncorrectos(res);
                         }
 
