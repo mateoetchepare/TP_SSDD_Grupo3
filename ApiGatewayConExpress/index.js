@@ -2,7 +2,8 @@ const { bodyParser } = require("./bodyParser");
 const { application } = require("express");
 const express = require("express");
 const http = require("http");
-const path = require("url");
+const cors = require("cors");
+//const path = require("url");
 const puertoVisitantes = 3501;
 const puertoAscensores = 3502;
 const puertoPermisos = 3503;
@@ -10,6 +11,12 @@ const puertoPermisos = 3503;
 const app = express();
 
 // FALTA TODA LA PARTE DE AUTENTICACION
+
+app.use( //FIJARSE SI ESTO FUNCIONA 
+  cors({
+    origin: "*",
+  })
+);
 
 //RUTAS PARA VISISTANTES
 
