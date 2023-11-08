@@ -63,7 +63,7 @@ function modificarInfoVisitantes(idVisit, nombreVisit, edadVisit, emailVisit, fe
     
   } else { // el visitante no existia entonces hago un POST
     // Realiza una solicitud POST a la API Gateway
-    llamadaGateway(visitanteModificado, 'alta', 'POST', puertoVisitantes);
+    llamadaGateway(visitanteModificado, 'visitantes/alta', 'POST', puertoVisitantes);
     // añadir al vector local
   }
 }
