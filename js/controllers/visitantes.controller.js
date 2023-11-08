@@ -213,7 +213,8 @@ export default async () => {
                 const idVisitanteCompleto = botonGuardar.parentElement.querySelector('.tagItem').textContent;
                 const idVisitante = idVisitanteCompleto.split(" ");
                 const nuevoNombre = botonGuardar.parentElement.querySelector('.textFieldNombreVisitante').value;
-                const nuevaEdad = botonGuardar.parentElement.querySelector('.textFieldEdadVisitante').value;
+                const nuevaEdadString = botonGuardar.parentElement.querySelector('.textFieldEdadVisitante').value;
+                const nuevaEdad = parseInt(nuevaEdadString);
                 const nuevoEmail = botonGuardar.parentElement.querySelector('.textFieldEmailVisitante').value;
                 const nuevasFechas = botonGuardar.parentElement.querySelectorAll('.datePicker');
 

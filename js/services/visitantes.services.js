@@ -77,12 +77,13 @@ function modificarInfoVisitantes(idVisit, nombreVisit, edadVisit, emailVisit, fe
     fecha_checkIn: fechaVisitIn,
     fecha_checkOut: fechaVisitOut
   }
-  console.log(indice);
+  console.log(visitanteModificado);
   if (indice !== -1) { // el visitante existe entonces lo modifico nada mas con un PUT
     visitantes[indice] = visitanteModificado;
     //hacer PUT
   } else { // el visitante no existia entonces hago un POST
     // Realiza una solicitud POST a la API Gateway
+    console.log(JSON.stringify(visitanteModificado));
     const apiUrl = 'http://localhost:3501/api/visitantes/alta'; // Ajusta la URL de la API Gateway según tu configuración
     const requestOptions = {
       method: 'POST',
