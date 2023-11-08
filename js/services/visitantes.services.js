@@ -1,4 +1,6 @@
-
+const puertoVisitantes = 3501;
+const puertoAscensores = 3502;
+const puertoPermisos = 3503;
 let visitantes = [
   {
     id: "A001",
@@ -79,41 +81,45 @@ function modificarInfoVisitantes(idVisit, nombreVisit, edadVisit, emailVisit, fe
   }
   console.log(visitanteModificado);
   if (indice !== -1) { // el visitante existe entonces lo modifico nada mas con un PUT
-    visitantes[indice] = visitanteModificado;
-    //hacer PUT
+    llamadaGateway(visitanteModificado, `${visitanteModificado.id}`, 'PUT', puertoVisitantes);
+    //visitantes[indice] = visitanteModificado;
+    
   } else { // el visitante no existia entonces hago un POST
     // Realiza una solicitud POST a la API Gateway
-    console.log(JSON.stringify(visitanteModificado));
-    const apiUrl = 'http://localhost:3501/api/visitantes/alta'; // Ajusta la URL de la API Gateway según tu configuración
-    const requestOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(visitanteModificado), 
-    };
-
-    fetch(apiUrl, requestOptions)
-      .then(response => {
-        if (response.status === 200) {
-          // La solicitud se completó con éxito
-          console.log('Nuevo visitante agregado con éxito.');
-        } else {
-          // Manejar otros códigos de estado o errores aquí
-          console.error('Error al agregar el visitante. Código de estado: ', response.status);
-        }
-      })
-      .catch(error => {
-        console.error('Error de red al agregar el visitante: ', error);
-      });
-      // visitantes.push(visitanteModificado); // ESTO ESTA MAL PORQUE LO TENDRIA QUE BAJAR DEL BACK
+    llamadaGateway(visitanteModificado, 'alta', 'POST', puertoVisitantes);
+    // añadir al vector local
   }
+}
+
+function llamadaGateway(visitanteModificado, url, tipoMetodo, puerto) {
+  console.log(JSON.stringify(visitanteModificado));
+  const apiUrl = `http://localhost:${puerto}/api/visitantes/${url}`; // Ajusta la URL de la API Gateway según tu configuración
+  const requestOptions = {
+    method: `${tipoMetodo}`,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(visitanteModificado), 
+  };
+
+  fetch(apiUrl, requestOptions)
+    .then(response => {
+      if (response.status === 200) {
+        // La solicitud se completó con éxito
+        console.log('Nuevo visitante agregado con éxito.');
+      } else {
+        // Manejar otros códigos de estado o errores aquí
+        console.error('Error al agregar el visitante. Código de estado: ', response.status);
+      }
+    })
+    .catch(error => {
+      console.error('Error de red al agregar el visitante: ', error);
+    });
 }
 
 
 function modificarPermisosVisitantes(idVisit, nuevosPisosPermitidos) {
   const indice = visitantes.findIndex(visitante => visitante.id === idVisit);
-  console.log(indice);
   if (indice !== -1) {
     const visitanteModificado = {
       id: visitantes[indice].id,
@@ -124,8 +130,7 @@ function modificarPermisosVisitantes(idVisit, nuevosPisosPermitidos) {
       fecha_checkIn: visitantes[indice].fecha_checkIn,
       fecha_checkOut: visitantes[indice].fechaVisitOut
     }
-    visitantes[indice] = visitanteModificado;
-    console.log(visitantes[indice]);
+    llamadaGateway(visitanteModificado, `${visitanteModificado.id}`, 'PUT', puertoPermisos);
   }
 }
 
