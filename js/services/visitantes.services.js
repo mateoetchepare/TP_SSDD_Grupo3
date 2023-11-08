@@ -9,6 +9,7 @@ async function getVisitantes() {
     const response = await fetch(url);
     if (response.ok) {
       const jsonResponse = await response.json(); // Parsea la respuesta JSON
+      console.log()
       return jsonResponse;
     } else {
       throw new Error(`Error al obtener visitantes. Código de estado: ${response.status}`);
