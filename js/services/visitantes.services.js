@@ -68,18 +68,20 @@ function agregarVisitante() {
 
 function modificarInfoVisitantes(idVisit, nombreVisit, edadVisit, emailVisit, fechaVisitIn, fechaVisitOut) {
   const indice = visitantes.findIndex(visitante => visitante.id === idVisit);
+  const visitanteModificado = {
+    id: idVisit,
+    nombre: nombreVisit,
+    edad: edadVisit,
+    pisos_permitidos: [],
+    email: emailVisit,
+    fecha_checkIn: fechaVisitIn,
+    fecha_checkOut: fechaVisitOut
+  }
   console.log(indice);
-  if (indice !== -1) {
-    const visitanteModificado = {
-      id: idVisit,
-      nombre: nombreVisit,
-      edad: edadVisit,
-      pisos_permitidos: [],
-      email: emailVisit,
-      fecha_checkIn: fechaVisitIn,
-      fecha_checkOut: fechaVisitOut
-    }
-  } else {
+  if (indice !== -1) { // el visitante existe entonces lo modifico nada mas con un PUT
+    visitantes[indice] = visitanteModificado;
+    //hacer PUT
+  } else { // el visitante no existia entonces hago un POST
     // Realiza una solicitud POST a la API Gateway
     const apiUrl = 'http://localhost:3501/api/visitantes/alta'; // Ajusta la URL de la API Gateway según tu configuración
     const requestOptions = {
@@ -87,9 +89,9 @@ function modificarInfoVisitantes(idVisit, nombreVisit, edadVisit, emailVisit, fe
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(nuevoVisitante),
+      body: JSON.stringify(visitanteModificado), 
     };
-    
+
     fetch(apiUrl, requestOptions)
       .then(response => {
         if (response.status === 200) {
@@ -103,9 +105,8 @@ function modificarInfoVisitantes(idVisit, nombreVisit, edadVisit, emailVisit, fe
       .catch(error => {
         console.error('Error de red al agregar el visitante: ', error);
       });
+      // visitantes.push(visitanteModificado); // ESTO ESTA MAL PORQUE LO TENDRIA QUE BAJAR DEL BACK
   }
-  visitantes[indice] = visitanteModificado;
-  console.log(visitantes[indice]);
 }
 
 
