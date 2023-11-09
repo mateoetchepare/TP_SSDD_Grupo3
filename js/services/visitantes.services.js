@@ -1,10 +1,9 @@
 const puertoVisitantes = 3501;
-const puertoAscensores = 3502;
 const puertoPermisos = 3503;
 let visitantes = [];
 
 async function getVisitantes() {
-  const url = 'http://localhost:3501/api/visitantes/lista'; // Ajusta la URL de la API Gateway
+  const url = `http://localhost:${puertoVisitantes}/api/visitantes/lista`; // Ajusta la URL de la API Gateway
   try {
     const response = await fetch(url);
     if (response.ok) {

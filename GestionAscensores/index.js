@@ -221,6 +221,11 @@ const ascensoresProcesos = {};
 
 const server = http.createServer((req,res) => {
 
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Request-Method', '*');
+    res.setHeader('Access-Control-Allow-Methods', '*');
+    res.setHeader('Access-Control-Allow-Headers', '*');
+
     const{ url, method} = req;
 
     console.log(`URL: ${url} - METHOD: ${method}`);
