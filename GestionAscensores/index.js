@@ -123,7 +123,7 @@ function deleteAscensor(res, id) {
         }
     
         const ascensores = JSON.parse(data);
-        
+        console.log("id: ",id," length: ",id.length);
         const ascensorIndex = ascensores.findIndex(ascensor => ascensor.id === id)
     
         //busco el proceso  del ascensor 
@@ -176,9 +176,9 @@ function modificacionAscensor(res,id,nuevosDatos){
 
         let ascensor = ascensores.find(ascensor=> ascensor.id == id);
 
-        console.log('datos originales:',ascensor);
-        console.log('nuevos datos: ',nuevosDatos);
-        console.log('childprocess: ',childProcess);
+        //console.log('datos originales:',ascensor);
+        //console.log('nuevos datos: ',nuevosDatos);
+        //console.log('childprocess: ',childProcess);
 
         if(ascensor != undefined && childProcess){
             ascensor.nombre = nuevosDatos.nombre;
