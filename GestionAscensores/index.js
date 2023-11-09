@@ -5,6 +5,7 @@ const Ajv = require('ajv');
 const ajv = new Ajv({ allErrors: true });
 
 const schema = require('./esquema.json');
+const { spawn } = require('child_process');
 
 
 // REQUEST METODO GET (TODOS LOS ASCENSORES)
@@ -55,6 +56,27 @@ function getAscensor(res, id){
     })
 }
 
+//SE DA DE ALTA A LOS ASCENSORES QUE YA ESTAN GUARDADOS EN EL JSON
+function altaChildProcessDelJSON(){
+    fs.readFile(archivoAscensores, 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+    
+        const ascensores = JSON.parse(data);
+
+        ascensores.forEach(ascensor => {
+            console.log('nombre ascensor: ',ascensor.nombre);
+            //creo el proceso hijo para el ascensor
+            const childProcess = spawn('node', ['script.js', 'alta', JSON.stringify(ascensor)]);
+            //lo guardo con el id del ascensor para poder accederlo
+            ascensoresProcesos[ascensor.id] = childProcess;
+        })
+
+    });
+
+}
 
 // REQUEST METODO POST (ALTA VISITANTE)
 function altaAscensor(res,ascensor){
@@ -156,6 +178,7 @@ function modificacionAscensor(res,id,nuevosDatos){
 
         console.log('datos originales:',ascensor);
         console.log('nuevos datos: ',nuevosDatos);
+        console.log('childprocess: ',childProcess);
 
         if(ascensor != undefined && childProcess){
             ascensor.nombre = nuevosDatos.nombre;
@@ -192,8 +215,6 @@ function modificacionAscensor(res,id,nuevosDatos){
     })
 }
 
-
-
 function validacionDatos(ascensor){
 
     const validate = ajv.compile(schema);
@@ -215,6 +236,7 @@ function datosIncorrectos(res){
     res.write(JSON.stringify({message:"Error en el formato de los datos"}));
     res.end();
 }
+
 
 //aca se van a ir guardando los procesos de cada ascensor
 const ascensoresProcesos = {};
@@ -369,3 +391,7 @@ const server = http.createServer((req,res) => {
 })
 
 server.listen(3502);
+
+altaChildProcessDelJSON();
+
+

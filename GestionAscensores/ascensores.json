@@ -3,11 +3,9 @@
     "id": "c84605b4-7a59-11ee-b962-0242ac120002",
     "nombre": "A",
     "pisos": [
-      1,
-      5,
       13
     ],
-    "estado": "disponible"
+    "estado": "Disponible"
   },
   {
     "id": "c84605b6-7a59-11ye-b982-0242ac129002",
