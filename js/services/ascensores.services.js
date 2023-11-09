@@ -1,7 +1,7 @@
 
 const puertoAscensores = 3502;
 
-const ascensores = [];
+let ascensores = [];
 
 async function getAscensores() {
   const url = `http://localhost:${puertoAscensores}/api/ascensores/lista`; // Ajusta la URL de la API Gateway
@@ -23,6 +23,7 @@ async function getAscensores() {
 getAscensores()
   .then(JsonParseado => {
     ascensores = JsonParseado;
+    console.log(ascensores);
   });
 
 function agregarAscensor() {
@@ -52,6 +53,7 @@ function modificarAscensor(idAsc, nuevoNombre, pisosNuevos) {
     pisos: pisosNuevos,
     estado: 'Disponible'
   };
+  console.log(indice);
   if (indice !== -1) { // existe entonces hay que modificarlo nomas con un PUT
     const success = llamadaGateway(ascensorModificado, `ascensores/${ascensorModificado.id}`, 'PUT', `${puertoAscensores}`);
     if (success) {
@@ -80,14 +82,16 @@ function llamadaGateway(ascensorModificado, url, tipoMetodo, puerto) {
   fetch(apiUrl, requestOptions)
     .then(response => {
       if (response.status === 200) {
-        // La solicitud se completó con éxito
+        console.log(' se guardaron los cambios del ascensor ');
         success = 1;
       } else {
         // Manejar otros códigos de estado o errores aquí
+        console.log(' NO se guardaron los cambios del ascensor ');
         console.error('Error al agregar el visitante. Código de estado: ', response.status);
       }
     })
     .catch(error => {
+      console.log(' NO se guardaron los cambios del ascensor ');
       console.error('Error de red al agregar el visitante: ', error);
     });
   return success;
