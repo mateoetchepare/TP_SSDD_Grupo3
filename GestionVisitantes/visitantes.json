@@ -1,31 +1,5 @@
 [
   {
-    "id": "A001",
-    "nombre": "hola",
-    "edad": 30,
-    "email": "email@gmail.com",
-    "pisos_permitidos": [
-      1,
-      2
-    ],
-    "fecha_checkIn": "2023-09-13T10:00:00.000Z",
-    "fecha_checkOut": "2023-09-15T15:00:00.000Z"
-  },
-  {
-    "id": "A003",
-    "nombre": "Nombre Tres",
-    "edad": 28,
-    "email": "tercer_email@gmail.com",
-    "pisos_permitidos": [
-      2,
-      6,
-      15,
-      18
-    ],
-    "fecha_checkIn": "2023-09-15T08:30:20.500Z",
-    "fecha_checkOut": "2023-09-17T08:30:20.500Z"
-  },
-  {
     "id": "A004",
     "nombre": "Cuatro Nombre",
     "edad": 35,
@@ -68,5 +42,16 @@
     "email": "hgfds",
     "fecha_checkIn": "2023-11-23T10:00:00.000Z",
     "fecha_checkOut": "2023-12-01T15:00:00.000Z"
+  },
+  {
+    "id": "A008",
+    "nombre": "jose",
+    "edad": 20,
+    "pisos_permitidos": [
+      1
+    ],
+    "email": "jose@20.com",
+    "fecha_checkIn": "2001-04-19T10:00:00.000Z",
+    "fecha_checkOut": "2001-04-19T15:00:00.000Z"
   }
 ]

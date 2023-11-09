@@ -1,9 +1,8 @@
-const puertoVisitantes = 3501;
-const puertoPermisos = 3503;
+const puertoGateway = 3500;
 let visitantes = [];
 
 async function getVisitantes() {
-  const url = `http://localhost:${puertoVisitantes}/api/visitantes/lista`; // Ajusta la URL de la API Gateway
+  const url = `http://localhost:${puertoGateway}/api/visitantes/lista`; // Ajusta la URL de la API Gateway
   try {
     const response = await fetch(url);
     if (response.ok) {
@@ -43,7 +42,7 @@ function agregarVisitante() {
 
 
 function borrarVisitante(idVisit) {
-  const success = llamadaGateway({}, `visitantes/${idVisit}`, 'DELETE', `${puertoVisitantes}`);
+  const success = llamadaGateway({}, `visitantes/${idVisit}`, 'DELETE', `${puertoGateway}`);
   if (success) {
     visitantes = visitantes.filter(visitante => visitante.id !== idAscensor);
   }
@@ -63,13 +62,13 @@ function modificarInfoVisitantes(idVisit, nombreVisit, edadVisit, emailVisit, fe
   }
   console.log(visitanteModificado);
   if (indice !== -1) { // el visitante existe entonces lo modifico nada mas con un PUT
-    const success = llamadaGateway(visitanteModificado, `visitantes/${visitanteModificado.id}`, 'PUT', `${puertoVisitantes}`);
+    const success = llamadaGateway(visitanteModificado, `visitantes/${visitanteModificado.id}`, 'PUT', `${puertoGateway}`);
     if (success) {
       visitantes[indice] = visitanteModificado;
     }
   } else { // el visitante no existia entonces hago un POST
     // Realiza una solicitud POST a la API Gateway
-    const success = llamadaGateway(visitanteModificado, 'visitantes/alta', 'POST', puertoVisitantes);
+    const success = llamadaGateway(visitanteModificado, 'visitantes/alta', 'POST', puertoGateway);
     if (success) {
       visitantes.push(visitanteModificado);
     }
@@ -108,7 +107,7 @@ function llamadaGateway(visitanteModificado, url, tipoMetodo, puerto) {
 function modificarPermisosVisitantes(idVisit, nuevosPisosPermitidos) {
   const indice = visitantes.findIndex(visitante => visitante.id === idVisit);
   if (indice !== -1) {
-    llamadaGateway(nuevosPisosPermitidos, `permisos/${idVisit}`, 'PUT', `${puertoPermisos}`);
+    llamadaGateway(nuevosPisosPermitidos, `permisos/${idVisit}`, 'PUT', `${puertoGateway}`);
   }
 }
 

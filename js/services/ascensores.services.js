@@ -1,10 +1,10 @@
 
-const puertoAscensores = 3502;
+const puertoGateway = 3500;
 
 let ascensores = [];
 
 async function getAscensores() {
-  const url = `http://localhost:${puertoAscensores}/api/ascensores/lista`; // Ajusta la URL de la API Gateway
+  const url = `http://localhost:${puertoGateway}/api/ascensores/lista`; // Ajusta la URL de la API Gateway
   try {
     const response = await fetch(url);
     if (response.ok) {
@@ -41,7 +41,7 @@ function ultimoAscensor() {
 }
 
 function borrarAscensor(idAscensor) {
-  const success = llamadaGateway({}, `ascensores/${idAscensor}`, 'DELETE', `${puertoAscensores}`);
+  const success = llamadaGateway({}, `ascensores/${idAscensor}`, 'DELETE', `${puertoGateway}`);
   console.log(idAscensor);
   if (success) {
     ascensores = ascensores.filter(ascensor => ascensor.id !== idAscensor);
@@ -63,12 +63,12 @@ function modificarAscensor(idAsc, nuevoNombre, pisosNuevos) {
   };
   console.log(indice);
   if (indice !== -1) { // existe entonces hay que modificarlo nomas con un PUT
-    const success = llamadaGateway(ascensorModificado, `ascensores/${ascensorModificado.id}`, 'PUT', `${puertoAscensores}`);
+    const success = llamadaGateway(ascensorModificado, `ascensores/${ascensorModificado.id}`, 'PUT', `${puertoGateway}`);
     if (success) {
       ascensores[indice] = ascensorModificado;
     }
   } else { // NO existe entonces hay que crearlo
-    const success = llamadaGateway(ascensorModificado, `ascensores/alta`, 'POST', `${puertoAscensores}`);
+    const success = llamadaGateway(ascensorModificado, `ascensores/alta`, 'POST', `${puertoGateway}`);
     if (success) {
       ascensores.push(nuevoAscensor);
     }
