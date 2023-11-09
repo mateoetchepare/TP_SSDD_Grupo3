@@ -1,4 +1,4 @@
-import { getAscensores, ultimoAscensor, agregarAscensor, modificarAscensor } from "../services/ascensores.services.js";
+import { getAscensores, agregarAscensor, modificarAscensor, existeAscensor } from "../services/ascensores.services.js";
 
 
 
@@ -126,11 +126,12 @@ export default async () => {
     const botonNuevoAscensor = divElement.querySelector("#nuevoAscensor");
     botonNuevoAscensor.addEventListener("click", async function () {
         agregarAscensor();
-        const ultAscensor = ultimoAscensor();
+        const ultAscensor = agregarAscensor();
         await createHTMLelements(ultAscensor);
         addListOptions();
         querySelectBtns();
         guardarInfo();
+        habilitaDeshabilitaBotonNuevo() 
     });
 
     function tildaItems() {
@@ -175,6 +176,19 @@ export default async () => {
     addListOptions();
     querySelectBtns();
     guardarInfo();
+
+    function habilitaDeshabilitaBotonNuevo() {
+        const botonNuevo = divElement.querySelector("#nuevoAscensor");
+        const ultimoElementoLi = listaAscensoresElement.lastElementChild;
+        const ultimoElementoTagItem = ultimoElementoLi.querySelector(".tagItem").textContent;
+        const idAscensor = ultimoElementoTagItem.split(" ");
+        if (!existeAscensor(idAscensor)) {
+            botonNuevo.disabled = true;
+        } else {
+            botonNuevo.disabled = false;
+        }
+        return divElement;
+    }
 
    // esto levanta los pisos tildados de cada ascensor
    const elementosAscensor1 = listaAscensoresElement.querySelectorAll('.elementoAscensor');

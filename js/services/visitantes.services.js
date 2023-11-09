@@ -57,17 +57,21 @@ function modificarInfoVisitantes(idVisit, nombreVisit, edadVisit, emailVisit, fe
   }
   console.log(visitanteModificado);
   if (indice !== -1) { // el visitante existe entonces lo modifico nada mas con un PUT
-    llamadaGateway(visitanteModificado, `visitantes/${visitanteModificado.id}`, 'PUT', `${puertoVisitantes}`);
-    //visitantes[indice] = visitanteModificado;
-    
+    const success = llamadaGateway(visitanteModificado, `visitantes/${visitanteModificado.id}`, 'PUT', `${puertoVisitantes}`);
+    if (success) {
+      visitantes[indice] = visitanteModificado;
+    }
   } else { // el visitante no existia entonces hago un POST
     // Realiza una solicitud POST a la API Gateway
-    llamadaGateway(visitanteModificado, 'visitantes/alta', 'POST', puertoVisitantes);
-    // añadir al vector local
+    const success = llamadaGateway(visitanteModificado, 'visitantes/alta', 'POST', puertoVisitantes);
+    if (success) {
+      visitantes.push(visitanteModificado);
+    }
   }
 }
 
 function llamadaGateway(visitanteModificado, url, tipoMetodo, puerto) {
+  const success = 0;
   console.log(JSON.stringify(visitanteModificado));
   const apiUrl = `http://localhost:${puerto}/api/${url}`; // Ajusta la URL de la API Gateway según tu configuración
   const requestOptions = {
@@ -75,22 +79,23 @@ function llamadaGateway(visitanteModificado, url, tipoMetodo, puerto) {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(visitanteModificado), 
+    body: JSON.stringify(visitanteModificado),
   };
 
   fetch(apiUrl, requestOptions)
     .then(response => {
       if (response.status === 200) {
-        // La solicitud se completó con éxito
-        console.log('Nuevo visitante agregado con éxito.');
+        success = 1;
       } else {
-        // Manejar otros códigos de estado o errores aquí
+        success = 0;
         console.error('Error al agregar el visitante. Código de estado: ', response.status);
       }
     })
     .catch(error => {
       console.error('Error de red al agregar el visitante: ', error);
+      success = 0;
     });
+  return success;
 }
 
 

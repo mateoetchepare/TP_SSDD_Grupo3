@@ -1,4 +1,4 @@
-import { agregarVisitante, getVisitantes, ultimoVisitante, modificarInfoVisitantes, modificarPermisosVisitantes, existeVisitante } from "../services/visitantes.services.js";
+import { agregarVisitante, getVisitantes, modificarInfoVisitantes, modificarPermisosVisitantes, existeVisitante } from "../services/visitantes.services.js";
 
 export default async () => {
 
