@@ -1,4 +1,4 @@
-import { getAscensores, agregarAscensor, modificarAscensor, existeAscensor } from "../services/ascensores.services.js";
+import { getAscensores, agregarAscensor, modificarAscensor, existeAscensor, borrarAscensor } from "../services/ascensores.services.js";
 
 
 
@@ -131,7 +131,7 @@ export default async () => {
         addListOptions();
         querySelectBtns();
         guardarInfo();
-        habilitaDeshabilitaBotonNuevo() 
+        habilitaDeshabilitaBotonNuevo()
     });
 
     function tildaItems() {
@@ -171,6 +171,20 @@ export default async () => {
         });
     }
 
+    function initDeleteButtons() {
+        const botonesBorrar = divElement.querySelectorAll('.elementoAscensor .botonBorrar');
+        botonesBorrar.forEach(botonBorrar => {
+            botonBorrar.addEventListener('dblclick', async () => {
+                // Obtener el ID del visitante a partir del botón de borrado
+                const idAscensorCompleto = botonBorrar.parentElement.querySelector('.tagItem').textContent;
+                const idAscensor = idAscensorCompleto;
+
+                const elementoAscensor = botonBorrar.parentElement.parentElement;
+                borrarAscensor(idAscensor);
+            });
+        });
+    }
+
     addListOptions();
     querySelectBtns();
     guardarInfo();
@@ -188,12 +202,13 @@ export default async () => {
         return divElement;
     }
 
-   // esto levanta los pisos tildados de cada ascensor
-   const elementosAscensor1 = listaAscensoresElement.querySelectorAll('.elementoAscensor');
-   const cantidadElementos = elementosAscensor1.length;
-   if (cantidadElementos === ascensores.length) {
-       tildaItems();
-   }
+    // esto levanta los pisos tildados de cada ascensor
+    const elementosAscensor1 = listaAscensoresElement.querySelectorAll('.elementoAscensor');
+    const cantidadElementos = elementosAscensor1.length;
+    if (cantidadElementos === ascensores.length) {
+        tildaItems();
+        initDeleteButtons();
+    }
     return divElement;
 
 

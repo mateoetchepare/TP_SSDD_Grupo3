@@ -40,6 +40,14 @@ function ultimoAscensor() {
   return ascensores[ascensores.length - 1];
 }
 
+function borrarAscensor(idAscensor) {
+  const success = llamadaGateway({}, `ascensores/${idAscensor}`, 'DELETE', `${puertoAscensores}`);
+  console.log(idAscensor);
+  if (success) {
+    ascensores = ascensores.filter(ascensor => ascensor.id !== idAscensor);
+  }
+}
+
 function existeAscensor(idAscensor) {
   const indice = ascensores.findIndex(ascensor => ascensor.id === idAscensor);
   return indice !== -1;
@@ -97,4 +105,4 @@ function llamadaGateway(ascensorModificado, url, tipoMetodo, puerto) {
   return success;
 }
 
-export { getAscensores, ultimoAscensor, agregarAscensor, modificarAscensor, existeAscensor };
+export { getAscensores, ultimoAscensor, agregarAscensor, modificarAscensor, existeAscensor, borrarAscensor };

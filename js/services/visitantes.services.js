@@ -42,10 +42,16 @@ function agregarVisitante() {
 }
 
 
-
+function borrarVisitante(idVisit) {
+  const success = llamadaGateway({}, `visitantes/${idVisit}`, 'DELETE', `${puertoVisitantes}`);
+  if (success) {
+    visitantes = visitantes.filter(visitante => visitante.id !== idAscensor);
+  }
+}
 
 function modificarInfoVisitantes(idVisit, nombreVisit, edadVisit, emailVisit, fechaVisitIn, fechaVisitOut) {
   const indice = visitantes.findIndex(visitante => visitante.id === idVisit);
+
   const visitanteModificado = {
     id: idVisit,
     nombre: nombreVisit,
@@ -146,5 +152,5 @@ function siguienteID(ultimoID) {
 }
 
 
-export { getVisitantes, agregarVisitante, ultimoVisitante, modificarInfoVisitantes, modificarPermisosVisitantes, existeVisitante };
+export { getVisitantes, agregarVisitante, ultimoVisitante, modificarInfoVisitantes, modificarPermisosVisitantes, existeVisitante, borrarVisitante };
 
