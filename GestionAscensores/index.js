@@ -6,7 +6,7 @@ const ajv = new Ajv({ allErrors: true });
 
 const schema = require('./esquema.json');
 const { spawn } = require('child_process');
-
+const { v1: uuidv1 } = require('uuid');
 
 // REQUEST METODO GET (TODOS LOS ASCENSORES)
 function getAscensores(res){
@@ -89,6 +89,8 @@ function altaAscensor(res,ascensor){
         }
     
         const ascensores = JSON.parse(data);
+        ascensor.id = uuidv1();
+        console.log(ascensor);
 
         //creo el proceso hijo para el ascensor
         const childProcess = spawn('node', ['script.js', 'alta', JSON.stringify(ascensor)]);

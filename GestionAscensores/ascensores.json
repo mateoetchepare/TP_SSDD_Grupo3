@@ -4,19 +4,10 @@
     "nombre": "C",
     "pisos": [
       1,
+      2,
+      3,
       5,
-      9,
-      33,
-      40
-    ],
-    "estado": "disponible"
-  },
-  {
-    "id": "",
-    "nombre": "SADkasdas",
-    "pisos": [
-      1,
-      2
+      9
     ],
     "estado": "Disponible"
   }
