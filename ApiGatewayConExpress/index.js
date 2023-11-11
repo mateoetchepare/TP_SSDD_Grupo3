@@ -4,13 +4,19 @@ const express = require("express");
 const http = require("http");
 const cors = require("cors");
 //const path = require("url");
+const { auth, requiredScopes } = require("express-oauth2-jwt-bearer");
 const puertoVisitantes = 3501;
 const puertoAscensores = 3502;
 const puertoPermisos = 3503;
 
 const app = express();
 
-// FALTA TODA LA PARTE DE AUTENTICACION
+const checkJwt = auth({
+  audience: "",
+  issuerBaseURL: ``,
+});
+
+app.use(checkJwt);
 
 app.use( //FIJARSE SI ESTO FUNCIONA 
   cors({
@@ -21,6 +27,8 @@ app.use( //FIJARSE SI ESTO FUNCIONA
 //RUTAS PARA VISISTANTES
 
 app.route('/api/visitantes*') //despies de visitantes agrega un * ATENTO POR SI FALLA ESO
+
+    .all(checkJwt)
 
     .get((req, res) => {
         console.log(req.url);
@@ -133,6 +141,8 @@ app.route('/api/visitantes*') //despies de visitantes agrega un * ATENTO POR SI 
 
 app.route('/api/ascensores*') //despies de visitantes agrega un * ATENTO POR SI FALLA ESO
 
+    .all(checkJwt)
+
     .get((req, res) => {
         console.log(req.url);
         http.get("http://localhost:" + puertoAscensores + req.url, (respuesta) => {
@@ -243,6 +253,8 @@ app.route('/api/ascensores*') //despies de visitantes agrega un * ATENTO POR SI 
 //RUTAS PARA PERMISOS
 
 app.route('/api/permisos*') //despies de visitantes agrega un * ATENTO POR SI FALLA ESO
+
+    .all(checkJwt)
 
     .get((req, res) => {
         console.log(req.url);
