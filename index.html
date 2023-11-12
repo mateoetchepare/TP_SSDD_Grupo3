@@ -7,20 +7,21 @@
     <title>Cliente web Administración</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" type="module"></script>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
     <script src="auth.js" type="module"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
 
 <body>
     
-    <section id = "seccionNavBar" class = "contenedor-ruteo"> 
+    <section id = "seccionNavBar"> 
         <header class="header">
             <a href="#/" class="logo">Administración</a>
     
                 <nav class="navbar">
                     <a class="Ascensores" href="#/ascensores">Ascensores</a>
                     <a class="Visitantes" href="#/visitantes">Visitantes</a>
-                    <a class="Login" href="#" >Login</a>
+                    <a id="login" href="#" >Login</a>
     
                 </nav>
             </header>

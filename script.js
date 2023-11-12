@@ -25,7 +25,6 @@ function mostrarOcultarElementos() {
   if (elementoVisible) {
     elementoVisible.style.display = 'block';
     if (hash === '#/visitantes') {
-      console.log("ghollas");
       logicaVisitantes();
     } else if (hash === '#/ascensores') {
       logicaAscensores();
@@ -39,10 +38,10 @@ window.addEventListener('hashchange', mostrarOcultarElementos);
 //LOGICA VISITANTES
 
 async function logicaVisitantes(){
-  console.log("chaf");
   //Recupera visitantes del back y genera un elemento HTML para cada uno
   let visitantes = await getVisitantes();
   const listaVisitantesElement = document.querySelector("#listaVisitantes");
+  listaVisitantesElement.innerHTML = "";
   console.log(listaVisitantesElement);
   for (const visitante of visitantes) {
       await createHTMLelements(visitante);
@@ -327,6 +326,7 @@ async function logicaVisitantes(){
 async function logicaAscensores(){
   const ascensores = await getAscensores();
     const listaAscensoresElement = document.querySelector("#listaAscensores");
+    listaAscensoresElement.innerHTML = "";
     for (const ascensor of ascensores) {
         await createHTMLelements(ascensor);
     }

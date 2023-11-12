@@ -1,3 +1,5 @@
+
+
 function Hash(email) {
     var hash = 0;
     if (email.length == 0) return hash;
@@ -11,10 +13,8 @@ function Hash(email) {
 
 auth0
   .createAuth0Client({
-    //responseType: "code",
-    //audience: "https://dev-pn7zgl7ckp8stzea.us.auth0.com/api/v2/",
     domain: "dev-h74gvie66akma5zh.us.auth0.com",
-    clientId: "HeNnWrtoPJVYK7vFbQnVpcf2LPzOzCu",
+    clientId: "LHeNnWrtoPJVYK7vFbQnVpcf2LPzOzCu",
     authorizationParams: {
       redirect_uri: window.location.origin + '#/visitantes',
     },
