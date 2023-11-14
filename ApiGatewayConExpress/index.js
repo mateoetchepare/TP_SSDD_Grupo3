@@ -11,6 +11,12 @@ const puertoPermisos = 3503;
 
 const app = express();
 
+app.use( //FIJARSE SI ESTO FUNCIONA 
+  cors({
+    origin: "*",
+  })
+);
+
 const checkJwt = auth({
   audience: "LHeNnWrtoPJVYK7vFbQnVpcf2LPzOzCu",
   issuerBaseURL: `https://dev-h74gvie66akma5zh.us.auth0.com`,
@@ -18,11 +24,6 @@ const checkJwt = auth({
 
 app.use(checkJwt);
 
-app.use( //FIJARSE SI ESTO FUNCIONA 
-  cors({
-    origin: "*",
-  })
-);
 
 //RUTAS PARA VISISTANTES
 
