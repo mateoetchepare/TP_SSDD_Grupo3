@@ -69,7 +69,7 @@ function altaChildProcessDelJSON(){
         ascensores.forEach(ascensor => {
             console.log('nombre ascensor: ',ascensor.nombre);
             //creo el proceso hijo para el ascensor
-            const childProcess = spawn('node', ['script.js', 'alta', JSON.stringify(ascensor)]);
+            const childProcess = spawn('node', ['scriptAscensor.js', 'alta', JSON.stringify(ascensor)]);
             //lo guardo con el id del ascensor para poder accederlo
             ascensoresProcesos[ascensor.id] = childProcess;
         })
@@ -93,7 +93,7 @@ function altaAscensor(res,ascensor){
         console.log(ascensor);
 
         //creo el proceso hijo para el ascensor
-        const childProcess = spawn('node', ['script.js', 'alta', JSON.stringify(ascensor)]);
+        const childProcess = spawn('node', ['scriptAscensor.js', 'alta', JSON.stringify(ascensor)]);
         //lo guardo con el id del ascensor para poder accederlo
         ascensoresProcesos[ascensor.id] = childProcess;
 
@@ -193,7 +193,7 @@ function modificacionAscensor(res,id,nuevosDatos){
             childProcess.kill();
             delete ascensoresProcesos[id];
 
-            const nuevoChildProces = spawn('node', ['script.js', 'alta', JSON.stringify(ascensor)]);
+            const nuevoChildProces = spawn('node', ['scriptAscensor.js', 'alta', JSON.stringify(ascensor)]);
 
             ascensoresProcesos[ascensor.id] = nuevoChildProces;
 
