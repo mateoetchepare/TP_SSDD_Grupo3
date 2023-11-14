@@ -2,9 +2,8 @@
 import { agregarVisitante, getVisitantes, modificarInfoVisitantes, modificarPermisosVisitantes, existeVisitante, borrarVisitante } from "./js/services/visitantes.services.js";
 import { getAscensores, agregarAscensor, modificarAscensor, existeAscensor, borrarAscensor } from "./js/services/ascensores.services.js";
 
-
 function mostrarOcultarElementos() {
-  const hash = window.location.hash;
+  let hash = window.location.hash;
   var ruta = hash.substring(1).replace('/', '#');
 
   if (!hash || hash === '#'){
@@ -13,24 +12,36 @@ function mostrarOcultarElementos() {
     ruta = hash.substring(1).replace('/', '#');
   }
 
-  // Ocultar todos los elementos con la clase "contenedor-ruteo"
-  const elementos = document.querySelectorAll('.contenedor-ruteo');
-  elementos.forEach(elemento => {
-    elemento.style.display = 'none';
-  });
+  const containerLogin = document.querySelector('#login');
+  const containerNavBar = document.querySelector('#NavBar');
+  const containerVisitantes = document.querySelector('#visitantes');
+  const containerAscensores = document.querySelector('#ascensores');
 
-  // Mostrar el elemento correspondiente a la ruta
-  const elementoVisible = document.querySelector(ruta);
-  console.log(elementoVisible);
-  if (elementoVisible) {
-    elementoVisible.style.display = 'block';
+
+  
     if (hash === '#/visitantes') {
-      logicaVisitantes();
-    } else if (hash === '#/ascensores') {
-      logicaAscensores();
+        containerLogin.style.display = 'none';
+        containerNavBar.style.display = 'flex';
+        containerVisitantes.style.display = 'flex';
+        containerAscensores.style.display = 'none';
+        logicaVisitantes();
     } 
+    else if (hash === '#/ascensores') {
+        containerLogin.style.display = 'none'; 
+        containerNavBar.style.display = 'flex';
+        containerVisitantes.style.display = 'none';
+        containerAscensores.style.display = 'flex';
+      logicaAscensores();
+    }
+    else if (hash === '#/login') {
+        containerLogin.style.display = 'flex';
+        containerNavBar.style.display = 'none';
+        containerVisitantes.style.display = 'none';
+        containerAscensores.style.display = 'none';
+    }
+
   }
-}
+
 // Ejecutar la función al cargar la página y cuando cambie la ruta
 window.addEventListener('load', mostrarOcultarElementos);
 window.addEventListener('hashchange', mostrarOcultarElementos);

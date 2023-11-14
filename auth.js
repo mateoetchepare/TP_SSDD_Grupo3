@@ -1,15 +1,14 @@
-
-
 function Hash(email) {
     var hash = 0;
     if (email.length == 0) return hash;
-    for (i = 0; i < email.length; i++) {
-        char = email.charCodeAt(i);
+    for (let i = 0; i < email.length; i++) {
+        let char = email.charCodeAt(i);
         hash = ((hash<<5)-hash)+char;
         hash = hash & hash; // Lo convierte a un entero de 32 bit 
     }
     return (hash<0)?hash*-1:hash;
 }
+
 
 auth0
   .createAuth0Client({
@@ -21,8 +20,7 @@ auth0
   })
   .then(async (auth0Client) => {
     // Assumes a button with id "login" in the DOM
-    const loginButton = document.getElementById("login");
-
+    const loginButton = document.getElementById("botonLogin");
     loginButton.addEventListener("click", (e) => {
       e.preventDefault();
       console.log(window.location.origin);
@@ -55,9 +53,19 @@ auth0
 
     logoutButton.addEventListener("click", (e) => {
       e.preventDefault();
+      sessionStorage.clear();
       auth0Client.logout();
     });
 
-    const isAuthenticated = await auth0Client.isAuthenticated();
+    auth0Client.isAuthenticated().then((isAuthenticated) => {
+
+      if (!isAuthenticated) {
+        window.location.hash="#/login";
+        auth0Client.getUser().then((userProfile) => {
+          console.log(userProfile);
+        });
+      }
+    });
     const userProfile = await auth0Client.getUser();
   });
+
