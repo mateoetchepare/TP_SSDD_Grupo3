@@ -19,6 +19,7 @@ async function getVisitantes() {
       console.log()
       return jsonResponse;
     } else {
+      console.log("error");
       throw new Error(`Error al obtener visitantes. Código de estado: ${response.status}`);
     }
   } catch (error) {
