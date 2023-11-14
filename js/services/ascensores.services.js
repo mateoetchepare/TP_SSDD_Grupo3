@@ -1,12 +1,21 @@
 
-const puertoGateway = 3500;
+const puertoGateway = 8005;
 
 let ascensores = [];
+
+let token = sessionStorage.getItem('token');
+let header = {
+  'Accept': 'application/json',
+  'Authorization': 'Bearer ' + token,
+};
 
 async function getAscensores() {
   const url = `http://localhost:${puertoGateway}/api/ascensores/lista`; // Ajusta la URL de la API Gateway
   try {
-    const response = await fetch(url);
+    const response = await fetch(url,{
+      method: 'GET', 
+      headers: header,
+    });
     if (response.ok) {
       const jsonResponse = await response.json(); // Parsea la respuesta JSON
       console.log()
@@ -81,9 +90,7 @@ function llamadaGateway(ascensorModificado, url, tipoMetodo, puerto) {
   const apiUrl = `http://localhost:${puerto}/api/${url}`; // Ajusta la URL de la API Gateway según tu configuración
   const requestOptions = {
     method: `${tipoMetodo}`,
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: header,
     body: JSON.stringify(ascensorModificado),
   };
 
