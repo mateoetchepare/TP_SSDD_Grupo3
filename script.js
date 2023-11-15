@@ -63,7 +63,9 @@ async function logicaVisitantes(){
         listaVisitantesElement.innerHTML += `
         <li class="elementoVisitante" id=visitante-${visitante.id}>
         <div class="infoVisitante">
-            <a class="tagItem">Visitante ${visitante.id}</a>
+            <a class="tagItem">Visitante</a>
+            <input type="text" class="textFieldIDVisitante" placeholder="nombre" value='${visitante.id}'
+            required>
             <input type="text" class="textFieldNombreVisitante" placeholder="nombre" value='${visitante.nombre}'
                 required>
             <input type="text" class="textFieldEdadVisitante" placeholder="edad" value='${visitante.edad}' required>
@@ -244,8 +246,8 @@ async function logicaVisitantes(){
         const botonesGuardar = document.querySelectorAll('.elementoVisitante .botonGuardar');
         botonesGuardar.forEach(botonGuardar => {
             botonGuardar.addEventListener('click', async () => {
-                const idVisitanteCompleto = botonGuardar.parentElement.querySelector('.tagItem').textContent;
-                const idVisitante = idVisitanteCompleto.split(" ");
+                const idVisitanteCompleto = botonGuardar.parentElement.querySelector('.textFieldIDVisitante').value;
+                console.log(`EL VALOR DEL ID ES ${idVisitanteCompleto}`);
                 const nuevoNombre = botonGuardar.parentElement.querySelector('.textFieldNombreVisitante').value;
                 const nuevaEdadString = botonGuardar.parentElement.querySelector('.textFieldEdadVisitante').value;
                 const nuevaEdad = parseInt(nuevaEdadString);
@@ -265,11 +267,13 @@ async function logicaVisitantes(){
                 fecha_checkOut.setUTCSeconds(0);
                 fecha_checkOut.setUTCMilliseconds(0);
                 const fecha_checkOutFormateada = fecha_checkOut.toISOString();
+
+
   
                 console.log(fecha_checkInFormateada);
                 console.log(fecha_checkOutFormateada);
   
-                modificarInfoVisitantes(idVisitante[1], nuevoNombre, nuevaEdad, nuevoEmail, fecha_checkInFormateada, fecha_checkOutFormateada);
+                modificarInfoVisitantes(idVisitanteCompleto, nuevoNombre, nuevaEdad, nuevoEmail, fecha_checkInFormateada, fecha_checkOutFormateada);
             });
         });
     }
@@ -293,11 +297,10 @@ async function logicaVisitantes(){
         botonesBorrar.forEach(botonBorrar => {
             botonBorrar.addEventListener('dblclick', async () => {
                 // Obtener el ID del visitante a partir del botón de borrado
-                const idVisitanteCompleto = botonBorrar.parentElement.querySelector('.tagItem').textContent;
-                const idVisitante = idVisitanteCompleto.split(" ")[1];
+                const idVisitanteCompleto = botonBorrar.parentElement.querySelector('.textFieldIDVisitante').value;
   
                 const elementoVisitante = botonBorrar.parentElement.parentElement;
-                borrarVisitante(idVisitante);
+                borrarVisitante(idVisitanteCompleto);
   
             });
         });
@@ -310,8 +313,6 @@ async function logicaVisitantes(){
   
     const elementosVisitante = listaVisitantesElement.querySelectorAll('.elementoVisitante');
     const cantidadElementos = elementosVisitante.length;
-    console.log(elementosVisitante);
-    console.log(visitantes.length);
     if (cantidadElementos === visitantes.length) {
         recuperarFecha();
         recuperarPisos();

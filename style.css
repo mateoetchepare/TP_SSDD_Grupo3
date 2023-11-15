@@ -177,14 +177,15 @@ h3 {
     flex-wrap: wrap;
     text-align: center;
     color: white;
-    width: 15%;
-    margin-right: 0px;
+    width: 12%;
+    margin-right: 0.2%;
+    margin-left: calc(0.4% - 0.4vh);
     font-size: calc(7px + .8vw);
     font-weight: 700;
 }
 
 .textFieldNombreAscensor, .textFieldNombreVisitante,
-.textFieldEdadVisitante, .textFieldEmailVisitante {
+.textFieldEdadVisitante, .textFieldEmailVisitante, .textFieldIDVisitante {
     display: flex;
     height: 70%;
     width: calc(17.5% - .5vw);
@@ -203,7 +204,7 @@ h3 {
 }
 
 .textFieldNombreAscensor:hover, .textFieldNombreVisitante:hover,
-.textFieldEdadVisitante:hover, .textFieldEmailVisitante:hover {
+.textFieldEdadVisitante:hover, .textFieldEmailVisitante:hover, .textFieldIDVisitante:hover {
     box-shadow: inset 1px 2px 8px rgba(255, 255, 255, 1);
 }
 
