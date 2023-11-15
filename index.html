@@ -13,55 +13,57 @@
 </head>
 
 <body>
-    
-    <header class="header" id ="NavBar">
+
+    <header class="header" id="NavBar">
         <a href="#/" class="logo">Administración</a>
-    
+
         <nav class="navbar">
             <a class="Ascensores" href="#/ascensores">Ascensores</a>
             <a class="Visitantes" href="#/visitantes">Visitantes</a>
-            <a id="logout" href="#" >Logout</a>
-    
+            <a id="logout" href="#">Logout</a>
+
         </nav>
     </header>
 
-   <section id = "login">
+    <section id="login">
 
-        <div class="container-login"> 
+        <div class="container-login">
             <div class="login-box">
                 <h1>Administracion</h1>
                 <input type="button" id="botonLogin" value="Login" />
-        </div> 
+            </div>
         </div>
 
-   </section> 
+    </section>
 
-   <section id = "visitantes" class = "contenedor-ruteo"> 
-        <div class="listaBotonVisitantes">
-            <h3>Lista visitantes</h3>
-            <button class="botonNuevo" id="nuevoVisitante">
-                <label class="labelNuevo">Nuevo</label>
-                <span class="newItem"><i class="fa-regular fa-pen-to-square"></i></span>
-            </button>
-        </div>
+    <div class="containerListas">
+
+        <section id="visitantes" class="contenedor-ruteo">
+            <div class="listaBotonVisitantes">
+                <h3>Lista visitantes</h3>
+                <button class="botonNuevo" id="nuevoVisitante">
+                    <label class="labelNuevo">Nuevo</label>
+                    <span class="newItem"><i class="fa-regular fa-pen-to-square"></i></span>
+                </button>
+            </div>
             <ul class="list-group" id="listaVisitantes"> </ul>
-   </section> 
+        </section>
 
-  <section id="ascensores" class="contenedor-ruteo">
-    <div class="listaBotonAscensores">
-        <h3>Lista ascensores</h3>
-        <button class="botonNuevo" id="nuevoAscensor">
-            <label class="labelNuevo">Nuevo</label>
-            <span class="newItem"><i class="fa-regular fa-pen-to-square"></i></span>
-        </button>
+        <section id="ascensores" class="contenedor-ruteo">
+            <div class="listaBotonAscensores">
+                <h3>Lista ascensores</h3>
+                <button class="botonNuevo" id="nuevoAscensor">
+                    <label class="labelNuevo">Nuevo</label>
+                    <span class="newItem"><i class="fa-regular fa-pen-to-square"></i></span>
+                </button>
+            </div>
+            <ul class="list-group" id="listaAscensores">
+
+            </ul>
+
+        </section>
+
     </div>
-    <ul class="list-group" id="listaAscensores">
-
-    </ul>
-
-  </section> 
-
-
 
 </body>
 
