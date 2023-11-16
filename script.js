@@ -191,10 +191,9 @@ async function logicaVisitantes(){
     function recuperarPisos() {
         const elementosVisitante = listaVisitantesElement.querySelectorAll('.elementoVisitante');
         elementosVisitante.forEach(elementoVisitante => {
-            const visitanteId = elementoVisitante.querySelector('.tagItem'); // Obtener el elemento con la clase "tagItem"
-            const idVisitante = visitanteId.textContent; // Obtener el contenido (ID del visitante)
-            const idVisitanteFormateado = idVisitante.split(" ");
-            const visitante = visitantes.find(vis => vis.id == idVisitanteFormateado[1]);
+            const idVisitante = elementoVisitante.querySelector('.textFieldIDVisitante').value;
+            const visitante = visitantes.find(vis => vis.id == idVisitante);
+            console.log(visitante);
             if (visitante) {
                 const pisosHabilitados = visitante.pisos_permitidos;
                 const listaItems = elementoVisitante.querySelector('.list-items');
@@ -207,7 +206,11 @@ async function logicaVisitantes(){
                     if (pisosHabilitados.includes(numeroPiso)) {
                         item.classList.add('checked');
                     }
-                    btnText.innerText = `${visitante.pisos_permitidos.length} Pisos Permitidos`;
+                    if (visitante.pisos_permitidos.length > 0 ) {
+                        btnText.innerText = `${visitante.pisos_permitidos.length} Pisos Permitidos`;
+                    } else {
+                        btnText.innerText = `Seleccione Pisos Permitidos`;
+                    }
                 });
             }
         });
@@ -216,10 +219,8 @@ async function logicaVisitantes(){
     function recuperarFecha() {
         const elementosVisitantes = listaVisitantesElement.querySelectorAll('.elementoVisitante');
         elementosVisitantes.forEach(elementoVisitante => {
-            const visitanteId = elementoVisitante.querySelector('.tagItem'); // Obtener el elemento con la clase "tagItem"
-            const idVisitante = visitanteId.textContent; // Obtener el contenido (ID del visitante)
-            const idVisitanteFormateado = idVisitante.split(" ");
-            const visitante = visitantes.find(vis => vis.id == idVisitanteFormateado[1]);
+            const idVisitante = elementoVisitante.querySelector('.textFieldIDVisitante').value;
+            const visitante = visitantes.find(vis => vis.id == idVisitante);
             if (visitante) {
                 const fechas = elementoVisitante.querySelectorAll(".datePicker");
                 const fechaISO8601_checkIn = visitante.fecha_checkIn;
@@ -243,11 +244,11 @@ async function logicaVisitantes(){
     }
   
     function guardarInfo() {
-        const botonesGuardar = document.querySelectorAll('.elementoVisitante .botonGuardar');
+        const botonesGuardar = listaVisitantesElement.querySelectorAll('.elementoVisitante .botonGuardar');
         botonesGuardar.forEach(botonGuardar => {
             botonGuardar.addEventListener('click', async () => {
-                const idVisitanteCompleto = botonGuardar.parentElement.querySelector('.textFieldIDVisitante').value;
-                console.log(`EL VALOR DEL ID ES ${idVisitanteCompleto}`);
+                const idVisitanteNuevo = botonGuardar.parentElement.querySelector('.textFieldIDVisitante').value;
+                const idVisitanteItem = botonGuardar.closest('.elementoVisitante').id.split('-')[1];
                 const nuevoNombre = botonGuardar.parentElement.querySelector('.textFieldNombreVisitante').value;
                 const nuevaEdadString = botonGuardar.parentElement.querySelector('.textFieldEdadVisitante').value;
                 const nuevaEdad = parseInt(nuevaEdadString);
@@ -273,7 +274,7 @@ async function logicaVisitantes(){
                 console.log(fecha_checkInFormateada);
                 console.log(fecha_checkOutFormateada);
   
-                modificarInfoVisitantes(idVisitanteCompleto, nuevoNombre, nuevaEdad, nuevoEmail, fecha_checkInFormateada, fecha_checkOutFormateada);
+                modificarInfoVisitantes(idVisitanteNuevo, idVisitanteItem, nuevoNombre, nuevaEdad, nuevoEmail, fecha_checkInFormateada, fecha_checkOutFormateada);
             });
         });
     }
@@ -282,12 +283,10 @@ async function logicaVisitantes(){
         const botonesGuardarPisos = document.querySelectorAll('.elementoVisitante .botonGuardarPisos');
         botonesGuardarPisos.forEach(botonGuardarPisos => {
             botonGuardarPisos.addEventListener('click', async () => {
-                const idVisitanteCompleto = botonGuardarPisos.closest('.elementoVisitante').querySelector('.tagItem').textContent;
-                const idVisitante = idVisitanteCompleto.split(" ");
+                const idVisitante = botonGuardarPisos.closest('.elementoVisitante').querySelector('.textFieldIDVisitante').value;
                 const itemsChecked = Array.from(botonGuardarPisos.parentElement.querySelectorAll('.item.checked'));
                 const itemsSeleccionados = itemsChecked.map(item => parseInt(item.querySelector('.item-text').textContent, 10));
-                modificarPermisosVisitantes(idVisitante[1], itemsSeleccionados);
-                console.log(idVisitante[1], itemsSeleccionados);
+                modificarPermisosVisitantes(idVisitante, itemsSeleccionados);
             });
         });
     }
@@ -323,7 +322,7 @@ async function logicaVisitantes(){
         const botonNuevo = document.querySelector("#nuevoVisitante");
         const ultimoElementoLi = listaVisitantesElement.lastElementChild;
         const idVisitante = ultimoElementoLi.parentElement.querySelector('.textFieldIDVisitante').value;
-        if (!existeVisitante(idVisitante)) {
+        if (existeVisitante(idVisitante)) {
             botonNuevo.disabled = true;
         } else {
             botonNuevo.disabled = false;

@@ -36,10 +36,8 @@ getVisitantes()
 
 
 function agregarVisitante() {
-  const idUltimo = visitantes[visitantes.length - 1].id;
-  const nuevoID = siguienteID(idUltimo);
   const nuevoVisitante = {
-    id: `${nuevoID}`,
+    id: "",
     nombre: "",
     edad: 0,
     email: "",
@@ -58,8 +56,10 @@ function borrarVisitante(idVisit) {
   }
 }
 
-function modificarInfoVisitantes(idVisit, nombreVisit, edadVisit, emailVisit, fechaVisitIn, fechaVisitOut) {
-  const indice = visitantes.findIndex(visitante => visitante.id === idVisit);
+function modificarInfoVisitantes(idVisit, idVisitanteItem, nombreVisit, edadVisit, emailVisit, fechaVisitIn, fechaVisitOut) {
+  const indice = visitantes.findIndex(visitante => visitante.id === idVisitanteItem);
+  console.log(`EL ID ITEM VIEJO ES ${idVisitanteItem}`);
+  console.log(`LA BUSQUEDA ES ${indice}`);
 
   const visitanteModificado = {
     id: idVisit,
@@ -71,8 +71,12 @@ function modificarInfoVisitantes(idVisit, nombreVisit, edadVisit, emailVisit, fe
     fecha_checkOut: fechaVisitOut
   }
   console.log(visitanteModificado);
+  console.log(idVisit);
+  console.log(idVisitanteItem);
+  
   if (indice !== -1) { // el visitante existe entonces lo modifico nada mas con un PUT
     const success = llamadaGateway(visitanteModificado, `visitantes/${visitanteModificado.id}`, 'PUT', `${puertoGateway}`);
+    console.log(`EL SUCCESS ES ${success}`);
     if (success) {
       visitantes[indice] = visitanteModificado;
     }
@@ -83,6 +87,7 @@ function modificarInfoVisitantes(idVisit, nombreVisit, edadVisit, emailVisit, fe
       visitantes.push(visitanteModificado);
     }
   }
+  
 }
 
 function llamadaGateway(visitanteModificado, url, tipoMetodo, puerto) {
