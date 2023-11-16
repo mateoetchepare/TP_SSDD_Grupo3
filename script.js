@@ -64,7 +64,7 @@ async function logicaVisitantes(){
         <li class="elementoVisitante" id=visitante-${visitante.id}>
         <div class="infoVisitante">
             <a class="tagItem">Visitante</a>
-            <input type="text" class="textFieldIDVisitante" placeholder="nombre" value='${visitante.id}'
+            <input type="text" class="textFieldIDVisitante" placeholder="UUID" value='${visitante.id}'
             required>
             <input type="text" class="textFieldNombreVisitante" placeholder="nombre" value='${visitante.nombre}'
                 required>
