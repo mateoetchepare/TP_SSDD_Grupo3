@@ -322,8 +322,7 @@ async function logicaVisitantes(){
     function habilitaDeshabilitaBotonNuevo() {
         const botonNuevo = document.querySelector("#nuevoVisitante");
         const ultimoElementoLi = listaVisitantesElement.lastElementChild;
-        const ultimoElementoTagItem = ultimoElementoLi.querySelector(".tagItem").textContent;
-        const idVisitante = ultimoElementoTagItem.split(" ");
+        const idVisitante = ultimoElementoLi.parentElement.querySelector('.textFieldIDVisitante').value;
         if (!existeVisitante(idVisitante)) {
             botonNuevo.disabled = true;
         } else {
