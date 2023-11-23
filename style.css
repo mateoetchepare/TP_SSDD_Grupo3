@@ -490,3 +490,32 @@ h1 {
     justify-content: center;
     align-items: center;
 }
+
+.resaltarElemento {
+    border-style: solid;
+    border-color: green;
+    border-radius: 10px; /* Ajusta el valor según sea necesario para obtener el redondeo deseado */
+}
+
+.botonGuardarID {
+    display: flex;
+    align-items:center;
+    justify-content: center; 
+    background: none;
+    background-color: white;
+    border: 1px solid lighten(gray, 24%);
+    height: calc(60% - 0.35vh);
+    width: 10.5%;
+    padding: 0 24px 0 16px;
+    letter-spacing: .25px;
+    border-radius: 24px;
+    transition: 0.2s;
+    margin-right: calc(.3% - .075vw);
+}
+
+.botonGuardarID:hover, .labelGuardar:hover, 
+.saveItem:hover, .botonGuardarPisos:hover {
+    color: white;
+    background-color: blue;
+    cursor: pointer;
+}

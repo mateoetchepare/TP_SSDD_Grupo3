@@ -1,6 +1,7 @@
 
 import { agregarVisitante, getVisitantes, modificarInfoVisitantes, modificarPermisosVisitantes, existeVisitante, borrarVisitante } from "./js/services/visitantes.services.js";
 import { getAscensores, agregarAscensor, modificarAscensor, existeAscensor, borrarAscensor } from "./js/services/ascensores.services.js";
+import { enviarDatosaArduino } from "./js/services/socketfront.services.js";
 
 function mostrarOcultarElementos() {
   let hash = window.location.hash;
@@ -45,7 +46,15 @@ function mostrarOcultarElementos() {
 // Ejecutar la función al cargar la página y cuando cambie la ruta
 window.addEventListener('load', mostrarOcultarElementos);
 window.addEventListener('hashchange', mostrarOcultarElementos);
+window.addEventListener('hashchange', cargaPag);
 
+async function cargaPag(){
+    const listaDeAscensores = await getAscensores();
+    console.log("tamaño lista ascens"+ listaDeAscensores.length);
+    if (window.location.hash === '#/visitantes' && listaDeAscensores.length === 0) {
+      document.location.reload(true);
+    }
+  };
 //LOGICA VISITANTES
 
 async function logicaVisitantes(){
@@ -111,8 +120,12 @@ async function logicaVisitantes(){
             <button class="botonGuardarPisos" id="guardarPermisosVisitantes-${visitante.id}">
                 <label class="labelGuardar">Guardar</label>
                 <span class="saveItem"><i class="fa-regular fa-floppy-disk"></i></span>
-        </button>
+            </button>
         </div>
+        <button class="botonGuardarID" id="guardarIDVisitante-${visitante.id}">  
+            <label class="labelGuardar">Grabar ID en tarjeta</label>
+            <span class="saveItem"><i class="fa-regular fa-floppy-disk"></i></span>
+        </button>
     </li>
             `
     }
@@ -329,6 +342,20 @@ async function logicaVisitantes(){
         }
         //return divElement; VER SI DEJAR ESTO O NO
     }
+
+    //Botones para guardar ID en tarjeta RFID
+    
+    function cargaListenerBotonesTarjetas(){
+        const botonesGuardarID = document.querySelectorAll(".botonGuardarID");
+        botonesGuardarID.forEach(boton => {
+            const IDVisitante = boton.id.split("-")[1];
+            boton.addEventListener("click", function(){
+                enviarDatosaArduino(IDVisitante);
+            });
+        });
+    }
+
+    cargaListenerBotonesTarjetas();
   }
     catch{
       console.log("error en el try catch");
