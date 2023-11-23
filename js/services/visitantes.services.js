@@ -36,8 +36,10 @@ getVisitantes()
 
 
 function agregarVisitante() {
+  const idUltimo = visitantes[visitantes.length - 1].id;
+  const nuevoID = siguienteID(idUltimo);
   const nuevoVisitante = {
-    id: "",
+    id: `${nuevoID}`,
     nombre: "",
     edad: 0,
     email: "",
@@ -158,7 +160,6 @@ function siguienteID(ultimoID) {
       return `${parteAlfabetica}${numeroFormateado}`;
     }
   }
-
   // Si el formato no coincide, devolver el último ID sin cambios
   return ultimoID;
 }
