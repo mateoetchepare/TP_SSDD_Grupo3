@@ -202,10 +202,9 @@ async function logicaVisitantes() {
         function recuperarPisos() {
             const elementosVisitante = listaVisitantesElement.querySelectorAll('.elementoVisitante');
             elementosVisitante.forEach(elementoVisitante => {
-                const visitanteId = elementoVisitante.querySelector('.tagItem'); // Obtener el elemento con la clase "tagItem"
-                const idVisitante = visitanteId.textContent; // Obtener el contenido (ID del visitante)
-                const idVisitanteFormateado = idVisitante.split(" ");
-                const visitante = visitantes.find(vis => vis.id == idVisitanteFormateado[1]);
+                const idVisitanteCompleto = elementoVisitante.parentElement.querySelector('.tagItem').textContent;
+                const idVisitante = idVisitanteCompleto.split(" ");
+                const visitante = visitantes.find(vis => vis.id == idVisitante[1]);
                 console.log(visitante);
                 if (visitante) {
                     const pisosHabilitados = visitante.pisos_permitidos;
@@ -232,10 +231,9 @@ async function logicaVisitantes() {
         function recuperarFecha() {
             const elementosVisitantes = listaVisitantesElement.querySelectorAll('.elementoVisitante');
             elementosVisitantes.forEach(elementoVisitante => {
-                const visitanteId = elementoVisitante.querySelector('.tagItem'); // Obtener el elemento con la clase "tagItem"
-                const idVisitante = visitanteId.textContent; // Obtener el contenido (ID del visitante)
-                const idVisitanteFormateado = idVisitante.split(" ");
-                const visitante = visitantes.find(vis => vis.id == idVisitanteFormateado[1]);
+                const idVisitanteCompleto = elementoVisitante.parentElement.querySelector('.tagItem').textContent;
+                const idVisitante = idVisitanteCompleto.split(" ");
+                const visitante = visitantes.find(vis => vis.id == idVisitante[1]);
                 if (visitante) {
                     const fechas = elementoVisitante.querySelectorAll(".datePicker");
                     const fechaISO8601_checkIn = visitante.fecha_checkIn;
@@ -262,9 +260,8 @@ async function logicaVisitantes() {
             const botonesGuardar = listaVisitantesElement.querySelectorAll('.elementoVisitante .botonGuardar');
             botonesGuardar.forEach(botonGuardar => {
                 botonGuardar.addEventListener('click', async () => {
-                    const visitanteId = botonGuardar.querySelector('.tagItem'); // Obtener el elemento con la clase "tagItem"
-                    const idVisitante = visitanteId.textContent; // Obtener el contenido (ID del visitante)
-                    const idVisitanteFormateado = idVisitante.split(" ");
+                    const idVisitanteCompleto = botonGuardar.parentElement.querySelector('.tagItem').textContent;
+                    const idVisitante = idVisitanteCompleto.split(" ");
                     const idVisitanteItem = botonGuardar.closest('.elementoVisitante').id.split('-')[1];
                     const nuevoNombre = botonGuardar.parentElement.querySelector('.textFieldNombreVisitante').value;
                     const nuevaEdadString = botonGuardar.parentElement.querySelector('.textFieldEdadVisitante').value;
@@ -291,7 +288,7 @@ async function logicaVisitantes() {
                     console.log(fecha_checkInFormateada);
                     console.log(fecha_checkOutFormateada);
 
-                    modificarInfoVisitantes(idVisitanteFormateado[1], idVisitanteItem, nuevoNombre, nuevaEdad, nuevoEmail, fecha_checkInFormateada, fecha_checkOutFormateada);
+                    modificarInfoVisitantes(idVisitante[1], idVisitanteItem, nuevoNombre, nuevaEdad, nuevoEmail, fecha_checkInFormateada, fecha_checkOutFormateada);
                 });
             });
         }
@@ -300,12 +297,11 @@ async function logicaVisitantes() {
             const botonesGuardarPisos = document.querySelectorAll('.elementoVisitante .botonGuardarPisos');
             botonesGuardarPisos.forEach(botonGuardarPisos => {
                 botonGuardarPisos.addEventListener('click', async () => {
-                    const visitanteId = botonGuardarPisos.querySelector('.tagItem'); // Obtener el elemento con la clase "tagItem"
-                    const idVisitante = visitanteId.textContent; // Obtener el contenido (ID del visitante)
-                    const idVisitanteFormateado = idVisitante.split(" ");
+                    const idVisitanteCompleto = botonGuardarPisos.parentElement.querySelector('.tagItem').textContent;
+                    const idVisitante = idVisitanteCompleto.split(" ");
                     const itemsChecked = Array.from(botonGuardarPisos.parentElement.querySelectorAll('.item.checked'));
                     const itemsSeleccionados = itemsChecked.map(item => parseInt(item.querySelector('.item-text').textContent, 10));
-                    modificarPermisosVisitantes(idVisitanteFormateado[1], itemsSeleccionados);
+                    modificarPermisosVisitantes(idVisitante[1], itemsSeleccionados);
                 });
             });
         }
@@ -315,12 +311,11 @@ async function logicaVisitantes() {
             botonesBorrar.forEach(botonBorrar => {
                 botonBorrar.addEventListener('dblclick', async () => {
                     // Obtener el ID del visitante a partir del botón de borrado
-                    const visitanteId = botonBorrar.querySelector('.tagItem'); // Obtener el elemento con la clase "tagItem"
-                    const idVisitante = visitanteId.textContent; // Obtener el contenido (ID del visitante)
-                    const idVisitanteFormateado = idVisitante.split(" ");
+                    const idVisitanteCompleto = botonBorrar.parentElement.querySelector('.tagItem').textContent;
+                    const idVisitante = idVisitanteCompleto.split(" ");
 
                     const elementoVisitante = botonBorrar.parentElement.parentElement;
-                    borrarVisitante(idVisitanteFormateado[1]);
+                    borrarVisitante(idVisitante[1]);
 
                 });
             });
@@ -342,10 +337,10 @@ async function logicaVisitantes() {
         function habilitaDeshabilitaBotonNuevo() {
             const botonNuevo = document.querySelector("#nuevoVisitante");
             const ultimoElementoLi = listaVisitantesElement.lastElementChild;
-            const visitanteId = ultimoElementoLi.querySelector('.tagItem'); // Obtener el elemento con la clase "tagItem"
-            const idVisitante = visitanteId.textContent; // Obtener el contenido (ID del visitante)
-            const idVisitanteFormateado = idVisitante.split(" ");
-            if (existeVisitante(idVisitanteFormateado[1])) {
+            const idVisitanteCompleto = ultimoElementoLi.parentElement.querySelector('.tagItem').textContent;
+            const idVisitante = idVisitanteCompleto.split(" ");
+
+            if (existeVisitante(idVisitante[1])) {
                 botonNuevo.disabled = true;
             } else {
                 botonNuevo.disabled = false;
