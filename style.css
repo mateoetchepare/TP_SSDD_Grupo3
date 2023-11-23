@@ -178,7 +178,7 @@ h3 {
 }
 
 .textFieldNombreAscensor, .textFieldNombreVisitante,
-.textFieldEdadVisitante, .textFieldEmailVisitante, .textFieldIDVisitante, .textFieldIDVisitante:disabled {
+.textFieldEdadVisitante, .textFieldEmailVisitante, .textFieldIDVisitante {
     display: flex;
     height: 70%;
     width: calc(17.5% - .5vw);
