@@ -233,6 +233,8 @@ async function logicaVisitantes(){
         const elementosVisitantes = listaVisitantesElement.querySelectorAll('.elementoVisitante');
         elementosVisitantes.forEach(elementoVisitante => {
             const idVisitante = elementoVisitante.querySelector('.textFieldIDVisitante').value;
+            const textFieldID = elementoVisitante.querySelector('.textFieldIDVisitante');
+            textFieldID.disabled = true;
             const visitante = visitantes.find(vis => vis.id == idVisitante);
             if (visitante) {
                 const fechas = elementoVisitante.querySelectorAll(".datePicker");
