@@ -300,7 +300,7 @@ async function logicaVisitantes() {
             const botonesGuardarPisos = document.querySelectorAll('.elementoVisitante .botonGuardarPisos');
             botonesGuardarPisos.forEach(botonGuardarPisos => {
                 botonGuardarPisos.addEventListener('click', async () => {
-                    const visitanteId = botonGuardar.querySelector('.tagItem'); // Obtener el elemento con la clase "tagItem"
+                    const visitanteId = botonGuardarPisos.querySelector('.tagItem'); // Obtener el elemento con la clase "tagItem"
                     const idVisitante = visitanteId.textContent; // Obtener el contenido (ID del visitante)
                     const idVisitanteFormateado = idVisitante.split(" ");
                     const itemsChecked = Array.from(botonGuardarPisos.parentElement.querySelectorAll('.item.checked'));
@@ -315,7 +315,7 @@ async function logicaVisitantes() {
             botonesBorrar.forEach(botonBorrar => {
                 botonBorrar.addEventListener('dblclick', async () => {
                     // Obtener el ID del visitante a partir del botón de borrado
-                    const visitanteId = botonGuardar.querySelector('.tagItem'); // Obtener el elemento con la clase "tagItem"
+                    const visitanteId = botonBorrar.querySelector('.tagItem'); // Obtener el elemento con la clase "tagItem"
                     const idVisitante = visitanteId.textContent; // Obtener el contenido (ID del visitante)
                     const idVisitanteFormateado = idVisitante.split(" ");
 
