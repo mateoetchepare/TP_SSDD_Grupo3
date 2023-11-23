@@ -297,7 +297,7 @@ async function logicaVisitantes() {
             const botonesGuardarPisos = document.querySelectorAll('.elementoVisitante .botonGuardarPisos');
             botonesGuardarPisos.forEach(botonGuardarPisos => {
                 botonGuardarPisos.addEventListener('click', async () => {
-                    const idVisitanteCompleto = botonGuardarPisos.parentElement.querySelector('.tagItem').textContent;
+                    const idVisitanteCompleto = botonGuardarPisos.closest('.elementoVisitante').querySelector('.tagItem').textContent;
                     const idVisitante = idVisitanteCompleto.split(" ");
                     const itemsChecked = Array.from(botonGuardarPisos.parentElement.querySelectorAll('.item.checked'));
                     const itemsSeleccionados = itemsChecked.map(item => parseInt(item.querySelector('.item-text').textContent, 10));
