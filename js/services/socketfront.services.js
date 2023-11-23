@@ -1,4 +1,4 @@
-const socket = new WebSocket('ws://localhost:8085');
+const socket = new WebSocket('ws://localhost:8000');
 
 let VisitanteAResaltar = null;
 
