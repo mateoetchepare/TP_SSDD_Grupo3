@@ -22,6 +22,13 @@ async function getVisitantes() {
 getVisitantes()
   .then(JsonParseado => {
     visitantes = JsonParseado;
+
+    function compararPorId(a, b) {
+      return a.id - b.id;
+    }
+    
+    visitantes.sort(compararPorId);
+
   });
 
 
