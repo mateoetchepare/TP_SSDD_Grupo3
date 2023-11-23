@@ -4,9 +4,9 @@ const express = require("express");
 const http = require("http");
 const cors = require("cors");
 //const path = require("url");
-const puertoVisitantes = 3501;
-const puertoAscensores = 3502;
-const puertoPermisos = 3503;
+const puertoVisitantes = 8002;
+const puertoAscensores = 8001;
+const puertoPermisos = 8003;
 
 const app = express();
 
@@ -299,4 +299,4 @@ app.route('/api/permisos*') //despies de visitantes agrega un * ATENTO POR SI FA
 
 
 app.listen(8005);
-console.log("Server listening on port " + 8005);
+console.log("Server listening on port " + 8000);

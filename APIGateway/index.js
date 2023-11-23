@@ -1,9 +1,9 @@
 const http = require('http');
 const { bodyParser } = require('./bodyParser');
 const url = require('url');
-const puertoVisitantes = 3501;
-const puertoAscensores = 3502;
-const puertoPermisos = 3503;
+const puertoVisitantes = 8002;
+const puertoAscensores = 8001;
+const puertoPermisos = 8003;
 
 const server = http.createServer((req,res) => {
     
@@ -431,4 +431,4 @@ const server = http.createServer((req,res) => {
 
 
 
-server.listen(3500); // puerto del APIRest
+server.listen(8000); // puerto del APIRest
