@@ -1,4 +1,4 @@
-const puertoGateway = 8005;
+const puertoGateway = 8000;
 let visitantes = [];
 
 let token = sessionStorage.getItem('token');
