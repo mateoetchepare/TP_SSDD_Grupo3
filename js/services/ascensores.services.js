@@ -1,5 +1,5 @@
 
-const puertoGateway = 3500;
+const puertoGateway = 8000;
 
 let ascensores = [];
 
