@@ -33,6 +33,35 @@ function getPermisos(res, idVisitante){
 }
 
 
+function getPermisos2(res, idVisitante){
+    fs.readFile(archivoVisitantes, 'utf8', (err, data) => {
+        if (err) {;
+            console.error(err);
+            res.writeHead(500, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({error:'Error interno del servidor'}));
+            return
+        }
+    
+        const visitantes = JSON.parse(data);
+
+        let visitante = visitantes.find(visitante=> visitante.id == idVisitante);
+
+        if( visitante != undefined){
+            //aca deberia agregar la logica para solo tomar los pisos a los que puede acceder
+            res.writeHead(200,{'Content-Type':'application/json'});
+            res.write(JSON.stringify({pisos_permitidos:visitante.pisos_permitidos}));
+
+        }
+        else{
+            res.writeHead(404,{'Content-Type':'application/json'}); // devuelvo json
+            res.write(JSON.stringify({message:"Error, no se encuentra esa visitante"})); // envio la sucursal  
+        }
+
+        res.end()
+    })
+}
+
+
 function modificacionPermisos(res,id,nuevosDatos){
     fs.readFile(archivoVisitantes, 'utf8', (err, data) => {
         if (err) {
@@ -173,6 +202,20 @@ const server = http.createServer((req, res) => {
 
         }
 
+    }else if(url.startsWith('/visitantes/')){ // ruteo peticiones de otro grupo 
+        let parametros = url.split('/');
+        parametros = parametros.filter(el => el != '');
+
+        if(method === 'GET'){
+            if(parametros.length === 3 && parametros[2] === 'permisos'){
+                const visitanteId = parametros[1];
+                getPermisos2(res, visitanteId);
+            }else{
+                rutaNoEncontrada();
+            }
+        }else{
+            rutaNoEncontrada();
+        }
     }
 
 })
