@@ -202,9 +202,10 @@ async function logicaVisitantes() {
         function recuperarPisos() {
             const elementosVisitante = listaVisitantesElement.querySelectorAll('.elementoVisitante');
             elementosVisitante.forEach(elementoVisitante => {
-                const idVisitanteCompleto = elementoVisitante.parentElement.querySelector('.tagItem').textContent;
-                const idVisitante = idVisitanteCompleto.split(" ");
-                const visitante = visitantes.find(vis => vis.id == idVisitante[1]);
+                const visitanteId = elementoVisitante.querySelector('.tagItem'); // Obtener el elemento con la clase "tagItem"
+                const idVisitante = visitanteId.textContent; // Obtener el contenido (ID del visitante)
+                const idVisitanteFormateado = idVisitante.split(" ");
+                const visitante = visitantes.find(vis => vis.id == idVisitanteFormateado[1]);
                 console.log(visitante);
                 if (visitante) {
                     const pisosHabilitados = visitante.pisos_permitidos;
@@ -231,9 +232,10 @@ async function logicaVisitantes() {
         function recuperarFecha() {
             const elementosVisitantes = listaVisitantesElement.querySelectorAll('.elementoVisitante');
             elementosVisitantes.forEach(elementoVisitante => {
-                const idVisitanteCompleto = elementoVisitante.parentElement.querySelector('.tagItem').textContent;
-                const idVisitante = idVisitanteCompleto.split(" ");
-                const visitante = visitantes.find(vis => vis.id == idVisitante[1]);
+                const visitanteId = elementoVisitante.querySelector('.tagItem'); // Obtener el elemento con la clase "tagItem"
+                const idVisitante = visitanteId.textContent; // Obtener el contenido (ID del visitante)
+                const idVisitanteFormateado = idVisitante.split(" ");
+                const visitante = visitantes.find(vis => vis.id == idVisitanteFormateado[1]);
                 if (visitante) {
                     const fechas = elementoVisitante.querySelectorAll(".datePicker");
                     const fechaISO8601_checkIn = visitante.fecha_checkIn;

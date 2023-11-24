@@ -26,25 +26,33 @@
     "id": "A006",
     "nombre": "jose",
     "edad": 30,
-    "pisos_permitidos": [],
+    "pisos_permitidos": [
+      1,
+      2
+    ],
     "email": "jose@gmail.com",
     "fecha_checkIn": "2001-04-19T10:00:00.000Z",
     "fecha_checkOut": "2001-04-19T15:00:00.000Z"
   },
   {
     "id": "A010",
-    "nombre": "modificado",
+    "nombre": "pedrito juan",
     "edad": 3,
-    "pisos_permitidos": [],
+    "pisos_permitidos": [
+      1
+    ],
     "email": "hgfds",
     "fecha_checkIn": "2023-11-23T10:00:00.000Z",
-    "fecha_checkOut": "2023-12-01T15:00:00.000Z"
+    "fecha_checkOut": "2023-12-04T15:00:00.000Z"
   },
   {
     "id": "A011",
     "nombre": "modificado",
     "edad": 3,
-    "pisos_permitidos": [],
+    "pisos_permitidos": [
+      1,
+      2
+    ],
     "email": "hgfds",
     "fecha_checkIn": "2023-11-23T10:00:00.000Z",
     "fecha_checkOut": "2023-12-01T15:00:00.000Z"
@@ -53,7 +61,9 @@
     "id": "A014",
     "nombre": "askndas",
     "edad": 23,
-    "pisos_permitidos": [],
+    "pisos_permitidos": [
+      3
+    ],
     "email": "masad@gmail.com",
     "fecha_checkIn": "2222-03-12T10:00:00.000Z",
     "fecha_checkOut": "2222-03-12T15:00:00.000Z"
