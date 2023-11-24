@@ -23,11 +23,9 @@ const checkJwt = auth({
 
 app.use(checkJwt);
 
-
-
 //RUTAS PARA VISISTANTES
 
-app.route('/api/visitantes*') //despies de visitantes agrega un * ATENTO POR SI FALLA ESO
+app.route('/api/visitantes*')
 
     .all(checkJwt)
 
@@ -140,7 +138,7 @@ app.route('/api/visitantes*') //despies de visitantes agrega un * ATENTO POR SI 
 
 //RUTAS PARA ASCENSORES
 
-app.route('/api/ascensores*') //despies de visitantes agrega un * ATENTO POR SI FALLA ESO
+app.route('/api/ascensores*')
 
     .all(checkJwt)
 
@@ -253,7 +251,7 @@ app.route('/api/ascensores*') //despies de visitantes agrega un * ATENTO POR SI 
 
 //RUTAS PARA PERMISOS
 
-app.route('/api/permisos*') //despies de visitantes agrega un * ATENTO POR SI FALLA ESO
+app.route('/api/permisos*') 
 
     .all(checkJwt)
 

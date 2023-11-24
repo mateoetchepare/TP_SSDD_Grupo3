@@ -96,37 +96,6 @@ function altaVisitante(res,visitante){
         });
     });
 }
-
-function generarSiguienteIdentificador(visitantes) {
-    // Encontrar el identificador más grande
-    let maxId = 'A000'; // Inicializar con un valor base
-  
-    for (const visitante of visitantes) {
-      const id = visitante.id;
-      if (id >= maxId) {
-        maxId = id;
-      }
-    }
-  
-    // Generar el siguiente identificador
-    let prefix = maxId.charAt(0);
-    let number = parseInt(maxId.slice(1));
-  
-    // Lógica para incrementar el número y cambiar la letra cuando sea necesario
-    number++;
-    if (number > 999) {
-      number = 0;
-      prefix = String.fromCharCode(prefix.charCodeAt(0) + 1);
-      if (prefix > 'Z') {
-        // Si llegamos a 'Z', comenzamos con 'AA000'
-        prefix = 'AA';
-      }
-    }
-  
-    const siguienteId = prefix + number.toString().padStart(3, '0');
-  
-    return siguienteId;
-}
   
 
 // REQUEST METODO DELETE (UN VISITANTE POR ID)
