@@ -215,6 +215,66 @@ function getVisitante(res, id){
     })
 }
 
+//PETICION DATOS VISITANTE PARA EL OTRO GRUPO
+function getVisitante2(res, id){
+
+    fs.readFile(archivoVisitantes, 'utf8', (err, data) => {
+        if (err) {
+          console.error(err);
+          res.writeHead(500, { 'Content-Type': 'text/plain' });
+          res.end(JSON.stringify({error:'Error interno del servidor'}));
+          return
+        }
+    
+        const visitantes = JSON.parse(data);
+
+        let visitante = visitantes.find(visitante=> visitante.id == id);
+
+        if( visitante != undefined){
+
+            delete visitante.pisos_permitidos;
+
+            res.writeHead(200,{'Content-Type':'application/json'});
+            res.write(JSON.stringify(visitante));
+        }
+        else{
+            res.writeHead(404,{'Content-Type':'application/json'}); 
+            res.write(JSON.stringify({message:"Error, no se encuentra esa visitante"})); 
+        }
+
+        res.end()
+    })
+}
+
+//PETICION DE PISOS PERMITIDOS PARA EL OTRO GRUPO
+function getPermisos(res, idVisitante){
+    fs.readFile(archivoVisitantes, 'utf8', (err, data) => {
+        if (err) {;
+            console.error(err);
+            res.writeHead(500, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({error:'Error interno del servidor'}));
+            return
+        }
+    
+        const visitantes = JSON.parse(data);
+
+        let visitante = visitantes.find(visitante=> visitante.id == idVisitante);
+
+        if( visitante != undefined){
+            //aca deberia agregar la logica para solo tomar los pisos a los que puede acceder
+            res.writeHead(200,{'Content-Type':'application/json'});
+            res.write(JSON.stringify({pisos_permitidos:visitante.pisos_permitidos}));
+
+        }
+        else{
+            res.writeHead(404,{'Content-Type':'application/json'}); // devuelvo json
+            res.write(JSON.stringify({message:"Error, no se encuentra esa visitante"})); // envio la sucursal  
+        }
+
+        res.end()
+    })
+}
+
 // REQUEST INCORRECTA
 function rutaNoEncontrada(res){
     res.writeHead(404,{'Content-Type':'application/json'}); 
@@ -381,6 +441,23 @@ const server = http.createServer((req,res)=>{
 
         
         
+    }else if(url.startsWith('/visitantes/')){ // ruteo peticiones de otro grupo 
+        let parametros = url.split('/');
+        parametros = parametros.filter(el => el != '');
+
+        if(method === 'GET'){
+            if(parametros.length === 3 && parametros[2] === 'permisos'){
+                const visitanteId = parametros[1];
+                getPermisos(res, visitanteId);
+            }else if(parametros.length ===3 && parametros[2] === 'info'){
+                const visitanteId = parametros[1];
+                getVisitante2(res, visitanteId);
+            }else{
+                rutaNoEncontrada();
+            }
+        }else{
+            rutaNoEncontrada();
+        }
     }else{
 
         rutaNoEncontrada(res);
