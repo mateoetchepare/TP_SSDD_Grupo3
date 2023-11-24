@@ -263,7 +263,7 @@ function getPermisos(res, idVisitante){
         if( visitante != undefined){
             //aca deberia agregar la logica para solo tomar los pisos a los que puede acceder
             res.writeHead(200,{'Content-Type':'application/json'});
-            res.write(JSON.stringify({pisos_permitidos:`${visitante.pisos_permitidos}`}));
+            res.write(JSON.stringify({pisos_permitidos:visitante.pisos_permitidos}));
 
         }
         else{
